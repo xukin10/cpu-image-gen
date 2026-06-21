@@ -5,6 +5,12 @@ CPU Image Gen - 自然语言 Prompt 架构
 __version__ = "1.0.0"
 __author__ = "CPU Image Gen Team"
 
+# 导入核心模块
+from .core import parser, builder
+from .entities import cultural_resolver, template_manager
+from .utils import config_manager, logger
+
+# 保持向后兼容的导入
 from .prompt_builder import (
     parse_input,
     build_prompt,
