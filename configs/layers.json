@@ -1,0 +1,102 @@
+{
+  "layers": {
+    "1": {
+      "name": "基础",
+      "description": "一键出图，零门槛",
+      "controls": ["input", "generate"],
+      "learn": "理解 prompt 的基本结构"
+    },
+    "2": {
+      "name": "控制",
+      "description": "选择风格和模板",
+      "controls": ["input", "generate", "style", "template"],
+      "learn": "理解风格如何影响结果"
+    },
+    "3": {
+      "name": "高级",
+      "description": "调整生成参数",
+      "controls": ["input", "generate", "style", "template", "steps", "resolution", "negative"],
+      "learn": "理解参数如何控制质量"
+    },
+    "4": {
+      "name": "专家",
+      "description": "完全掌控模型",
+      "controls": ["all"],
+      "learn": "完全掌控生成过程"
+    }
+  },
+  "layer_controls": {
+    "input": {
+      "label": "输入描述",
+      "type": "textarea",
+      "placeholder": "用中文描述你想要的图片"
+    },
+    "generate": {
+      "label": "生成图片",
+      "type": "button"
+    },
+    "style": {
+      "label": "选择风格",
+      "type": "select",
+      "options": ["默认", "油画", "水彩", "素描", "动漫", "赛博朋克", "极简"]
+    },
+    "template": {
+      "label": "选择模板",
+      "type": "select",
+      "options": ["风景", "人像", "产品", "艺术", "更多"]
+    },
+    "steps": {
+      "label": "推理步数",
+      "type": "slider",
+      "min": 4,
+      "max": 50,
+      "default": 4,
+      "description": "步数越多，细节越丰富，但速度越慢"
+    },
+    "resolution": {
+      "label": "分辨率",
+      "type": "select",
+      "options": ["512x512", "768x768", "1024x1024"],
+      "default": "512x512"
+    },
+    "negative": {
+      "label": "负面提示",
+      "type": "textarea",
+      "placeholder": "排除不想出现的内容（如：模糊、低质量）",
+      "default": "low quality, blurry, deformed"
+    },
+    "model": {
+      "label": "选择模型",
+      "type": "select",
+      "options": ["SDXL Turbo (快速)", "SDXL 1.0 (高质量)", "SD 3.0 (自然语言)", "Flux.1 Dev (高质量)", "Flux.1 Schnell (快速)"]
+    },
+    "upscale": {
+      "label": "图片放大",
+      "type": "checkbox",
+      "description": "生成后自动放大 2 倍"
+    }
+  },
+  "performance_comparison": {
+    "cpu": {
+      "name": "CPU",
+      "speed": "~50秒/张",
+      "cost": "免费",
+      "quality": "标准",
+      "tradeoff": "学习原理，不依赖硬件"
+    },
+    "gpu": {
+      "name": "GPU",
+      "speed": "~3秒/张",
+      "cost": "需要显卡",
+      "quality": "高质量",
+      "tradeoff": "实际生产，效率高"
+    },
+    "cloud": {
+      "name": "云端 GPU",
+      "speed": "~2秒/张",
+      "cost": "按时付费",
+      "quality": "最高",
+      "tradeoff": "高效产出，无需本地硬件"
+    }
+  }
+}

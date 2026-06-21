@@ -884,14 +884,17 @@ def main():
     print("  支持图片/视频/3D 生成")
     print("=" * 50)
     print()
-    print("选择模式：")
-    print("  [1] 快速模式 - 一句话描述，自动补全")
-    print("  [2] 精细模式 - 逐步引导，每层可选")
-    print("  [3] 直接输入 prompt")
-    print("  [t] 模板模式 - 选择场景模板")
-    print("  [b] 批量模式 - 从文件读取多个 prompt")
+    print("选择控制层级：")
+    print("  [1] 基础 - 一键出图，零门槛")
+    print("  [2] 控制 - 选择风格和模板")
+    print("  [3] 高级 - 调整生成参数")
+    print("  [4] 专家 - 完全掌控模型")
+    print()
+    print("或直接选择功能：")
     print("  [v] 视频模式 - 生成视频 prompt")
     print("  [3d] 3D模式 - 生成 3D prompt")
+    print("  [b] 批量模式 - 从文件读取多个 prompt")
+    print()
     print("  [d] DeepSeek模式 - 增强语义理解")
     print()
     print("可用模型：")
@@ -901,8 +904,9 @@ def main():
         print(f"  [m{i}] {model_name}")
     print()
 
-    choice = input(">> 请选择 (1/2/3/t/b/v/3d/d/m1-m5): ").strip()
+    choice = input(">> 请选择: ").strip()
 
+    # 检查是否选择了模型
     selected_model = None
     if choice.startswith("m") and choice[1:].isdigit():
         model_idx = int(choice[1:]) - 1
@@ -915,12 +919,105 @@ def main():
     prompt = ""
     template_settings = None
     generation_mode = "image"
+    layer_params = {}
 
+    # 层级选择
     if choice == "1":
+        # Layer 1: 基础模式
+        from .utils.layers import layer_manager
+        layer_manager.set_layer(1)
+        print("\n[基础模式] 一键出图，零门槛")
         raw_input = input("\n>> 你想要什么？\n   ").strip()
         if not raw_input: raw_input = "a beautiful scene"
         parsed = parse_input(raw_input)
         prompt = build_prompt(parsed)
+        
+    elif choice == "2":
+        # Layer 2: 控制模式
+        from .utils.layers import layer_manager
+        layer_manager.set_layer(2)
+        print("\n[控制模式] 选择风格和模板")
+        
+        # 风格选择
+        print("\n可用风格：")
+        styles = ["默认", "油画", "水彩", "素描", "动漫", "赛博朋克", "极简"]
+        for i, s in enumerate(styles, 1):
+            print(f"  [{i}] {s}")
+        style_choice = input(">> 选择风格 (数字): ").strip()
+        if style_choice.isdigit() and 1 <= int(style_choice) <= len(styles):
+            layer_params["style"] = styles[int(style_choice) - 1]
+        
+        # 模板选择
+        print("\n可用模板：")
+        template_cats = list(TEMPLATE_CATEGORIES.keys())
+        for i, cat in enumerate(template_cats, 1):
+            print(f"  [{i}] {cat}")
+        tpl_choice = input(">> 选择模板类别 (数字，回车跳过): ").strip()
+        
+        raw_input = input("\n>> 你想要什么？\n   ").strip()
+        if not raw_input: raw_input = "a beautiful scene"
+        parsed = parse_input(raw_input)
+        prompt = build_prompt(parsed)
+        
+    elif choice == "3":
+        # Layer 3: 高级模式
+        from .utils.layers import layer_manager
+        layer_manager.set_layer(3)
+        print("\n[高级模式] 调整生成参数")
+        
+        raw_input = input("\n>> 你想要什么？\n   ").strip()
+        if not raw_input: raw_input = "a beautiful scene"
+        parsed = parse_input(raw_input)
+        prompt = build_prompt(parsed)
+        
+        # 参数选择
+        steps = input(">> 步数 (4-50，默认4): ").strip()
+        if steps.isdigit():
+            layer_params["steps"] = int(steps)
+        
+        resolution = input(">> 分辨率 (512/768/1024，默认512): ").strip()
+        if resolution in ["512", "768", "1024"]:
+            layer_params["resolution"] = int(resolution)
+        
+        negative = input(">> 负面提示 (回车使用默认): ").strip()
+        if negative:
+            layer_params["negative"] = negative
+        
+    elif choice == "4":
+        # Layer 4: 专家模式
+        from .utils.layers import layer_manager
+        layer_manager.set_layer(4)
+        print("\n[专家模式] 完全掌控模型")
+        print(layer_manager.get_help_text(4))
+        
+        raw_input = input("\n>> 你想要什么？\n   ").strip()
+        if not raw_input: raw_input = "a beautiful scene"
+        parsed = parse_input(raw_input)
+        prompt = build_prompt(parsed)
+        
+        # 所有参数
+        steps = input(">> 步数 (4-50，默认4): ").strip()
+        if steps.isdigit():
+            layer_params["steps"] = int(steps)
+        
+        resolution = input(">> 分辨率 (512/768/1024，默认512): ").strip()
+        if resolution in ["512", "768", "1024"]:
+            layer_params["resolution"] = int(resolution)
+        
+        negative = input(">> 负面提示 (回车使用默认): ").strip()
+        if negative:
+            layer_params["negative"] = negative
+        
+        print("\n可用模型：")
+        for i, model_key in enumerate(model_list, 1):
+            print(f"  [{i}] {MODEL_CONFIGS[model_key]['name']}")
+        model_choice = input(">> 选择模型 (数字): ").strip()
+        if model_choice.isdigit() and 1 <= int(model_choice) <= len(model_list):
+            selected_model = model_list[int(model_choice) - 1]
+        
+        upscale = input(">> 是否放大 2x？(y/n): ").strip().lower()
+        layer_params["upscale"] = upscale == "y"
+        
     elif choice == "v":
         generation_mode = "video"
         print("\n" + "=" * 50)
@@ -1040,12 +1137,27 @@ def main():
         print("注意：视频/3D 生成需要专用模型，当前仅生成 prompt")
         return
 
-    if template_settings:
-        generate_image(prompt, steps=template_settings.get("steps"),
-                      width=template_settings.get("width"), height=template_settings.get("height"),
-                      raw_input=raw_input, model_name=selected_model)
-    else:
-        generate_image(prompt, raw_input=raw_input, model_name=selected_model)
+    # 使用层级参数
+    steps = layer_params.get("steps") or (template_settings and template_settings.get("steps"))
+    size = layer_params.get("resolution") or (template_settings and template_settings.get("width"))
+    
+    # 生成图片
+    result = generate_image(
+        prompt,
+        steps=steps,
+        width=size,
+        height=size,
+        raw_input=raw_input,
+        model_name=selected_model
+    )
+    
+    # 图片放大（专家模式）
+    if layer_params.get("upscale") and result:
+        print("\n正在放大图片...")
+        from .adapters.upscaler import upscaler
+        upscaled = upscaler.upscale(result, scale=2)
+        if upscaled:
+            print(f"放大完成: {upscaled}")
 
 
 if __name__ == "__main__":
