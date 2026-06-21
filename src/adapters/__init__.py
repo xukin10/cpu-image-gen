@@ -3,3 +3,4 @@
 """
 
 from .deepseek import deepseek_adapter, DeepSeekAdapter
+from .upscaler import upscaler, ImageUpscaler
