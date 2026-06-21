@@ -664,7 +664,7 @@ def quick_mode() -> str:
 # ============================================================
 
 def generate_image(prompt: str, steps: int = None, width: int = None, height: int = None,
-                   raw_input: str = None, model_name: str = None) -> Optional[str]:
+                   raw_input: str = None, model_name: str = None, negative_prompt: str = None) -> Optional[str]:
     current_model = model_name or CONFIG["model"]
     model_config = get_model_config(current_model)
     recommended = model_config.get("recommended_settings", {})
@@ -698,6 +698,7 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
 
         image = pipe(
             prompt=prompt,
+            negative_prompt=negative_prompt or CONFIG.get("negative_prompt", ""),
             num_inference_steps=steps,
             guidance_scale=CONFIG["guidance_scale"],
             width=width,
@@ -870,6 +871,7 @@ def main():
     parser = argparse.ArgumentParser(description="CPU Image Gen - 自然语言 Prompt 架构")
     parser.add_argument("--batch", type=str, help="批量生成模式，指定 prompts.txt 文件路径")
     parser.add_argument("--prompt", type=str, help="直接传入 prompt 生成图片（非交互）")
+    parser.add_argument("--negative", type=str, help="负面提示（排除不想出现的内容）")
     parser.add_argument("--steps", type=int, help="推理步数（覆盖 config.json）")
     parser.add_argument("--size", type=str, choices=["512", "768", "1024"], help="分辨率")
     parser.add_argument("--model", type=str, help="模型名称（覆盖 config.json）")
