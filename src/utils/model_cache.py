@@ -4,7 +4,7 @@
 
 import torch
 import os
-from diffusers import AutoPipelineForText2Image
+from diffusers import AutoPipelineForText2Image, StableDiffusionPipeline
 from typing import Optional, Dict, Any
 import logging
 import gc
@@ -46,11 +46,22 @@ class ModelCache:
         try:
             torch.set_num_threads(min(16, os.cpu_count() or 4))
             
-            pipe = AutoPipelineForText2Image.from_pretrained(
-                model_name,
-                torch_dtype=torch.float32,
-                local_files_only=True,
-            )
+            # 检查是否是中文模型
+            if "IDEA-CCNL" in model_name or "Taiyi" in model_name:
+                # 中文模型使用 StableDiffusionPipeline
+                pipe = StableDiffusionPipeline.from_pretrained(
+                    model_name,
+                    torch_dtype=torch.float32,
+                    safety_checker=None,
+                    local_files_only=True,
+                )
+            else:
+                # 其他模型使用 AutoPipeline
+                pipe = AutoPipelineForText2Image.from_pretrained(
+                    model_name,
+                    torch_dtype=torch.float32,
+                    local_files_only=True,
+                )
             pipe = pipe.to("cpu")
             pipe.enable_attention_slicing()
             

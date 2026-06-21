@@ -3,6 +3,7 @@
     "name": "SDXL Turbo",
     "max_tokens": 77,
     "prompt_format": "keywords",
+    "chinese_support": false,
     "quality_keywords": ["highly detailed", "sharp focus", "8k", "masterpiece", "best quality"],
     "style_keywords": ["in the style of", "by artist"],
     "avoid_keywords": ["blurry", "low quality", "deformed"],
@@ -19,10 +20,32 @@
       "guidance_scale": 0.0
     }
   },
+  "IDEA-CCNL/Taiyi-Stable-Diffusion-1B-Chinese-v0.1": {
+    "name": "Taiyi 中文模型",
+    "max_tokens": 77,
+    "prompt_format": "chinese",
+    "chinese_support": true,
+    "quality_keywords": ["高清", "精细", "8k", "杰作", "最佳质量"],
+    "style_keywords": ["风格", "画风"],
+    "avoid_keywords": ["模糊", "低质量", "变形"],
+    "optimization_tips": [
+      "直接使用中文描述，无需翻译",
+      "支持中国风、水墨等东方风格",
+      "Steps: 20 recommended",
+      "质量不如 SDXL，但中文理解更好"
+    ],
+    "recommended_settings": {
+      "steps": 20,
+      "width": 512,
+      "height": 512,
+      "guidance_scale": 7.5
+    }
+  },
   "stabilityai/sdxl": {
     "name": "SDXL 1.0",
     "max_tokens": 77,
     "prompt_format": "keywords",
+    "chinese_support": false,
     "quality_keywords": ["highly detailed", "sharp focus", "8k", "masterpiece", "best quality", "professional"],
     "style_keywords": ["in the style of", "by artist", "artstation"],
     "avoid_keywords": ["blurry", "low quality", "deformed", "bad anatomy"],
@@ -43,6 +66,7 @@
     "name": "SD 3.0",
     "max_tokens": 77,
     "prompt_format": "natural_language",
+    "chinese_support": false,
     "quality_keywords": ["high quality", "detailed", "professional", "beautiful"],
     "style_keywords": ["in the style of", "resembling", "inspired by"],
     "avoid_keywords": ["blurry", "low quality"],
@@ -63,6 +87,7 @@
     "name": "Flux.1 Dev",
     "max_tokens": 512,
     "prompt_format": "natural_language",
+    "chinese_support": false,
     "quality_keywords": ["high quality", "detailed", "professional", "beautiful", "stunning"],
     "style_keywords": ["in the style of", "resembling", "inspired by", "aesthetic"],
     "avoid_keywords": ["blurry", "low quality", "ugly"],
@@ -83,6 +108,7 @@
     "name": "Flux.1 Schnell",
     "max_tokens": 512,
     "prompt_format": "natural_language",
+    "chinese_support": false,
     "quality_keywords": ["high quality", "detailed", "professional"],
     "style_keywords": ["in the style of", "resembling"],
     "avoid_keywords": ["blurry", "low quality"],

@@ -674,10 +674,18 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
     height = height or recommended.get("height", CONFIG["height"])
     raw_input = raw_input or prompt
 
-    prompt = adapt_prompt_for_model(prompt, current_model)
+    # 根据模型类型处理 prompt
+    if model_config.get("chinese_support", False):
+        # 中文模型：直接使用中文 prompt
+        prompt_to_use = raw_input
+    else:
+        # 其他模型：使用解析后的英文 prompt
+        prompt_to_use = adapt_prompt_for_model(prompt, current_model)
 
-    print(f"\n[Prompt] {prompt}")
+    print(f"\n[Prompt] {prompt_to_use}")
     print(f"[Model] {model_config.get('name', current_model)}")
+    if model_config.get("chinese_support", False):
+        print("[语言] 中文原生支持")
 
     # 使用模型缓存
     from .utils.model_cache import model_cache
@@ -697,7 +705,7 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
         t0 = time.time()
 
         image = pipe(
-            prompt=prompt,
+            prompt=prompt_to_use,
             negative_prompt=negative_prompt or CONFIG.get("negative_prompt", ""),
             num_inference_steps=steps,
             guidance_scale=CONFIG["guidance_scale"],
