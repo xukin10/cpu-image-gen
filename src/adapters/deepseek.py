@@ -60,7 +60,7 @@ class DeepSeekAdapter:
             "model": self.model,
             "messages": [
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_input}
+                {"role": "user", "content": user_prompt}
             ],
             "temperature": 0.7,
             "max_tokens": 1000
