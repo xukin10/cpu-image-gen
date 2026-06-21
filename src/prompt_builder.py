@@ -4,7 +4,7 @@ CPU Image Gen - 自然语言 Prompt 架构
 
 支持：
 - 中文自然语言输入
-- 62 个文化实体（中国/日本/西方/希腊/北欧/埃及）
+- 70 个文化实体（中国/日本/西方/希腊/北欧/埃及）
 - 24 个场景模板
 - 5 个模型适配（SDXL/SD3/Flux）
 - 视频/3D prompt 生成
@@ -19,7 +19,18 @@ import re
 import json
 import sys
 import argparse
+import logging
 from typing import Dict, List, Optional, Tuple, Any
+
+# ============================================================
+# 日志配置
+# ============================================================
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # ============================================================
 # 路径配置
@@ -29,14 +40,32 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIGS_DIR = os.path.join(BASE_DIR, "configs")
 
 # ============================================================
+# 安全的文件加载
+# ============================================================
+
+def safe_load_json(file_path: str) -> Dict:
+    """安全加载 JSON 文件，带有错误处理"""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        logger.error(f"配置文件不存在: {file_path}")
+        raise FileNotFoundError(f"配置文件不存在: {file_path}。请确保项目结构完整。")
+    except json.JSONDecodeError as e:
+        logger.error(f"JSON 解析错误: {file_path} - {e}")
+        raise ValueError(f"配置文件格式错误: {file_path}。请检查 JSON 格式。")
+    except Exception as e:
+        logger.error(f"加载配置文件失败: {file_path} - {e}")
+        raise
+
+# ============================================================
 # 加载关键词映射表
 # ============================================================
 
 KEYWORDS_PATH = os.path.join(CONFIGS_DIR, "keywords.json")
 
 def load_keywords() -> Dict:
-    with open(KEYWORDS_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return safe_load_json(KEYWORDS_PATH)
 
 KEYWORDS = load_keywords()
 
@@ -61,8 +90,7 @@ ALL_MAPS = [STYLE_MAP, TIME_MAP, PLACE_MAP, WEATHER_MAP, LIGHT_MAP, VIEW_MAP, QU
 TEMPLATES_PATH = os.path.join(CONFIGS_DIR, "templates.json")
 
 def load_templates() -> Dict:
-    with open(TEMPLATES_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return safe_load_json(TEMPLATES_PATH)
 
 TEMPLATES = load_templates()
 
@@ -80,8 +108,7 @@ for key, template in TEMPLATES.items():
 CULTURAL_PATH = os.path.join(CONFIGS_DIR, "cultural_entities.json")
 
 def load_cultural_entities() -> Dict:
-    with open(CULTURAL_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return safe_load_json(CULTURAL_PATH)
 
 CULTURAL_ENTITIES = load_cultural_entities()
 
@@ -183,8 +210,7 @@ ENTITY_KEYWORDS = {
 MODEL_CONFIGS_PATH = os.path.join(CONFIGS_DIR, "model_configs.json")
 
 def load_model_configs() -> Dict:
-    with open(MODEL_CONFIGS_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return safe_load_json(MODEL_CONFIGS_PATH)
 
 MODEL_CONFIGS = load_model_configs()
 
@@ -202,8 +228,7 @@ def adapt_prompt_for_model(prompt: str, model_name: str) -> str:
 MULTIMODAL_PATH = os.path.join(CONFIGS_DIR, "multimodal_configs.json")
 
 def load_multimodal_configs() -> Dict:
-    with open(MULTIMODAL_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return safe_load_json(MULTIMODAL_PATH)
 
 MULTIMODAL_CONFIGS = load_multimodal_configs()
 
@@ -238,8 +263,7 @@ def build_3d_prompt(base_prompt: str, material: str = None, lighting: str = None
 CONFIG_PATH = os.path.join(CONFIGS_DIR, "config.json")
 
 def load_config() -> Dict:
-    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return safe_load_json(CONFIG_PATH)
 
 CONFIG = load_config()
 
@@ -699,16 +723,24 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
 
         if CONFIG.get("auto_open", False):
             try: os.startfile(output_path)
-            except: pass
+            except Exception as e:
+                logger.warning(f"无法自动打开图片: {e}")
 
         return output_path
 
+    except torch.cuda.OutOfMemoryError:
+        logger.error("显存不足，尝试降低分辨率或步数")
+        print("错误：显存不足，请尝试降低分辨率或步数")
+        return None
     except Exception as e:
+        logger.error(f"图片生成失败: {e}")
         print(f"错误：图片生成失败 - {e}")
         return None
 
     finally:
-        del pipe
+        if 'pipe' in locals():
+            del pipe
+        import gc
         gc.collect()
 
 # ============================================================
@@ -717,17 +749,33 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
 
 def generate_batch(prompts_file: str):
     if not os.path.exists(prompts_file):
+        logger.error(f"批量生成文件不存在: {prompts_file}")
         print(f"错误：文件不存在 {prompts_file}")
         return
 
-    with open(prompts_file, "r", encoding="utf-8") as f:
-        lines = [line.strip() for line in f if line.strip()]
+    try:
+        with open(prompts_file, "r", encoding="utf-8") as f:
+            lines = [line.strip() for line in f if line.strip()]
+    except UnicodeDecodeError:
+        logger.error(f"文件编码错误: {prompts_file}")
+        print(f"错误：文件编码错误，请确保文件为 UTF-8 编码")
+        return
+    except Exception as e:
+        logger.error(f"读取文件失败: {e}")
+        print(f"错误：读取文件失败 - {e}")
+        return
 
     if not lines:
+        logger.warning("批量生成文件为空")
         print("错误：文件为空")
         return
 
     prompts = [line for line in lines if not line.startswith("#")]
+
+    if not prompts:
+        logger.warning("没有有效的 prompt")
+        print("错误：没有有效的 prompt（所有行都被注释）")
+        return
 
     print("=" * 50)
     print(f"  批量生成模式")
@@ -762,7 +810,9 @@ def generate_batch(prompts_file: str):
         pipe.enable_attention_slicing()
         print("模型加载完成\n")
     except Exception as e:
+        logger.error(f"模型加载失败: {e}")
         print(f"错误：模型加载失败 - {e}")
+        print("请检查模型是否已下载，或网络连接是否正常")
         return
 
     output_dir = os.path.join(BASE_DIR, CONFIG["output_dir"])
@@ -770,6 +820,10 @@ def generate_batch(prompts_file: str):
 
     total_time = 0
     success_count = 0
+    failed_count = 0
+
+    print(f"开始批量生成...\n")
+
     for i, text in enumerate(prompts, 1):
         print(f"[{i}/{len(prompts)}] {text}")
 
@@ -798,12 +852,17 @@ def generate_batch(prompts_file: str):
             log_generation(text, prompt, output_path, elapsed)
 
         except Exception as e:
+            logger.error(f"生成失败: {text} - {e}")
             print(f"  错误：生成失败 - {e}\n")
+            failed_count += 1
             continue
 
     print(f"=" * 50)
     print(f"  批量生成完成！")
-    print(f"  成功 {success_count}/{len(prompts)} 张，总耗时 {total_time:.1f}s")
+    print(f"  成功 {success_count}/{len(prompts)} 张")
+    if failed_count > 0:
+        print(f"  失败 {failed_count} 张")
+    print(f"  总耗时 {total_time:.1f}s")
     if success_count > 0:
         print(f"  平均 {total_time/success_count:.1f}s/张")
     print(f"=" * 50)
