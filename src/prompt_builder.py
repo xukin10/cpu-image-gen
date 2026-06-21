@@ -739,7 +739,6 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
 # ============================================================
 
 def generate_batch(prompts_file: str):
-    """批量生成 - 使用优化的批量处理器"""
     if not os.path.exists(prompts_file):
         logger.error(f"批量生成文件不存在: {prompts_file}")
         print(f"错误：文件不存在 {prompts_file}")
@@ -769,54 +768,100 @@ def generate_batch(prompts_file: str):
         print("错误：没有有效的 prompt（所有行都被注释）")
         return
 
-    # 使用批量处理器
-    from .utils.batch import batch_processor
-    
     print("=" * 50)
-    print(f"  批量生成模式（优化版）")
+    print(f"  批量生成模式")
     print(f"  共 {len(prompts)} 个 prompt")
     print("=" * 50)
 
-    # 预览所有 prompt
     for i, text in enumerate(prompts, 1):
         parsed = parse_input(text, ask_clarification=False)
         prompt = build_prompt(parsed)
         print(f"  [{i}] {text}")
-        print(f"      → {prompt[:60]}...")
+        print(f"      → {prompt}")
     print()
 
     confirm = input(">> 开始批量生成？(y/n): ").strip().lower()
-    if confirm != "n":
+    if confirm != "y":
         print("已取消")
         return
 
-    # 定义生成函数
-    def generate_func(text):
+    print("\n正在加载模型（仅一次）...")
+    torch.set_num_threads(min(CONFIG["threads"], os.cpu_count() or 4))
+
+    import gc
+    gc.collect()
+
+    try:
+        pipe = AutoPipelineForText2Image.from_pretrained(
+            CONFIG["model"],
+            torch_dtype=torch.float32,
+            local_files_only=True,
+        )
+        pipe = pipe.to("cpu")
+        pipe.enable_attention_slicing()
+        print("模型加载完成\n")
+    except Exception as e:
+        logger.error(f"模型加载失败: {e}")
+        print(f"错误：模型加载失败 - {e}")
+        print("请检查模型是否已下载，或网络连接是否正常")
+        return
+
+    output_dir = os.path.join(BASE_DIR, CONFIG["output_dir"])
+    os.makedirs(output_dir, exist_ok=True)
+
+    total_time = 0
+    success_count = 0
+    failed_count = 0
+
+    print(f"开始批量生成...\n")
+
+    # 使用 tqdm 显示进度
+    progress_bar = tqdm(prompts, desc="生成进度", unit="张")
+
+    for i, text in enumerate(progress_bar, 1):
+        progress_bar.set_postfix({"当前": text[:20] + "..." if len(text) > 20 else text})
+
         parsed = parse_input(text, ask_clarification=False)
         prompt = build_prompt(parsed)
-        return generate_image(prompt, raw_input=text)
-    
-    # 加载任务
-    batch_processor.load_from_list(prompts)
-    
-    # 设置输出目录
-    output_dir = os.path.join(BASE_DIR, CONFIG["output_dir"])
-    
-    # 设置进度回调
-    def on_progress(task, success, failed, total):
-        status = "✓" if task.status == "completed" else "✗"
-        print(f"  {status} [{task.id}/{total}] {task.prompt[:30]}...")
-    
-    batch_processor.on_progress = on_progress
-    
-    # 执行批量处理
-    result = batch_processor.process(
-        generate_func=generate_func,
-        output_dir=output_dir,
-        resume=True  # 支持断点续传
-    )
-    
-    print(f"\n最终结果：成功 {result['success']} 张，失败 {result['failed']} 张")
+
+        try:
+            t0 = time.time()
+            image = pipe(
+                prompt=prompt,
+                num_inference_steps=CONFIG["steps"],
+                guidance_scale=CONFIG["guidance_scale"],
+                width=CONFIG["width"],
+                height=CONFIG["height"],
+            ).images[0]
+            elapsed = time.time() - t0
+            total_time += elapsed
+            success_count += 1
+
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            output_path = os.path.join(output_dir, f"batch{i:02d}_{timestamp}.png")
+            image.save(output_path)
+
+            log_generation(text, prompt, output_path, elapsed)
+
+        except Exception as e:
+            logger.error(f"生成失败: {text} - {e}")
+            failed_count += 1
+            continue
+
+    progress_bar.close()
+
+    print(f"=" * 50)
+    print(f"  批量生成完成！")
+    print(f"  成功 {success_count}/{len(prompts)} 张")
+    if failed_count > 0:
+        print(f"  失败 {failed_count} 张")
+    print(f"  总耗时 {total_time:.1f}s")
+    if success_count > 0:
+        print(f"  平均 {total_time/success_count:.1f}s/张")
+    print(f"=" * 50)
+
+    del pipe
+    gc.collect()
 
 # ============================================================
 # 主程序
