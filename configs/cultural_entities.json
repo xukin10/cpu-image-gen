@@ -1,0 +1,1337 @@
+{
+  "dragon": {
+    "type": "creature",
+    "label": "龙",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese dragon",
+        "morphology": ["serpentine body", "five claws", "deer antlers", "fish scales", "eagle talons", "whiskers"],
+        "elements": ["pearl", "clouds", "water", "rain", "river", "fire"],
+        "atmosphere": ["imperial", "majestic", "auspicious", "divine", "powerful"],
+        "scenes": ["sky above clouds", "river", "palace", "mountain peak", "above the sea", "in the clouds"],
+        "colors": ["gold", "red", "blue", "black", "white"],
+        "exclude": ["bat wings", "fire breathing cave", "treasure hoard"]
+      },
+      "western": {
+        "name_en": "Western dragon",
+        "morphology": ["winged", "four legs with claws", "horns", "tail with spade tip", "thick scales", "bat-like wings"],
+        "elements": ["fire", "gold coins", "treasure", "bones", "lava", "smoke"],
+        "atmosphere": ["evil", "menacing", "powerful", "ancient", "fearsome"],
+        "scenes": ["cave", "mountain peak", "burning village", "sky with fire", "volcano"],
+        "colors": ["green", "red", "black", "bronze", "dark"],
+        "exclude": ["no wings", "water", "auspicious", "pearl"]
+      },
+      "japanese": {
+        "name_en": "Japanese dragon",
+        "morphology": ["serpentine", "three claws", "whiskers", "no wings", "carp-like scales"],
+        "elements": ["water", "waves", "temple", "sword", "pearl"],
+        "atmosphere": ["wise", "water deity", "protective", "ancient"],
+        "scenes": ["ocean", "waterfall", "temple", "sky above waves", "river"],
+        "colors": ["blue", "black", "gold", "silver"],
+        "exclude": ["fire", "treasure hoard", "wings"]
+      }
+    }
+  },
+  "phoenix": {
+    "type": "creature",
+    "label": "凤凰",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese phoenix (Fenghuang)",
+        "morphology": ["peacock tail", "pheasant body", "long flowing feathers", "graceful neck", "ornate crest"],
+        "elements": ["fire", "sun", "flowers", "grace", "five colors"],
+        "atmosphere": ["auspicious", "graceful", "imperial", "feminine", "divine"],
+        "scenes": ["sky", "palace", "garden", "sunrise", "above clouds"],
+        "colors": ["red", "gold", "green", "multi-colored"],
+        "exclude": ["skull", "death", "dark", "evil"]
+      },
+      "western": {
+        "name_en": "Phoenix (mythical fire bird)",
+        "morphology": ["eagle-like", "fiery plumage", "large wings", "crest", "tail feathers on fire"],
+        "elements": ["fire", "rebirth", "ash", "sunrise", "flames"],
+        "atmosphere": ["rebirth", "immortal", "majestic", "powerful"],
+        "scenes": ["flames", "rising from ashes", "desert", "sunrise", "funeral pyre"],
+        "colors": ["red", "orange", "gold", "flame colors"],
+        "exclude": ["water", "auspicious", "peacock"]
+      }
+    }
+  },
+  "unicorn": {
+    "type": "creature",
+    "label": "独角兽",
+    "variants": {
+      "western": {
+        "name_en": "Unicorn",
+        "morphology": ["white horse body", "single spiral horn", "cloven hooves", "beard", "lion tail"],
+        "elements": ["rainbow", "moonlight", "flowers", "purity", "magic"],
+        "atmosphere": ["pure", "magical", "gentle", "rare", "ethereal"],
+        "scenes": ["forest", "meadow", "moonlit clearing", "rainbow", "enchanted glade"],
+        "colors": ["white", "silver", "iridescent"],
+        "exclude": ["dark", "evil", "death"]
+      },
+      "chinese_qilin": {
+        "name_en": "Qilin (Chinese unicorn)",
+        "morphology": ["deer body", "ox tail", "horse hooves", "single horn", "scales", "dragon head"],
+        "elements": ["flames", "clouds", "auspicious", "book"],
+        "atmosphere": ["auspicious", "wise", "peaceful", "divine", "gentle"],
+        "scenes": ["palace", "court", "mountain", "clouds", "village"],
+        "colors": ["gold", "green", "multi-colored"],
+        "exclude": ["blood", "violence", "evil"]
+      }
+    }
+  },
+  "elf": {
+    "type": "creature",
+    "label": "精灵",
+    "variants": {
+      "western": {
+        "name_en": "Elf (fantasy)",
+        "morphology": ["pointed ears", "slender build", "graceful", "tall", "angular features"],
+        "elements": ["magic", "nature", "bow", "sword", "forest", "moonlight"],
+        "atmosphere": ["wise", "ancient", "magical", "graceful", "ethereal"],
+        "scenes": ["forest", "elven city", "treehouse", "moonlit glade", "ancient ruins"],
+        "colors": ["green", "silver", "white", "gold"],
+        "exclude": ["ugly", "short", "dark"]
+      },
+      "japanese": {
+        "name_en": "Japanese fairy (Yokai)",
+        "morphology": ["small wings", "child-like", "glowing", "delicate"],
+        "elements": ["flowers", "light", "magic", "nature"],
+        "atmosphere": ["playful", "mysterious", "cute", "magical"],
+        "scenes": ["garden", "forest", "shrine", "moonlit night"],
+        "colors": ["white", "pink", "blue", "glowing"],
+        "exclude": ["dark", "evil"]
+      }
+    }
+  },
+  "demon": {
+    "type": "creature",
+    "label": "恶魔",
+    "variants": {
+      "western": {
+        "name_en": "Demon (Western)",
+        "morphology": ["horns", "wings", "tail with spade", "hooves", "red skin", "fangs"],
+        "elements": ["fire", "darkness", "magic", "pentagram", "skull"],
+        "atmosphere": ["evil", "menacing", "dark", "powerful", "terrifying"],
+        "scenes": ["hell", "dark temple", "graveyard", "underground", "night"],
+        "colors": ["red", "black", "dark purple"],
+        "exclude": ["holy", "light", "pure"]
+      },
+      "japanese": {
+        "name_en": "Oni (Japanese demon)",
+        "morphology": ["oni mask", "two horns", "wild hair", "club", "tiger skin loincloth"],
+        "elements": ["club", "torii gate", "fire", "darkness"],
+        "atmosphere": ["fierce", "wild", "powerful", "terrifying"],
+        "scenes": ["mountain", "village", "torii gate", "night", "forest"],
+        "colors": ["red", "blue", "green"],
+        "exclude": ["angelic", "holy"]
+      },
+      "chinese": {
+        "name_en": "Chinese demon (Yaoguai)",
+        "morphology": ["transformed", "human form or monster", "varied"],
+        "elements": ["magic", "mountain", "cave", "darkness"],
+        "atmosphere": ["mysterious", "dangerous", "supernatural"],
+        "scenes": ["mountain", "cave", "forest", "night", "temple"],
+        "colors": ["dark", "varied"],
+        "exclude": ["holy", "angelic"]
+      }
+    }
+  },
+  "angel": {
+    "type": "creature",
+    "label": "天使",
+    "variants": {
+      "western": {
+        "name_en": "Angel (Western)",
+        "morphology": ["white wings", "halo", "white robes", "youthful", "beautiful"],
+        "elements": ["light", "halo", "harp", "feathers", "clouds"],
+        "atmosphere": ["holy", "pure", "divine", "peaceful", "radiant"],
+        "scenes": ["heaven", "clouds", "church", "sky", "sunset"],
+        "colors": ["white", "gold", "light blue"],
+        "exclude": ["dark", "evil", "demonic"]
+      }
+    }
+  },
+  "sakura": {
+    "type": "plant",
+    "label": "樱花",
+    "variants": {
+      "japanese": {
+        "name_en": "cherry blossom tree",
+        "morphology": ["tree with pink blossoms", "branches covered in flowers", "petals falling"],
+        "elements": ["spring", "wind", "petals", "path"],
+        "atmosphere": ["serene", "beautiful", "transient", "peaceful"],
+        "scenes": ["cherry blossom avenue", "park with cherry trees", "river bank", "temple grounds", "under the tree"],
+        "exclude": ["single flower close-up", "flower bouquet", "potted plant", "indoor"]
+      }
+    },
+    "factual": {
+      "category": "蔷薇科樱属",
+      "season": ["spring", "late March to early April"],
+      "cultural": ["Japanese", "hanami", "transience", "beauty"]
+    }
+  },
+  "cherry_blossom_tree": {
+    "type": "plant",
+    "label": "樱花树",
+    "variants": {
+      "default": {
+        "name_en": "cherry blossom tree in full bloom",
+        "morphology": ["tree with pink/white blossoms", "branches covered in flowers", "petals drifting in wind"],
+        "elements": ["spring", "wind", "sunlight"],
+        "atmosphere": ["serene", "beautiful", "peaceful"],
+        "scenes": ["spring landscape", "park", "river bank", "temple grounds", "street lined with cherry trees"],
+        "exclude": ["close-up of single flower", "indoor"]
+      }
+    }
+  },
+  "chinese_architecture": {
+    "type": "place",
+    "label": "中国建筑",
+    "variants": {
+      "traditional": {
+        "name_en": "Chinese traditional architecture",
+        "morphology": ["curved roof", "red pillars", "ornate eaves", " courtyard", "moon gate"],
+        "elements": ["lanterns", "calligraphy", "dragon motifs", "red walls"],
+        "scenes": ["palace", "temple", "garden", "courtyard", "pagoda"],
+        "colors": ["red", "gold", "dark wood", "white walls"]
+      },
+      "modern": {
+        "name_en": "Modern Chinese cityscape",
+        "morphology": ["skyscrapers", "neon signs", "busy streets"],
+        "elements": ["Chinese characters", "red lanterns", "traditional and modern blend"],
+        "scenes": ["city street", "night market", "riverfront", "skyline"],
+        "colors": ["neon", "red", "varied"]
+      }
+    }
+  },
+  "japanese_architecture": {
+    "type": "place",
+    "label": "日本建筑",
+    "variants": {
+      "default": {
+        "name_en": "Japanese architecture",
+        "morphology": ["torii gate", "pagoda", "wooden temple", "sliding doors", "zen garden"],
+        "elements": ["cherry blossoms", "stone lantern", "bamboo", "koi pond"],
+        "scenes": ["temple", "shrine", "zen garden", "traditional street", "onsen"],
+        "colors": ["natural wood", "white", "red torii", "green garden"]
+      }
+    }
+  },
+  "nine_tailed_fox": {
+    "type": "creature",
+    "label": "九尾狐",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese nine-tailed fox (Huli Jing)",
+        "morphology": ["nine flowing tails", "fox body", "often in human form", "beautiful woman", "red or golden fur"],
+        "elements": ["fire", "moonlight", "pearl", "transformations"],
+        "atmosphere": ["mysterious", "seductive", "powerful", "auspicious or evil"],
+        "scenes": ["moonlit forest", "palace", "mountain", "ancient city", "by the river"],
+        "colors": ["red", "gold", "white", "orange"],
+        "exclude": ["modern city", "technology"]
+      },
+      "japanese": {
+        "name_en": "Japanese nine-tailed fox (Kitsune)",
+        "morphology": ["nine tails", "fox body", "often in human form", "beautiful woman", "white or red fur", "fox fire"],
+        "elements": ["fox fire", "shrine", "torii gate", "sake", "transformations"],
+        "atmosphere": ["mysterious", "trickster", "wise", "dangerous", "supernatural"],
+        "scenes": ["shrine", "forest", "village", "moonlit night", "torii gate"],
+        "colors": ["white", "red", "gold"],
+        "exclude": ["auspicious", "imperial"]
+      },
+      "korean": {
+        "name_en": "Korean nine-tailed fox (Gumiho)",
+        "morphology": ["nine tails", "fox body", "often in human form", "beautiful woman", "white fur", "fox bead"],
+        "elements": ["fox bead (yeowoo guseul)", "human form", "deception"],
+        "atmosphere": ["evil", "seductive", "dangerous", "vengeful"],
+        "scenes": ["dark forest", "abandoned house", "village", "mountain"],
+        "colors": ["white", "silver", "pale"],
+        "exclude": ["auspicious", "divine", "fire"]
+      }
+    }
+  },
+  "sword": {
+    "type": "weapon",
+    "label": "剑",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese jian (double-edge straight sword)",
+        "morphology": ["straight double-edge blade", "long straight sword", "ornate hilt", "tassel", "scabbard"],
+        "elements": ["qi", "martial arts", "immortal", "clouds"],
+        "atmosphere": ["elegant", "refined", "powerful", "martial"],
+        "scenes": ["mountain", "bamboo forest", "temple", "moonlit night", "duel"],
+        "colors": ["silver", "gold", "jade"],
+        "exclude": ["curved", "single-edge"]
+      },
+      "japanese": {
+        "name_en": "Japanese katana (single-edge curved sword)",
+        "morphology": ["single-edge curved blade", "long curved sword", "ornate tsuba", "wrapped handle", "saya scabbard"],
+        "elements": ["samurai", "honor", "bonsai", "cherry blossoms"],
+        "atmosphere": ["sharp", "deadly", "honorable", "precise"],
+        "scenes": ["dojo", "bamboo forest", "cherry blossom path", "samurai duel", "shrine"],
+        "colors": ["silver", "black", "gold"],
+        "exclude": ["double-edge", "straight"]
+      },
+      "western": {
+        "name_en": "Western longsword (double-edge broadsword)",
+        "morphology": ["straight double-edge blade", "cruciform hilt", "large crossguard", "pommel", "broad blade"],
+        "elements": ["knight", "castle", "dragon", "holy"],
+        "atmosphere": ["noble", "powerful", "medieval", "chivalric"],
+        "scenes": ["castle", "battlefield", "tournament", "dragon's lair", "throne room"],
+        "colors": ["silver", "steel", "gold"],
+        "exclude": ["curved", "single-edge"]
+      }
+    }
+  },
+  "mecha": {
+    "type": "creature",
+    "label": "机甲",
+    "variants": {
+      "japanese": {
+        "name_en": "Japanese mecha (giant robot)",
+        "morphology": ["humanoid robot", "giant scale", "articulated joints", "cockpit", "weapons systems"],
+        "elements": ["pilot", "beam saber", "missiles", "shield", "thrusters"],
+        "atmosphere": ["heroic", "powerful", "technological", "epic"],
+        "scenes": ["city battle", "space", "hangar", "battlefield", "launch pad"],
+        "colors": ["white", "blue", "red", "varied"],
+        "exclude": ["organic", "small"]
+      },
+      "western": {
+        "name_en": "Western mech (walking tank)",
+        "morphology": ["bulky robot", "armored", "weapons mounted", "industrial design", "less humanoid"],
+        "elements": ["guns", "missiles", "armor plating", "cockpit"],
+        "atmosphere": ["military", "rugged", "practical", "war"],
+        "scenes": ["battlefield", "war zone", "factory", "city destruction"],
+        "colors": ["gray", "olive", "desert camo", "dark"],
+        "exclude": ["sleek", "heroic", "colorful"]
+      }
+    }
+  },
+  "tengu": {
+    "type": "creature",
+    "label": "天狗",
+    "variants": {
+      "japanese": {
+        "name_en": "Tengu (Japanese mountain goblin)",
+        "morphology": ["long red face", "bird-like beak", "black wings", "feathered", "mountain ascetic clothing"],
+        "elements": ["sword", "fan", "mountain", "trees", "wind"],
+        "atmosphere": ["fierce", "wild", "supernatural", "protective of mountains"],
+        "scenes": ["mountain forest", "ancient temple", "waterfall", "misty peaks"],
+        "colors": ["red", "black", "dark green"],
+        "exclude": ["cute", "friendly", "modern"]
+      }
+    }
+  },
+  "taotie": {
+    "type": "creature",
+    "label": "饕餮",
+    "variants": {
+      "chinese": {
+        "name_en": "Taotie (Chinese gluttonous beast)",
+        "morphology": ["large mouth", "no body", "eyes on shoulders", "dragon-like face", "bronze patterns"],
+        "elements": ["bronze vessel", "ancient patterns", "food", "greed"],
+        "atmosphere": ["ancient", "mysterious", "powerful", "ominous"],
+        "scenes": ["ancient bronze vessel", "shang dynasty temple", "archaeological site", "museum"],
+        "colors": ["bronze", "green patina", "gold", "dark"],
+        "exclude": ["cute", "modern", "friendly"]
+      }
+    }
+  },
+  "guanyin": {
+    "type": "mythology",
+    "label": "观音",
+    "variants": {
+      "chinese": {
+        "name_en": "Guanyin (Chinese Bodhisattva of Compassion)",
+        "morphology": ["white robes", "serene face", "willow branch", "jade vase", "lotus seat", "halo"],
+        "elements": ["lotus", "water", "moon", "willow", "pearl"],
+        "atmosphere": ["peaceful", "compassionate", "divine", "serene", "graceful"],
+        "scenes": ["temple", "lotus pond", "mountain", "clouds", "moonlit night"],
+        "colors": ["white", "gold", "jade green", "pale pink"],
+        "exclude": ["evil", "dark", "violent"]
+      }
+    }
+  },
+  "mermaid": {
+    "type": "creature",
+    "label": "美人鱼",
+    "variants": {
+      "western": {
+        "name_en": "Mermaid (Western folklore)",
+        "morphology": ["human upper body", "fish tail", "long flowing hair", "beautiful face", "seashells"],
+        "elements": ["ocean", "waves", "coral", "pearls", "shipwreck"],
+        "atmosphere": ["beautiful", "mysterious", "alluring", "lonely"],
+        "scenes": ["ocean", "rock by the sea", "underwater", "shipwreck", "moonlit beach"],
+        "colors": ["blue", "green", "turquoise", "silver"],
+        "exclude": ["legs", "land", "modern"]
+      }
+    }
+  },
+  "werewolf": {
+    "type": "creature",
+    "label": "狼人",
+    "variants": {
+      "western": {
+        "name_en": "Werewolf (Western horror)",
+        "morphology": ["wolf head", "human body covered in fur", "claws", "fangs", "torn clothes"],
+        "elements": ["full moon", "night", "forest", "blood", " transformation"],
+        "atmosphere": ["terrifying", "savage", "cursed", "powerful"],
+        "scenes": ["forest at night", "full moon", "village", "graveyard", "abandoned house"],
+        "colors": ["dark gray", "black", "brown", "silver moonlight"],
+        "exclude": ["cute", "friendly", "daytime"]
+      }
+    }
+  },
+  "vampire": {
+    "type": "creature",
+    "label": "吸血鬼",
+    "variants": {
+      "western": {
+        "name_en": "Vampire (Western horror)",
+        "morphology": ["pale skin", "fangs", "red eyes", "cape", "elegant clothing", "no reflection"],
+        "elements": ["blood", "coffin", "bat form", "castle", "night"],
+        "atmosphere": ["elegant", "seductive", "dangerous", "immortal", "gothic"],
+        "scenes": ["gothic castle", "coffin", "night balcony", "ballroom", "crypt"],
+        "colors": ["red", "black", "pale white", "dark purple"],
+        "exclude": ["sunlight", "holy", "garlic"]
+      }
+    }
+  },
+  "armor": {
+    "type": "equipment",
+    "label": "铠甲",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese ancient armor",
+        "morphology": ["lamellar armor", "ornate helmet", "shoulder guards", "decorative patterns", "red tassels"],
+        "elements": ["sword", "shield", "horse", "banner"],
+        "atmosphere": ["majestic", "powerful", "imperial", "ancient"],
+        "scenes": ["battlefield", "palace", "fortress", "mountain pass"],
+        "colors": ["gold", "red", "bronze", "iron"],
+        "exclude": ["modern", "sleek"]
+      },
+      "japanese": {
+        "name_en": "Japanese samurai armor (yoroi)",
+        "morphology": ["lamellar plates", "ornate helmet (kabuto)", "face guard", "shoulder guards", "skirt plates"],
+        "elements": ["katana", "bow", "horse", "sashimono banner"],
+        "atmosphere": ["honorable", "fierce", "disciplined", "warrior"],
+        "scenes": ["battlefield", "dojo", "castle", "cherry blossom path"],
+        "colors": ["black", "red", "gold", "dark blue"],
+        "exclude": ["modern", "sleek", "western"]
+      },
+      "western": {
+        "name_en": "Western plate armor (knight armor)",
+        "morphology": ["full plate armor", "great helm", "gauntlets", "breastplate", "chainmail"],
+        "elements": ["sword", "shield", "lance", "horse"],
+        "atmosphere": ["noble", "chivalric", "powerful", "medieval"],
+        "scenes": ["castle", "tournament", "battlefield", "throne room"],
+        "colors": ["silver", "steel", "gold", "dark"],
+        "exclude": ["light", "sleek", "modern"]
+      }
+    }
+  },
+  "bow": {
+    "type": "weapon",
+    "label": "弓",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese bow (recurve composite bow)",
+        "morphology": ["recurve shape", "composite materials", "ornate grip", "arrow with fletching"],
+        "elements": ["archer", "horse", "steppe", "battle"],
+        "atmosphere": ["deadly", "precise", "nomadic", "ancient"],
+        "scenes": ["battlefield", "steppe", "horseback", "mountain"],
+        "colors": ["brown", "red", "gold"],
+        "exclude": ["modern", "compound"]
+      },
+      "japanese": {
+        "name_en": "Japanese bow (yumi)",
+        "morphology": ["asymmetric design", "long upper limb", "bamboo construction", "ornate grip"],
+        "elements": ["samurai", "kyudo", "precision", "meditation"],
+        "atmosphere": ["precise", "meditative", "honorable", "artful"],
+        "scenes": ["dojo", "archery range", "shrine", "bamboo forest"],
+        "colors": ["natural bamboo", "black", "red"],
+        "exclude": ["modern", "compound", "western"]
+      },
+      "western": {
+        "name_en": "Western longbow",
+        "morphology": ["tall straight design", "simple construction", "long arrows", "heavy draw weight"],
+        "elements": ["archer", "castle", "forest", "battle"],
+        "atmosphere": ["powerful", "deadly", "medieval", "practical"],
+        "scenes": ["battlefield", "castle", "forest", "tournament"],
+        "colors": ["natural wood", "brown", "tan"],
+        "exclude": ["recurve", "asymmetric", "modern"]
+      }
+    }
+  },
+  "plum_blossom": {
+    "type": "plant",
+    "label": "梅花",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese plum blossom (meihua)",
+        "morphology": ["gnarled branches", "small pink/white flowers", "blooming in winter", "bare branches with flowers"],
+        "elements": ["winter", "snow", "ink wash", "bird"],
+        "atmosphere": ["resilient", "elegant", "scholarly", "perseverance"],
+        "scenes": ["winter landscape", "ink wash painting", "garden", "mountain"],
+        "colors": ["pink", "white", "red"],
+        "exclude": ["summer", "green leaves", "modern"]
+      }
+    }
+  },
+  "bamboo": {
+    "type": "plant",
+    "label": "竹",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese bamboo",
+        "morphology": ["tall straight stalks", "green leaves", "segmented trunk", "dense grove"],
+        "elements": ["wind", "scholar", "painting", "panda"],
+        "atmosphere": ["elegant", "resilient", "scholarly", "peaceful"],
+        "scenes": ["bamboo grove", "garden", "mountain", "painting"],
+        "colors": ["green", "jade", "dark green"],
+        "exclude": ["tropical", "palm"]
+      },
+      "japanese": {
+        "name_en": "Japanese bamboo",
+        "morphology": ["tall stalks", "green leaves", "grove", "wind movement"],
+        "elements": ["wind", "temple", "zen", "shishi-odoshi"],
+        "atmosphere": ["serene", "meditative", "natural", "peaceful"],
+        "scenes": ["bamboo grove", "temple", "zen garden", "arashiyama"],
+        "colors": ["green", "light green"],
+        "exclude": ["tropical", "palm", "Chinese style"]
+      }
+    }
+  },
+  "jiangnan": {
+    "type": "place",
+    "label": "江南水乡",
+    "variants": {
+      "chinese": {
+        "name_en": "Jiangnan water town (Chinese canal town)",
+        "morphology": ["whitewashed walls", "black tiled roofs", "stone bridges", "canals", "willow trees"],
+        "elements": ["boat", "lanterns", "stone path", "moon gate", "traditional windows"],
+        "atmosphere": ["serene", "romantic", "nostalgic", "peaceful"],
+        "scenes": ["canal", "stone bridge", "tea house", "night scene with lanterns", "rainy day"],
+        "colors": ["white", "black", "gray", "red lanterns"],
+        "exclude": ["modern", "skyscraper", "neon"]
+      }
+    }
+  },
+  "castle": {
+    "type": "place",
+    "label": "城堡",
+    "variants": {
+      "western": {
+        "name_en": "Western medieval castle",
+        "morphology": ["stone walls", "towers", "moat", "drawbridge", "battlements", "stained glass"],
+        "elements": ["flag", "knight", "dragon", "throne", "chandelier"],
+        "atmosphere": ["majestic", "ancient", "noble", "fortified"],
+        "scenes": ["throne room", "battlefield", "courtyard", "tower", "great hall"],
+        "colors": ["gray stone", "red banners", "gold accents"],
+        "exclude": ["modern", "eastern", "wooden"]
+      },
+      "chinese": {
+        "name_en": "Chinese fortress/palace",
+        "morphology": ["high walls", "watchtowers", "gatehouse", "red pillars", "curved roofs"],
+        "elements": ["lanterns", "dragon motifs", "red doors", "stone lions"],
+        "atmosphere": ["imperial", "powerful", "ancient", "grand"],
+        "scenes": ["palace", "fortress", "mountain", "city gate"],
+        "colors": ["red", "gold", "gray stone", "dark wood"],
+        "exclude": ["western", "moat", "stained glass"]
+      }
+    }
+  },
+  "tower": {
+    "type": "place",
+    "label": "塔",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese pagoda",
+        "morphology": ["multi-story", "octagonal", "curved eaves", "tiered roof", "ornate carvings"],
+        "elements": ["bells", "buddha", "lotus", "clouds"],
+        "atmosphere": ["sacred", "ancient", "peaceful", "spiritual"],
+        "scenes": ["temple grounds", "mountain", "lake", "city skyline"],
+        "colors": ["red", "gold", "dark wood", "white"],
+        "exclude": ["modern", "skyscraper", "western"]
+      },
+      "japanese": {
+        "name_en": "Japanese pagoda",
+        "morphology": ["multi-story", "square", "curved eaves", "simpler design"],
+        "elements": ["cherry blossoms", "temple", "stone path"],
+        "atmosphere": ["serene", "spiritual", "ancient", "peaceful"],
+        "scenes": ["temple", "shrine", "garden", "cherry blossom path"],
+        "colors": ["red", "white", "natural wood"],
+        "exclude": ["modern", "western"]
+      },
+      "western": {
+        "name_en": "Western tower (medieval/fantasy)",
+        "morphology": ["tall cylindrical", "stone", "spire", "windows", "battlements"],
+        "elements": ["knight", "princess", "dragon", "flag"],
+        "atmosphere": ["majestic", "ancient", "mysterious", "fortified"],
+        "scenes": ["castle", "city", "battlefield", "mountain"],
+        "colors": ["gray stone", "dark", "ivy-covered"],
+        "exclude": ["eastern", "curved roof"]
+      }
+    }
+  },
+  "dragon_turtle": {
+    "type": "creature",
+    "label": "龙龟",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese dragon turtle (Longgui)",
+        "morphology": ["turtle body", "dragon head", "shell with patterns", "small horns", "scales"],
+        "elements": ["water", "mountain", "treasure", "longevity"],
+        "atmosphere": ["wise", "ancient", "protective", "auspicious"],
+        "scenes": ["river", "mountain", "palace", "garden"],
+        "colors": ["green", "gold", "jade", "dark"],
+        "exclude": ["modern", "cute"]
+      }
+    }
+  },
+  "qiongqi": {
+    "type": "creature",
+    "label": "穷奇",
+    "variants": {
+      "chinese": {
+        "name_en": "Qiongqi (Chinese evil beast)",
+        "morphology": ["tiger body", "wings", "ox tail", "dog-like face", "fierce expression"],
+        "elements": ["chaos", "evil", "mountain", "storm"],
+        "atmosphere": ["evil", "terrifying", "powerful", "chaotic"],
+        "scenes": ["mountain", "stormy sky", "battlefield", "dark forest"],
+        "colors": ["dark", "red", "black", "gray"],
+        "exclude": ["cute", "friendly", "auspicious"]
+      }
+    }
+  },
+  "hundun": {
+    "type": "creature",
+    "label": "混沌",
+    "variants": {
+      "chinese": {
+        "name_en": "Hundun (Chinese primordial chaos beast)",
+        "morphology": ["bag-like body", "no face", "no limbs", "red", "sings like a dog"],
+        "elements": ["chaos", "primordial", "fire", "water"],
+        "atmosphere": ["mysterious", "primordial", "chaotic", "ancient"],
+        "scenes": ["primordial world", "chaos", "void", "ancient landscape"],
+        "colors": ["red", "fire colors", "chaotic patterns"],
+        "exclude": ["face", "limbs", "modern"]
+      }
+    }
+  },
+  "zombie": {
+    "type": "creature",
+    "label": "丧尸",
+    "variants": {
+      "western": {
+        "name_en": "Zombie (Western horror)",
+        "morphology": ["decaying body", "torn clothes", "blank eyes", "slow movement", "grey skin"],
+        "elements": ["graveyard", "blood", "flesh", "decay"],
+        "atmosphere": ["terrifying", "undead", "horror", "apocalyptic"],
+        "scenes": ["graveyard", "abandoned city", "hospital", "post-apocalyptic street"],
+        "colors": ["grey", "green", "dark", "blood red"],
+        "exclude": ["cute", "fast", "intelligent"]
+      }
+    }
+  },
+  "robot": {
+    "type": "creature",
+    "label": "机器人",
+    "variants": {
+      "western": {
+        "name_en": "Western robot (humanoid/android)",
+        "morphology": ["humanoid form", "metallic body", "glowing eyes", "joints", "panels"],
+        "elements": ["technology", "AI", "circuitry", "power core"],
+        "atmosphere": ["technological", "futuristic", "intelligent", "powerful"],
+        "scenes": ["laboratory", "space station", "futuristic city", "factory"],
+        "colors": ["silver", "white", "blue", "chrome"],
+        "exclude": ["organic", "natural"]
+      },
+      "japanese": {
+        "name_en": "Japanese robot (anime-style)",
+        "morphology": ["sleek design", "colorful", "expressive eyes", "compact", "cute"],
+        "elements": ["technology", "friendship", "power", "transformation"],
+        "atmosphere": ["friendly", "heroic", "cute", "powerful"],
+        "scenes": ["city", "school", "space", "hangar"],
+        "colors": ["white", "blue", "red", "varied"],
+        "exclude": ["scary", "industrial"]
+      }
+    }
+  },
+  "shield": {
+    "type": "equipment",
+    "label": "盾",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese shield (round shield/tengpai)",
+        "morphology": ["round shape", "leather or metal", "painted designs", "lightweight"],
+        "elements": ["warrior", "battle", "deflect", "parry"],
+        "atmosphere": ["practical", "defensive", "ancient", "martial"],
+        "scenes": ["battlefield", "arena", "fortress"],
+        "colors": ["brown", "red", "gold", "dark"],
+        "exclude": ["modern", "tech"]
+      },
+      "western": {
+        "name_en": "Western shield (kite/heater shield)",
+        "morphology": ["kite or heater shape", "coat of arms", "metal rim", "heavy"],
+        "elements": ["knight", "heraldry", "defense", "castle"],
+        "atmosphere": ["noble", "chivalric", "defensive", "medieval"],
+        "scenes": ["battlefield", "tournament", "castle"],
+        "colors": ["silver", "blue", "red", "gold"],
+        "exclude": ["modern", "eastern"]
+      }
+    }
+  },
+  "staff": {
+    "type": "weapon",
+    "label": "法杖",
+    "variants": {
+      "western": {
+        "name_en": "Western wizard staff",
+        "morphology": ["tall wooden staff", "glowing crystal top", "ornate carvings", "magical aura"],
+        "elements": ["magic", "crystal", "power", "wizard"],
+        "atmosphere": ["magical", "powerful", "mystical", "ancient"],
+        "scenes": ["wizard tower", "library", "battle", "ritual"],
+        "colors": ["brown wood", "purple", "blue crystal", "gold"],
+        "exclude": ["modern", "tech"]
+      },
+      "chinese": {
+        "name_en": "Chinese ritual staff (monk staff)",
+        "morphology": ["metal rings", "ornate top", "long wooden shaft", "Buddhist symbols"],
+        "elements": ["monk", "temple", "Buddhist", "ritual"],
+        "atmosphere": ["sacred", "spiritual", "peaceful", "powerful"],
+        "scenes": ["temple", "mountain", "pilgrimage", "ritual"],
+        "colors": ["gold", "silver", "brown", "red"],
+        "exclude": ["evil", "dark"]
+      }
+    }
+  },
+  "athena": {
+    "type": "mythology",
+    "label": "雅典娜",
+    "variants": {
+      "greek": {
+        "name_en": "Athena (Greek goddess of wisdom)",
+        "morphology": ["helmet", "aegis shield", "spear", "white robes", "olive wreath"],
+        "elements": ["owl", "olive tree", "wisdom", "war"],
+        "atmosphere": ["wise", "powerful", "divine", "strategic"],
+        "scenes": ["temple", "battlefield", "parthenon", "mountain"],
+        "colors": ["white", "gold", "blue", "bronze"],
+        "exclude": ["evil", "dark"]
+      }
+    }
+  },
+  "loki": {
+    "type": "mythology",
+    "label": "洛基",
+    "variants": {
+      "norse": {
+        "name_en": "Loki (Norse trickster god)",
+        "morphology": ["green and gold clothing", "horned helmet", "sly expression", "shapeshifter"],
+        "elements": ["trickery", "fire", "serpent", "mischief"],
+        "atmosphere": ["cunning", "mischievous", "dangerous", "charismatic"],
+        "scenes": ["asgard", "bifrost", "jotunheim", "feast hall"],
+        "colors": ["green", "gold", "black", "red"],
+        "exclude": ["honest", "straightforward"]
+      }
+    }
+  },
+  "zeus": {
+    "type": "mythology",
+    "label": "宙斯",
+    "variants": {
+      "greek": {
+        "name_en": "Zeus (Greek king of gods)",
+        "morphology": ["white beard", "thunderbolt", "laurel wreath", "white robes", "muscular"],
+        "elements": ["thunderbolt", "eagle", "sky", "throne"],
+        "atmosphere": ["powerful", "divine", "majestic", "authoritative"],
+        "scenes": ["mount olympus", "throne room", "stormy sky", "temple"],
+        "colors": ["white", "gold", "lightning blue", "clouds"],
+        "exclude": ["evil", "small", "weak"]
+      }
+    }
+  },
+  "chrysanthemum": {
+    "type": "plant",
+    "label": "菊花",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese chrysanthemum",
+        "morphology": ["round flower head", "many petals", "autumn blooming", "various colors"],
+        "elements": ["autumn", "scholar", "wine", "elegance"],
+        "atmosphere": ["elegant", "resilient", "scholarly", "autumn"],
+        "scenes": ["garden", "autumn landscape", "ink wash painting", "fence"],
+        "colors": ["yellow", "white", "purple", "red"],
+        "exclude": ["spring", "summer"]
+      },
+      "japanese": {
+        "name_en": "Japanese chrysanthemum (kiku)",
+        "morphology": ["round flower head", "symmetrical petals", "imperial symbol"],
+        "elements": ["imperial", "autumn", "festival", "longevity"],
+        "atmosphere": ["noble", "imperial", "elegant", "autumn"],
+        "scenes": ["garden", "imperial palace", "festival", "autumn"],
+        "colors": ["yellow", "white", "purple"],
+        "exclude": ["common", "wild"]
+      }
+    }
+  },
+  "lotus": {
+    "type": "plant",
+    "label": "莲花",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese lotus",
+        "morphology": ["large round leaves", "pink/white flowers", "growing from water", "seed pod"],
+        "elements": ["water", "purity", "Buddhist", "summer"],
+        "atmosphere": ["pure", "serene", "sacred", "peaceful"],
+        "scenes": ["pond", "lake", "temple", "garden"],
+        "colors": ["pink", "white", "green leaves"],
+        "exclude": ["dry", "land"]
+      },
+      "japanese": {
+        "name_en": "Japanese lotus (hasu)",
+        "morphology": ["large leaves", "pink flowers", "water plant"],
+        "elements": ["Buddhist", "temple", "purity", "summer"],
+        "atmosphere": ["pure", "serene", "spiritual", "peaceful"],
+        "scenes": ["temple pond", "garden", "lake"],
+        "colors": ["pink", "white", "green"],
+        "exclude": ["dry", "land"]
+      }
+    }
+  },
+  "dunhuang": {
+    "type": "place",
+    "label": "敦煌",
+    "variants": {
+      "chinese": {
+        "name_en": "Dunhuang Mogao Caves",
+        "morphology": ["cave temples", "frescoes", "flying apsaras", "Buddha statues", "sand dunes"],
+        "elements": ["frescoes", "Buddhist art", "desert", "silk road"],
+        "atmosphere": ["ancient", "sacred", "mysterious", "artistic"],
+        "scenes": ["cave interior", "fresco wall", "desert landscape", "silk road"],
+        "colors": ["gold", "red", "blue", "earth tones"],
+        "exclude": ["modern", "green"]
+      }
+    }
+  },
+  "kyoto": {
+    "type": "place",
+    "label": "京都",
+    "variants": {
+      "japanese": {
+        "name_en": "Kyoto (traditional Japanese city)",
+        "morphology": ["traditional wooden houses", "temples", "torii gates", "zen gardens", "geisha district"],
+        "elements": ["cherry blossoms", "kimono", "tea ceremony", "torii"],
+        "atmosphere": ["traditional", "serene", "cultural", "peaceful"],
+        "scenes": ["temple", "shrine", "geisha district", "bamboo grove", "cherry blossom path"],
+        "colors": ["red", "white", "natural wood", "pink"],
+        "exclude": ["modern", "neon", "skyscraper"]
+      }
+    }
+  },
+  "mummy": {
+    "type": "creature",
+    "label": "木乃伊",
+    "variants": {
+      "egyptian": {
+        "name_en": "Egyptian mummy",
+        "morphology": ["wrapped in bandages", "ancient Egyptian clothing", "golden mask", "skeletal", "hieroglyphs"],
+        "elements": ["coffin", "pyramid", "scarab", "ankh", "sand"],
+        "atmosphere": ["ancient", "cursed", "mysterious", "undead"],
+        "scenes": ["pyramid", "tomb", "desert", "museum"],
+        "colors": ["gold", "brown", "tan", "dark"],
+        "exclude": ["modern", "cute", "friendly"]
+      }
+    }
+  },
+  "witch": {
+    "type": "creature",
+    "label": "女巫",
+    "variants": {
+      "western": {
+        "name_en": "Western witch",
+        "morphology": ["pointed hat", "black robes", "broomstick", "cauldron", "wicked smile"],
+        "elements": ["magic", "potion", "black cat", "full moon", "spell"],
+        "atmosphere": ["evil", "mysterious", "powerful", "supernatural"],
+        "scenes": ["dark forest", "cottage", "cauldron", "full moon night", "swamp"],
+        "colors": ["black", "purple", "green", "dark"],
+        "exclude": ["good", "beautiful", "modern"]
+      }
+    }
+  },
+  "wizard": {
+    "type": "creature",
+    "label": "巫师",
+    "variants": {
+      "western": {
+        "name_en": "Western wizard",
+        "morphology": ["long robes", "pointed hat", "long beard", "staff", "magical aura"],
+        "elements": ["magic", "staff", "spell", "ancient knowledge", "tower"],
+        "atmosphere": ["wise", "powerful", "mystical", "ancient"],
+        "scenes": ["wizard tower", "library", "battle", "ritual", "ancient city"],
+        "colors": ["blue", "purple", "gray", "gold"],
+        "exclude": ["evil", "dark", "modern"]
+      }
+    }
+  },
+  "siren": {
+    "type": "creature",
+    "label": "海妖",
+    "variants": {
+      "greek": {
+        "name_en": "Siren (Greek mythology)",
+        "morphology": ["bird body with woman head", "beautiful singing", "feathers", "wings"],
+        "elements": ["song", "sea", "shipwreck", "island", "danger"],
+        "atmosphere": ["dangerous", "alluring", "deadly", "mysterious"],
+        "scenes": ["rocky island", "sea", "shipwreck", "cliff"],
+        "colors": ["white", "blue", "feathers"],
+        "exclude": ["modern", "friendly"]
+      }
+    }
+  },
+  "centaur": {
+    "type": "creature",
+    "label": "半人马",
+    "variants": {
+      "greek": {
+        "name_en": "Centaur (Greek mythology)",
+        "morphology": ["horse body", "human upper body", "bow and arrows", "muscular"],
+        "elements": ["forest", "archery", "nature", "wild"],
+        "atmosphere": ["wild", "powerful", "noble", "ancient"],
+        "scenes": ["forest", "battlefield", "ancient Greece", "meadow"],
+        "colors": ["brown horse", "tan skin", "natural"],
+        "exclude": ["modern", "urban"]
+      }
+    }
+  },
+  "medusa": {
+    "type": "creature",
+    "label": "美杜莎",
+    "variants": {
+      "greek": {
+        "name_en": "Medusa (Greek Gorgon)",
+        "morphology": ["snake hair", "stone gaze", "serpent body or human body", "fierce expression"],
+        "elements": ["snakes", "stone", "curse", "temple"],
+        "atmosphere": ["terrifying", "cursed", "powerful", "tragic"],
+        "scenes": ["ancient temple", "ruins", "cave", "stone forest"],
+        "colors": ["green", "grey stone", "brown", "dark"],
+        "exclude": ["beautiful", "friendly", "modern"]
+      }
+    }
+  },
+  "minotaur": {
+    "type": "creature",
+    "label": "米诺陶",
+    "variants": {
+      "greek": {
+        "name_en": "Minotaur (Greek mythology)",
+        "morphology": ["bull head", "human body", "muscular", "horns", "fierce"],
+        "elements": ["labyrinth", "maze", "sword", "bull"],
+        "atmosphere": ["terrifying", "powerful", "savage", "trapped"],
+        "scenes": ["labyrinth", "maze", "ancient palace", "battle"],
+        "colors": ["brown", "dark", "blood red"],
+        "exclude": ["modern", "cute"]
+      }
+    }
+  },
+  "griffin": {
+    "type": "creature",
+    "label": "狮鹫",
+    "variants": {
+      "western": {
+        "name_en": "Griffin (Western mythology)",
+        "morphology": ["eagle head", "lion body", "wings", "talons", "majestic"],
+        "elements": ["flight", "treasure", "mountain", "noble"],
+        "atmosphere": ["majestic", "powerful", "noble", "ancient"],
+        "scenes": ["mountain", "castle", "sky", "treasure hoard"],
+        "colors": ["gold", "brown", "white", "red"],
+        "exclude": ["modern", "small"]
+      }
+    }
+  },
+  "giant": {
+    "type": "creature",
+    "label": "巨人",
+    "variants": {
+      "norse": {
+        "name_en": "Norse giant (Jotun)",
+        "morphology": ["massive size", "rugged features", "fur clothing", "club or axe", "beard"],
+        "elements": ["mountain", "ice", "stone", "thunder"],
+        "atmosphere": ["powerful", "ancient", "wild", "dangerous"],
+        "scenes": ["mountain", "frozen landscape", "battlefield", "jotunheim"],
+        "colors": ["ice blue", "gray", "brown", "white"],
+        "exclude": ["small", "modern", "friendly"]
+      },
+      "greek": {
+        "name_en": "Greek giant (Gigantes)",
+        "morphology": ["massive size", "muscular", "ancient clothing", "weapon"],
+        "elements": ["battle", "gods", "mountain", "fire"],
+        "atmosphere": ["powerful", "rebellious", "ancient", "destructive"],
+        "scenes": ["battlefield", "mountain", "temple", "olympus"],
+        "colors": ["bronze", "dark", "fire"],
+        "exclude": ["small", "modern"]
+      }
+    }
+  },
+  "apollo": {
+    "type": "mythology",
+    "label": "阿波罗",
+    "variants": {
+      "greek": {
+        "name_en": "Apollo (Greek god of sun/music)",
+        "morphology": ["golden laurel wreath", "lyre", "sun chariot", "beautiful youth", "golden rays"],
+        "elements": ["sun", "music", "poetry", "archery", "prophecy"],
+        "atmosphere": ["radiant", "beautiful", "divine", "artistic"],
+        "scenes": ["sunrise", "temple", "olympus", "musical performance"],
+        "colors": ["gold", "white", "sun yellow", "blue sky"],
+        "exclude": ["dark", "evil"]
+      }
+    }
+  },
+  "ares": {
+    "type": "mythology",
+    "label": "阿瑞斯",
+    "variants": {
+      "greek": {
+        "name_en": "Ares (Greek god of war)",
+        "morphology": ["bronze armor", "spear", "shield", "helmet", "fierce expression"],
+        "elements": ["war", "blood", "battle", "violence"],
+        "atmosphere": ["violent", "powerful", "ferocious", "bloodthirsty"],
+        "scenes": ["battlefield", "war", "arena", "blood"],
+        "colors": ["red", "bronze", "dark", "blood"],
+        "exclude": ["peaceful", "artistic"]
+      }
+    }
+  },
+  "poseidon": {
+    "type": "mythology",
+    "label": "波塞冬",
+    "variants": {
+      "greek": {
+        "name_en": "Poseidon (Greek god of sea)",
+        "morphology": ["trident", "blue robes", "crown", "beard", "muscular"],
+        "elements": ["sea", "waves", "horses", "trident", "earthquake"],
+        "atmosphere": ["powerful", "majestic", "tempestuous", "divine"],
+        "scenes": ["ocean", "underwater palace", "stormy sea", "temple"],
+        "colors": ["blue", "green", "white waves", "gold"],
+        "exclude": ["land", "fire", "modern"]
+      }
+    }
+  },
+  "hades": {
+    "type": "mythology",
+    "label": "哈迪斯",
+    "variants": {
+      "greek": {
+        "name_en": "Hades (Greek god of underworld)",
+        "morphology": ["dark robes", "crown of bones", "pale skin", "gloomy expression", "scepter"],
+        "elements": ["death", "underworld", "shadows", "souls"],
+        "atmosphere": ["dark", "mysterious", "powerful", "gloomy"],
+        "scenes": ["underworld", "river Styx", "throne of death", "dark cave"],
+        "colors": ["black", "dark purple", "pale", "ghostly"],
+        "exclude": ["bright", "happy", "modern"]
+      }
+    }
+  },
+  "thor": {
+    "type": "mythology",
+    "label": "托尔",
+    "variants": {
+      "norse": {
+        "name_en": "Thor (Norse god of thunder)",
+        "morphology": ["red beard", "Mjolnir hammer", "iron gloves", "belt of strength", "muscular"],
+        "elements": ["thunder", "lightning", "hammer", "storm", "giants"],
+        "atmosphere": ["powerful", "brave", "thunderous", "heroic"],
+        "scenes": ["battlefield", "stormy sky", "asgard", "mountain"],
+        "colors": ["red", "gray", "lightning blue", "silver"],
+        "exclude": ["weak", "small", "modern"]
+      }
+    }
+  },
+  "odin": {
+    "type": "mythology",
+    "label": "奥丁",
+    "variants": {
+      "norse": {
+        "name_en": "Odin (Norse All-Father)",
+        "morphology": ["one eye", "long beard", "raven companions", "spear Gungnir", "wide-brimmed hat"],
+        "elements": ["wisdom", "ravens", "spear", "throne", "world tree"],
+        "atmosphere": ["wise", "powerful", "mysterious", "ancient"],
+        "scenes": ["throne of asgard", "world tree", "battlefield", "mountain"],
+        "colors": ["blue", "gray", "gold", "dark"],
+        "exclude": ["young", "modern"]
+      }
+    }
+  },
+  "freya": {
+    "type": "mythology",
+    "label": "弗雷亚",
+    "variants": {
+      "norse": {
+        "name_en": "Freya (Norse goddess of love/beauty)",
+        "morphology": ["golden hair", "beautiful", "falcon cloak", "Brisingamen necklace", "chariot"],
+        "elements": ["love", "beauty", "cats", "falcon", "gold"],
+        "atmosphere": ["beautiful", "powerful", "enchanting", "divine"],
+        "scenes": ["asgard", "garden", "chariot in sky", "hall of sessrumnir"],
+        "colors": ["gold", "white", "pink", "blue"],
+        "exclude": ["ugly", "evil", "dark"]
+      }
+    }
+  },
+  "chiyou": {
+    "type": "mythology",
+    "label": "蚩尤",
+    "variants": {
+      "chinese": {
+        "name_en": "Chiyou (Chinese god of war)",
+        "morphology": ["ox horns", "bronze head", "iron forehead", "four eyes", "six arms"],
+        "elements": ["war", "bronze", "fog", "magic", "weapons"],
+        "atmosphere": ["fierce", "powerful", "savage", "ancient"],
+        "scenes": ["battlefield", "fog", "ancient war", "mountain"],
+        "colors": ["bronze", "red", "dark", "fog gray"],
+        "exclude": ["peaceful", "modern"]
+      }
+    }
+  },
+  "pangu": {
+    "type": "mythology",
+    "label": "盘古",
+    "variants": {
+      "chinese": {
+        "name_en": "Pangu (Chinese creator god)",
+        "morphology": ["giant", "primitive clothing", "axe", "long hair", "muscular"],
+        "elements": ["creation", "heaven and earth", "axe", "chaos"],
+        "atmosphere": ["primordial", "powerful", "divine", "ancient"],
+        "scenes": ["primordial chaos", "creation of world", "sky and earth separation"],
+        "colors": ["earth tones", "clouds", "chaos"],
+        "exclude": ["modern", "small"]
+      }
+    }
+  },
+  "nuwa": {
+    "type": "mythology",
+    "label": "女娲",
+    "variants": {
+      "chinese": {
+        "name_en": "Nüwa (Chinese creator goddess)",
+        "morphology": ["serpent lower body", "human upper body", "beautiful", "five-colored stones"],
+        "elements": ["creation", "mending sky", "clay figures", "five-colored stones"],
+        "atmosphere": ["divine", "compassionate", "creative", "ancient"],
+        "scenes": ["mending sky", "creating humans", "primordial world", "mountain"],
+        "colors": ["five-colored", "rainbow", "earth tones"],
+        "exclude": ["evil", "modern"]
+      }
+    }
+  },
+  "fuxi": {
+    "type": "mythology",
+    "label": "伏羲",
+    "variants": {
+      "chinese": {
+        "name_en": "Fuxi (Chinese culture hero)",
+        "morphology": ["serpent lower body", "human upper body", "bagua", "long hair", "wise expression"],
+        "elements": ["bagua", "fishing net", "calendar", "music", "writing"],
+        "atmosphere": ["wise", "creative", "divine", "ancient"],
+        "scenes": ["observation of nature", "teaching humans", "primordial world"],
+        "colors": ["earth tones", "yellow", "natural"],
+        "exclude": ["evil", "modern"]
+      }
+    }
+  },
+  "shennong": {
+    "type": "mythology",
+    "label": "神农",
+    "variants": {
+      "chinese": {
+        "name_en": "Shennong (Chinese divine farmer)",
+        "morphology": ["ox horns", "primitive clothing", "herbs", "plough", "wise expression"],
+        "elements": ["herbs", "medicine", "agriculture", "tea", "ox"],
+        "atmosphere": ["wise", "healing", "agricultural", "ancient"],
+        "scenes": ["mountain", "herb garden", "farm", "teaching"],
+        "colors": ["green", "earth tones", "natural"],
+        "exclude": ["evil", "war", "modern"]
+      }
+    }
+  },
+  "pine": {
+    "type": "plant",
+    "label": "松树",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese pine",
+        "morphology": ["gnarled trunk", "evergreen needles", " twisted branches", "mountain growing"],
+        "elements": ["mountain", "longevity", "scholar", "winter"],
+        "atmosphere": ["resilient", "elegant", "enduring", "scholarly"],
+        "scenes": ["mountain", "ink wash painting", "garden", "cliff"],
+        "colors": ["green", "dark green", "brown trunk"],
+        "exclude": ["tropical", "deciduous"]
+      },
+      "japanese": {
+        "name_en": "Japanese pine (matsu)",
+        "morphology": ["pruned shape", "evergreen", "bonsai form", "layered branches"],
+        "elements": ["bonsai", "temple", "new year", "longevity"],
+        "atmosphere": ["serene", "disciplined", "traditional", "enduring"],
+        "scenes": ["temple", "garden", "coastal cliff", "new year decoration"],
+        "colors": ["green", "dark green", "brown"],
+        "exclude": ["wild", "tropical"]
+      }
+    }
+  },
+  "willow": {
+    "type": "plant",
+    "label": "柳树",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese willow",
+        "morphology": ["long drooping branches", "slender leaves", "by water", "graceful"],
+        "elements": ["water", "spring", "farewell", "poetry"],
+        "atmosphere": ["graceful", "melancholic", "spring", "elegant"],
+        "scenes": ["river bank", "bridge", "garden", "spring landscape"],
+        "colors": ["light green", "yellow green"],
+        "exclude": ["autumn", "winter"]
+      },
+      "japanese": {
+        "name_en": "Japanese willow (yanagi)",
+        "morphology": ["drooping branches", "slender", "by water", "graceful"],
+        "elements": ["water", "summer", "cool", "elegant"],
+        "atmosphere": ["serene", "cool", "summer", "graceful"],
+        "scenes": ["river bank", "temple", "garden", "summer"],
+        "colors": ["green", "light green"],
+        "exclude": ["autumn", "winter"]
+      }
+    }
+  },
+  "ginkgo": {
+    "type": "plant",
+    "label": "银杏",
+    "variants": {
+      "chinese": {
+        "name_en": "Chinese ginkgo",
+        "morphology": ["fan-shaped leaves", "golden autumn color", "tall tree", "ancient"],
+        "elements": ["autumn", "gold", "temple", "ancient"],
+        "atmosphere": ["golden", "autumn", "ancient", "beautiful"],
+        "scenes": ["temple", "autumn landscape", "street", "garden"],
+        "colors": ["golden yellow", "green", "brown"],
+        "exclude": ["spring", "summer"]
+      },
+      "japanese": {
+        "name_en": "Japanese ginkgo (ichou)",
+        "morphology": ["fan-shaped leaves", "golden autumn", "street tree", "tall"],
+        "elements": ["autumn", "gold", "campus", "city"],
+        "atmosphere": ["golden", "autumn", "urban", "beautiful"],
+        "scenes": ["street", "campus", "park", "autumn"],
+        "colors": ["golden yellow", "green"],
+        "exclude": ["spring", "summer"]
+      }
+    }
+  },
+  "maple": {
+    "type": "plant",
+    "label": "枫叶",
+    "variants": {
+      "japanese": {
+        "name_en": "Japanese maple (momiji)",
+        "morphology": ["star-shaped leaves", "brilliant red autumn color", "small tree", "delicate"],
+        "elements": ["autumn", "red", "temples", "momijigari"],
+        "atmosphere": ["vibrant", "autumn", "beautiful", "serene"],
+        "scenes": ["temple", "garden", "mountain", "autumn festival"],
+        "colors": ["red", "orange", "yellow", "green"],
+        "exclude": ["spring", "summer"]
+      },
+      "chinese": {
+        "name_en": "Chinese maple",
+        "morphology": ["star-shaped leaves", "red autumn color", "tall tree"],
+        "elements": ["autumn", "red", "mountain", "poetry"],
+        "atmosphere": ["vibrant", "autumn", "elegant", "melancholic"],
+        "scenes": ["mountain", "garden", "river bank", "autumn"],
+        "colors": ["red", "orange", "yellow"],
+        "exclude": ["spring", "summer"]
+      }
+    }
+  },
+  "olympus": {
+    "type": "place",
+    "label": "奥林匹斯山",
+    "variants": {
+      "greek": {
+        "name_en": "Mount Olympus (Greek mythology)",
+        "morphology": ["towering mountain", "clouds", "golden palace", "divine light"],
+        "elements": ["gods", "clouds", "throne", "golden", "divine"],
+        "atmosphere": ["divine", "majestic", "eternal", "powerful"],
+        "scenes": ["throne room", "clouds", "battlefield", "sky"],
+        "colors": ["gold", "white clouds", "blue sky", "divine light"],
+        "exclude": ["modern", "earthly"]
+      }
+    }
+  },
+  "asgard": {
+    "type": "place",
+    "label": "阿斯加德",
+    "variants": {
+      "norse": {
+        "name_en": "Asgard (Norse mythology)",
+        "morphology": ["golden city", "rainbow bridge", "great hall", "towering halls"],
+        "elements": ["bifrost", "valhalla", "gods", "warriors", "rainbow"],
+        "atmosphere": ["majestic", "golden", "warrior", "divine"],
+        "scenes": ["bifrost bridge", "valhalla", "throne room", "battlefield"],
+        "colors": ["gold", "rainbow", "silver", "red"],
+        "exclude": ["modern", "dark"]
+      }
+    }
+  },
+  "hell": {
+    "type": "place",
+    "label": "地狱",
+    "variants": {
+      "western": {
+        "name_en": "Hell (Western mythology)",
+        "morphology": ["fire", "brimstone", "dark caves", "suffering souls", "demons"],
+        "elements": ["fire", "demons", "torment", "darkness", "chains"],
+        "atmosphere": ["terrifying", "hot", "dark", "suffering"],
+        "scenes": ["fire pit", "dark cave", "throne of Satan", "lake of fire"],
+        "colors": ["red", "orange", "black", "fire"],
+        "exclude": ["heaven", "light", "happy"]
+      },
+      "chinese": {
+        "name_en": "Chinese underworld (Diyu)",
+        "morphology": ["ten courts of hell", "judges", "torment", "rivers", "dark"],
+        "elements": ["judges", "torment", "reincarnation", "king of hell"],
+        "atmosphere": ["dark", "judgment", "suffering", "mysterious"],
+        "scenes": ["court of judgment", "torment chambers", "river of forgetting", "dark halls"],
+        "colors": ["dark", "red", "gray", "ghostly"],
+        "exclude": ["heaven", "light", "happy"]
+      }
+    }
+  },
+  "heaven": {
+    "type": "place",
+    "label": "天堂",
+    "variants": {
+      "western": {
+        "name_en": "Heaven (Western mythology)",
+        "morphology": ["clouds", "golden light", "angels", "gates", "eternal spring"],
+        "elements": ["angels", "clouds", "golden light", "harps", "paradise"],
+        "atmosphere": ["peaceful", "divine", "eternal", "joyful"],
+        "scenes": ["clouds", "golden gates", "garden of Eden", "celestial city"],
+        "colors": ["white", "gold", "light blue", "rainbow"],
+        "exclude": ["hell", "dark", "suffering"]
+      }
+    }
+  },
+  "enchanted_forest": {
+    "type": "place",
+    "label": "魔法森林",
+    "variants": {
+      "western": {
+        "name_en": "Enchanted forest (Western fantasy)",
+        "morphology": ["ancient trees", "magical light", "fairy circles", "mushroom rings", "mist"],
+        "elements": ["magic", "fairies", "wolves", "witches", "treasure"],
+        "atmosphere": ["mysterious", "magical", "dangerous", "beautiful"],
+        "scenes": ["deep forest", "clearing", "fairy ring", "witch cottage"],
+        "colors": ["green", "magical light", "moonlight", "misty"],
+        "exclude": ["modern", "urban", "barren"]
+      }
+    }
+  }
+}

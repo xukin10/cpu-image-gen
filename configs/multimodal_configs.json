@@ -1,0 +1,116 @@
+{
+  "video": {
+    "name": "视频生成",
+    "description": "支持时间维度的视频 prompt 结构",
+    "prompt_structure": "[场景描述], [主体动作], [镜头运动], [时间变化], [风格]",
+    "temporal_keywords": {
+      "动作": {
+        "行走": "walking",
+        "奔跑": "running",
+        "飞翔": "flying",
+        "游泳": "swimming",
+        "跳舞": "dancing",
+        "战斗": "fighting",
+        " transformations": "transforming",
+        "生长": "growing",
+        "融化": "melting",
+        "爆炸": "exploding"
+      },
+      "镜头运动": {
+        "推镜头": "zoom in",
+        "拉镜头": "zoom out",
+        "摇镜头": "pan",
+        "移镜头": "tracking shot",
+        "跟镜头": "following shot",
+        "升降镜头": "crane shot",
+        "旋转镜头": "rotating shot",
+        "手持镜头": "handheld camera"
+      },
+      "时间变化": {
+        "日出": "sunrise transition",
+        "日落": "sunset transition",
+        "季节变换": "seasonal change",
+        "昼夜交替": "day-night cycle",
+        "快进": "time-lapse",
+        "慢动作": "slow motion",
+        "倒放": "reverse playback"
+      },
+      "转场": {
+        "淡入": "fade in",
+        "淡出": "fade out",
+        "溶解": "dissolve",
+        "擦除": "wipe",
+        "推拉": "push transition",
+        "闪白": "flash white"
+      }
+    },
+    "recommended_settings": {
+      "duration": "5-10 seconds",
+      "fps": 24,
+      "resolution": "512x512 or 768x512"
+    }
+  },
+  "3d": {
+    "name": "3D 生成",
+    "description": "支持空间维度的 3D prompt 结构",
+    "prompt_structure": "[3D模型描述], [材质], [光照], [视角], [渲染风格]",
+    "spatial_keywords": {
+      "材质": {
+        "金属": "metallic material",
+        "木材": "wooden material",
+        "玻璃": "glass material",
+        "塑料": "plastic material",
+        "布料": "fabric material",
+        "石头": "stone material",
+        "皮肤": "skin material",
+        "毛发": "hair material"
+      },
+      "光照": {
+        "全局光照": "global illumination",
+        "环境光": "ambient occlusion",
+        "点光源": "point light",
+        "聚光灯": "spotlight",
+        "方向光": "directional light",
+        "HDR光照": "HDR lighting",
+        "体积光": "volumetric lighting"
+      },
+      "视角": {
+        "正面": "front view",
+        "侧面": "side view",
+        "背面": "back view",
+        "俯视": "top view",
+        "仰视": "bottom view",
+        "透视": "perspective view",
+        "等距": "isometric view",
+        "自由视角": "free camera"
+      },
+      "渲染风格": {
+        "写实": "photorealistic render",
+        "卡通": "cartoon render",
+        "低多边形": "low poly render",
+        "线框": "wireframe render",
+        "素描": "sketch render",
+        "油画": "oil painting render",
+        "水彩": "watercolor render",
+        "像素": "pixel art render"
+      }
+    },
+    "recommended_settings": {
+      "format": "OBJ/FBX/GLB",
+      "texture_resolution": "1024x1024",
+      "polygon_count": "medium"
+    }
+  },
+  "multimodal": {
+    "name": "多模态",
+    "description": "跨模态生成的统一 prompt 结构",
+    "modalities": ["image", "video", "3d", "audio", "text"],
+    "unified_structure": {
+      "visual": "[视觉描述]",
+      "temporal": "[时间描述]",
+      "spatial": "[空间描述]",
+      "style": "[风格描述]",
+      "quality": "[质量描述]"
+    }
+  }
+}

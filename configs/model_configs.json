@@ -1,0 +1,102 @@
+{
+  "stabilityai/sdxl-turbo": {
+    "name": "SDXL Turbo",
+    "max_tokens": 77,
+    "prompt_format": "keywords",
+    "quality_keywords": ["highly detailed", "sharp focus", "8k", "masterpiece", "best quality"],
+    "style_keywords": ["in the style of", "by artist"],
+    "avoid_keywords": ["blurry", "low quality", "deformed"],
+    "optimization_tips": [
+      "Use short, punchy keywords",
+      "Quality words are effective",
+      "Avoid long descriptive sentences",
+      "Steps: 4 recommended"
+    ],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512,
+      "guidance_scale": 0.0
+    }
+  },
+  "stabilityai/sdxl": {
+    "name": "SDXL 1.0",
+    "max_tokens": 77,
+    "prompt_format": "keywords",
+    "quality_keywords": ["highly detailed", "sharp focus", "8k", "masterpiece", "best quality", "professional"],
+    "style_keywords": ["in the style of", "by artist", "artstation"],
+    "avoid_keywords": ["blurry", "low quality", "deformed", "bad anatomy"],
+    "optimization_tips": [
+      "Supports longer prompts than SDXL Turbo",
+      "Quality words very effective",
+      "Can use more descriptive phrases",
+      "Steps: 20-30 recommended"
+    ],
+    "recommended_settings": {
+      "steps": 25,
+      "width": 1024,
+      "height": 1024,
+      "guidance_scale": 7.5
+    }
+  },
+  "stabilityai/stable-diffusion-3": {
+    "name": "SD 3.0",
+    "max_tokens": 77,
+    "prompt_format": "natural_language",
+    "quality_keywords": ["high quality", "detailed", "professional", "beautiful"],
+    "style_keywords": ["in the style of", "resembling", "inspired by"],
+    "avoid_keywords": ["blurry", "low quality"],
+    "optimization_tips": [
+      "Prefers natural language descriptions",
+      "More semantic understanding",
+      "Can handle complex scenes",
+      "Steps: 20-28 recommended"
+    ],
+    "recommended_settings": {
+      "steps": 25,
+      "width": 1024,
+      "height": 1024,
+      "guidance_scale": 7.0
+    }
+  },
+  "black-forest-labs/FLUX.1-dev": {
+    "name": "Flux.1 Dev",
+    "max_tokens": 512,
+    "prompt_format": "natural_language",
+    "quality_keywords": ["high quality", "detailed", "professional", "beautiful", "stunning"],
+    "style_keywords": ["in the style of", "resembling", "inspired by", "aesthetic"],
+    "avoid_keywords": ["blurry", "low quality", "ugly"],
+    "optimization_tips": [
+      "Supports very long prompts",
+      "Excellent natural language understanding",
+      "Great for complex compositions",
+      "Steps: 20-30 recommended"
+    ],
+    "recommended_settings": {
+      "steps": 25,
+      "width": 1024,
+      "height": 1024,
+      "guidance_scale": 3.5
+    }
+  },
+  "black-forest-labs/FLUX.1-schnell": {
+    "name": "Flux.1 Schnell",
+    "max_tokens": 512,
+    "prompt_format": "natural_language",
+    "quality_keywords": ["high quality", "detailed", "professional"],
+    "style_keywords": ["in the style of", "resembling"],
+    "avoid_keywords": ["blurry", "low quality"],
+    "optimization_tips": [
+      "Fast inference version",
+      "Good quality with fewer steps",
+      "Can use shorter prompts",
+      "Steps: 4-8 recommended"
+    ],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 1024,
+      "height": 1024,
+      "guidance_scale": 0.0
+    }
+  }
+}

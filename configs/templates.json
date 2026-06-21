@@ -1,0 +1,370 @@
+{
+  "portrait": {
+    "label": "肖像",
+    "category": "人像",
+    "base_prompt": "portrait of {subject}",
+    "required_elements": ["face details", "skin texture"],
+    "optional_elements": ["background", "lighting", "mood"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 768
+    },
+    "quality_additions": ["detailed face", "detailed eyes", "skin texture", "sharp focus"],
+    "composition": "portrait composition, shallow depth of field, bokeh background",
+    "lighting": "soft diffused light, gentle shadows",
+    "examples": ["portrait of a young woman", "portrait of an old man with beard"]
+  },
+  "full_body": {
+    "label": "全身像",
+    "category": "人像",
+    "base_prompt": "full body portrait of {subject}",
+    "required_elements": ["body proportions", "clothing details"],
+    "optional_elements": ["pose", "background", "accessories"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 768
+    },
+    "quality_additions": ["full body visible", "detailed clothing", "natural pose"],
+    "composition": "full body framing, eye level angle",
+    "lighting": "natural lighting, even illumination",
+    "examples": ["full body portrait of a warrior", "full body portrait of a dancer"]
+  },
+  "couple": {
+    "label": "情侣照",
+    "category": "人像",
+    "base_prompt": "couple portrait of {subject1} and {subject2}",
+    "required_elements": ["two people", "interaction"],
+    "optional_elements": ["romantic setting", "matching outfits"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["romantic atmosphere", "connected pose", "warm tones"],
+    "composition": "two people framing, intimate distance",
+    "lighting": "golden hour, warm light",
+    "examples": ["couple in love", "couple holding hands"]
+  },
+  "child": {
+    "label": "儿童照",
+    "category": "人像",
+    "base_prompt": "portrait of a child {subject}",
+    "required_elements": ["youthful features", "innocent expression"],
+    "optional_elements": ["toys", "playful setting", "bright colors"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["youthful skin", "bright eyes", "natural expression"],
+    "composition": "eye level with child, close-up",
+    "lighting": "soft natural light, bright and cheerful",
+    "examples": ["happy child playing", "child with curious expression"]
+  },
+  "elderly": {
+    "label": "老人像",
+    "category": "人像",
+    "base_prompt": "portrait of an elderly {subject}",
+    "required_elements": ["wrinkles", "wisdom in eyes"],
+    "optional_elements": ["life story", "dignified pose"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 768
+    },
+    "quality_additions": ["detailed wrinkles", "expressive eyes", "dignified presence"],
+    "composition": "portrait framing, slightly lower angle",
+    "lighting": "dramatic lighting, side light for texture",
+    "examples": ["wise elder with white beard", "grandmother with gentle smile"]
+  },
+  "product": {
+    "label": "产品展示",
+    "category": "商业",
+    "base_prompt": "product photography of {subject}",
+    "required_elements": ["clean background", "product focus"],
+    "optional_elements": ["lifestyle context", "props"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["clean background", "sharp product", "professional lighting"],
+    "composition": "centered product, clean composition",
+    "lighting": "studio lighting, soft shadows",
+    "examples": ["bottle on white background", "electronics product shot"]
+  },
+  "food": {
+    "label": "美食摄影",
+    "category": "商业",
+    "base_prompt": "food photography of {subject}",
+    "required_elements": ["appetizing appearance", "fresh ingredients"],
+    "optional_elements": ["plate setting", "garnish", "steam"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["appetizing colors", "fresh textures", "steam rising"],
+    "composition": "overhead or 45-degree angle, styled composition",
+    "lighting": "natural window light, soft shadows",
+    "examples": ["gourmet dish on plate", "fresh salad with dressing"]
+  },
+  "jewelry": {
+    "label": "珠宝首饰",
+    "category": "商业",
+    "base_prompt": "jewelry photography of {subject}",
+    "required_elements": ["sparkle", "reflection", "luxury"],
+    "optional_elements": ["model wearing", "display stand"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["sparkling details", "reflection", "luxury feel"],
+    "composition": "close-up, macro details",
+    "lighting": "dramatic lighting, highlights on facets",
+    "examples": ["diamond ring sparkling", "gold necklace on velvet"]
+  },
+  "electronics": {
+    "label": "电子产品",
+    "category": "商业",
+    "base_prompt": "product photography of {subject}",
+    "required_elements": ["sleek design", "modern look"],
+    "optional_elements": ["lifestyle context", "technology feel"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["sleek surfaces", "modern aesthetic", "clean lines"],
+    "composition": "product centered, minimal background",
+    "lighting": "studio lighting, gradient background",
+    "examples": ["smartphone on desk", "laptop in modern office"]
+  },
+  "landscape": {
+    "label": "山水风景",
+    "category": "风景",
+    "base_prompt": "landscape of {subject}",
+    "required_elements": ["depth", "atmosphere"],
+    "optional_elements": ["weather", "time of day", "season"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["vast landscape", "atmospheric depth", "natural beauty"],
+    "composition": "panoramic view, rule of thirds, atmospheric perspective",
+    "lighting": "natural lighting, golden hour",
+    "examples": ["mountain landscape at sunrise", "valley with river"]
+  },
+  "seascape": {
+    "label": "海景",
+    "category": "风景",
+    "base_prompt": "seascape of {subject}",
+    "required_elements": ["water", "horizon"],
+    "optional_elements": ["waves", "boats", "beach"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["ocean waves", "water reflections", "horizon line"],
+    "composition": "wide angle, horizon placement",
+    "lighting": "golden hour, dramatic sky",
+    "examples": ["ocean waves at sunset", "calm sea with boats"]
+  },
+  "cityscape": {
+    "label": "城市风光",
+    "category": "风景",
+    "base_prompt": "cityscape of {subject}",
+    "required_elements": ["buildings", "urban environment"],
+    "optional_elements": ["skyline", "traffic", "people"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["detailed architecture", "urban atmosphere", "city lights"],
+    "composition": "wide angle, architectural composition",
+    "lighting": "golden hour or blue hour",
+    "examples": ["modern city skyline", "historic city streets"]
+  },
+  "nightscape": {
+    "label": "夜景",
+    "category": "风景",
+    "base_prompt": "nightscape of {subject}",
+    "required_elements": ["night sky", "artificial lights"],
+    "optional_elements": ["stars", "moon", "city lights"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["night atmosphere", "light trails", "dark sky"],
+    "composition": "wide angle, long exposure feel",
+    "lighting": "artificial lighting, neon glow",
+    "examples": ["city at night with lights", "starry night over mountains"]
+  },
+  "starry_sky": {
+    "label": "星空",
+    "category": "风景",
+    "base_prompt": "starry sky over {subject}",
+    "required_elements": ["stars", "night sky", "milky way"],
+    "optional_elements": ["landscape foreground", "aurora"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["milky way", "star details", "night sky gradient"],
+    "composition": "wide angle, landscape with sky",
+    "lighting": "starlight, minimal light pollution",
+    "examples": ["milky way over mountains", "aurora borealis"]
+  },
+  "oil_painting": {
+    "label": "油画风格",
+    "category": "艺术",
+    "base_prompt": "oil painting of {subject}",
+    "required_elements": ["brush strokes", "painterly style"],
+    "optional_elements": ["frame", "canvas texture"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["oil painting texture", "brush strokes visible", "rich colors"],
+    "composition": "classical painting composition",
+    "lighting": "dramatic lighting, chiaroscuro",
+    "examples": ["oil painting portrait", "oil painting landscape"]
+  },
+  "watercolor": {
+    "label": "水彩风格",
+    "category": "艺术",
+    "base_prompt": "watercolor painting of {subject}",
+    "required_elements": ["watercolor texture", "soft edges"],
+    "optional_elements": ["paper texture", "color bleeding"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["watercolor texture", "soft edges", "transparent layers"],
+    "composition": "loose composition, artistic feel",
+    "lighting": "soft, diffused light",
+    "examples": ["watercolor flowers", "watercolor city scene"]
+  },
+  "sketch": {
+    "label": "素描风格",
+    "category": "艺术",
+    "base_prompt": "pencil sketch of {subject}",
+    "required_elements": ["pencil lines", "shading"],
+    "optional_elements": ["paper texture", "erasure marks"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["pencil texture", "shading details", "line work"],
+    "composition": "sketch-like composition",
+    "lighting": "graphite tones, monochrome",
+    "examples": ["pencil sketch portrait", "architectural sketch"]
+  },
+  "anime": {
+    "label": "动漫风格",
+    "category": "艺术",
+    "base_prompt": "anime style {subject}",
+    "required_elements": ["anime features", "cel shading"],
+    "optional_elements": ["manga style", "Japanese aesthetic"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 768
+    },
+    "quality_additions": ["anime style", "cel shading", "vibrant colors"],
+    "composition": "anime framing, dynamic angles",
+    "lighting": "anime lighting, dramatic shadows",
+    "examples": ["anime girl with sword", "anime landscape"]
+  },
+  "concept_art": {
+    "label": "概念艺术",
+    "category": "艺术",
+    "base_prompt": "concept art of {subject}",
+    "required_elements": ["detailed design", "professional look"],
+    "optional_elements": ["environment design", "character design"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["concept art style", "detailed design", "professional"],
+    "composition": "concept art framing, clear subject",
+    "lighting": "dramatic lighting, atmospheric",
+    "examples": ["concept art character", "concept art environment"]
+  },
+  "poster": {
+    "label": "海报设计",
+    "category": "商业",
+    "base_prompt": "poster design for {subject}",
+    "required_elements": ["text space", "eye-catching"],
+    "optional_elements": ["branding", "call to action"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 768
+    },
+    "quality_additions": ["poster design", "eye-catching", "professional layout"],
+    "composition": "poster layout, clear hierarchy",
+    "lighting": "dramatic, attention-grabbing",
+    "examples": ["movie poster", "event poster"]
+  },
+  "cover": {
+    "label": "封面图",
+    "category": "商业",
+    "base_prompt": "cover image for {subject}",
+    "required_elements": ["compelling visual", "title space"],
+    "optional_elements": ["branding", "theme"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["cover design", "compelling visual", "professional"],
+    "composition": "cover layout, focal point",
+    "lighting": "dramatic, thematic",
+    "examples": ["book cover", "album cover"]
+  },
+  "advertisement": {
+    "label": "广告图",
+    "category": "商业",
+    "base_prompt": "advertisement for {subject}",
+    "required_elements": ["product focus", "persuasive"],
+    "optional_elements": ["lifestyle", "benefits"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 768,
+      "height": 512
+    },
+    "quality_additions": ["advertisement design", "persuasive", "professional"],
+    "composition": "ad layout, clear message",
+    "lighting": "bright, appealing",
+    "examples": ["product advertisement", "service advertisement"]
+  },
+  "social_media": {
+    "label": "社交媒体",
+    "category": "商业",
+    "base_prompt": "social media image for {subject}",
+    "required_elements": ["engaging", "shareable"],
+    "optional_elements": ["trending style", "viral potential"],
+    "recommended_settings": {
+      "steps": 4,
+      "width": 512,
+      "height": 512
+    },
+    "quality_additions": ["social media ready", "engaging", "eye-catching"],
+    "composition": "social media format, attention-grabbing",
+    "lighting": "bright, trendy",
+    "examples": ["Instagram post", "Twitter header"]
+  }
+}
