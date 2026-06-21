@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Image Gen - Web UI</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; }
+        h1 { font-size: 2.5em; color: #00d4ff; margin-bottom: 10px; }
+        .subtitle { color: #888; font-size: 1.1em; }
+        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
+        .panel { background: #16213e; border-radius: 12px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .panel h2 { color: #00d4ff; margin-bottom: 20px; font-size: 1.3em; border-bottom: 2px solid #00d4ff; padding-bottom: 10px; }
+        label { display: block; margin-bottom: 8px; color: #aaa; font-size: 0.9em; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #333; border-radius: 8px; background: #0f0f23; color: #fff; font-size: 1em; margin-bottom: 15px; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #00d4ff; }
+        textarea { min-height: 100px; resize: vertical; }
+        button { background: linear-gradient(135deg, #00d4ff, #0099cc); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1em; cursor: pointer; transition: all 0.3s; width: 100%; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,212,255,0.4); }
+        button:disabled { background: #333; cursor: not-allowed; transform: none; }
+        .result-panel { text-align: center; }
+        .image-container { background: #0f0f23; border-radius: 12px; padding: 20px; min-height: 400px; display: flex; align-items: center; justify-content: center; margin-top: 20px; }
+        .image-container img { max-width: 100%; max-height: 500px; border-radius: 8px; }
+        .placeholder { color: #555; font-size: 1.2em; }
+        .prompt-preview { background: #0f0f23; padding: 15px; border-radius: 8px; margin-top: 15px; word-break: break-all; font-family: monospace; font-size: 0.9em; color: #00d4ff; max-height: 150px; overflow-y: auto; }
+        .loading { display: none; text-align: center; padding: 20px; }
+        .loading.active { display: block; }
+        .spinner { border: 3px solid #333; border-top: 3px solid #00d4ff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 10px; }
+        .template-btn { background: #1a1a2e; border: 1px solid #333; padding: 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-size: 0.85em; }
+        .template-btn:hover { border-color: #00d4ff; background: #16213e; }
+        .template-btn.active { border-color: #00d4ff; background: #00d4ff22; }
+        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CPU Image Gen</h1>
+            <p class="subtitle">AI 图片生成 - 中文自然语言输入</p>
+        </header>
+        
+        <div class="main-grid">
+            <div class="panel">
+                <h2>输入设置</h2>
+                
+                <label>生成模式</label>
+                <select id="mode">
+                    <option value="image">图片生成</option>
+                    <option value="video">视频 Prompt</option>
+                    <option value="3d">3D Prompt</option>
+                </select>
+                
+                <label>描述内容</label>
+                <textarea id="input-text" placeholder="例如：赛博朋克城市夜景，雨天霓虹灯"></textarea>
+                
+                <label>选择模板（可选）</label>
+                <div class="templates-grid" id="templates">
+                    {% for key, template in templates.items() %}
+                    <div class="template-btn" data-key="{{ key }}" data-prompt="{{ template.base_prompt }}">
+                        {{ template.label }}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <label>选择模型</label>
+                <select id="model">
+                    {% for key, config in models.items() %}
+                    <option value="{{ key }}">{{ config.name }}</option>
+                    {% endfor %}
+                </select>
+                
+                <label>分辨率</label>
+                <select id="size">
+                    <option value="512">512x512</option>
+                    <option value="768">768x768</option>
+                </select>
+                
+                <button id="generate-btn" onclick="generate()">生成图片</button>
+            </div>
+            
+            <div class="panel result-panel">
+                <h2>生成结果</h2>
+                
+                <div class="prompt-preview" id="prompt-preview">
+                    生成的 Prompt 将显示在这里...
+                </div>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>正在生成图片，请稍候...</p>
+                </div>
+                
+                <div class="image-container" id="image-container">
+                    <p class="placeholder">图片将显示在这里</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedTemplate = null;
+        
+        // 模板点击
+        document.querySelectorAll('.template-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedTemplate = this.dataset.key;
+            });
+        });
+        
+        // 生成图片
+        async function generate() {
+            const inputText = document.getElementById('input-text').value;
+            const mode = document.getElementById('mode').value;
+            const model = document.getElementById('model').value;
+            const size = document.getElementById('size').value;
+            
+            if (!inputText) {
+                alert('请输入描述内容');
+                return;
+            }
+            
+            // 显示加载
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('image-container').innerHTML = '';
+            document.getElementById('generate-btn').disabled = true;
+            
+            try {
+                // 先解析 prompt
+                const parseRes = await fetch('/api/parse', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: inputText, mode: mode })
+                });
+                const parseData = await parseRes.json();
+                
+                if (!parseData.success) {
+                    throw new Error(parseData.error);
+                }
+                
+                document.getElementById('prompt-preview').textContent = parseData.prompt;
+                
+                // 如果是图片模式，生成图片
+                if (mode === 'image') {
+                    const genRes = await fetch('/api/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            prompt: parseData.prompt,
+                            model: model,
+                            size: parseInt(size)
+                        })
+                    });
+                    const genData = await genRes.json();
+                    
+                    if (genData.success) {
+                        document.getElementById('image-container').innerHTML = 
+                            `<img src="data:image/png;base64,${genData.image}" alt="生成的图片">`;
+                    } else {
+                        throw new Error(genData.error);
+                    }
+                } else {
+                    document.getElementById('image-container').innerHTML = 
+                        '<p class="placeholder">Prompt 已生成，请复制使用</p>';
+                }
+            } catch (error) {
+                alert('错误：' + error.message);
+            } finally {
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('generate-btn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

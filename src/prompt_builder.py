@@ -679,20 +679,15 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
     print(f"\n[Prompt] {prompt}")
     print(f"[Model] {model_config.get('name', current_model)}")
 
-    import gc
-    gc.collect()
-
+    # 使用模型缓存
+    from .utils.model_cache import model_cache
+    
     try:
         print(f"正在加载模型...")
-        torch.set_num_threads(min(CONFIG["threads"], os.cpu_count() or 4))
-
-        pipe = AutoPipelineForText2Image.from_pretrained(
-            current_model,
-            torch_dtype=torch.float32,
-            local_files_only=True,
-        )
-        pipe = pipe.to("cpu")
-        pipe.enable_attention_slicing()
+        pipe = model_cache.get_model(current_model)
+        if pipe is None:
+            print("错误：模型加载失败")
+            return None
     except Exception as e:
         print(f"错误：模型加载失败 - {e}")
         return None
@@ -737,12 +732,6 @@ def generate_image(prompt: str, steps: int = None, width: int = None, height: in
         logger.error(f"图片生成失败: {e}")
         print(f"错误：图片生成失败 - {e}")
         return None
-
-    finally:
-        if 'pipe' in locals():
-            del pipe
-        import gc
-        gc.collect()
 
 # ============================================================
 # 批量生成
