@@ -21,4 +21,5 @@ from .prompt_builder import (
     build_3d_prompt,
     get_video_keywords,
     get_3d_keywords,
+    get_model_config,
 )

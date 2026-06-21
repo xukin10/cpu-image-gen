@@ -21,6 +21,7 @@ import sys
 import argparse
 import logging
 from typing import Dict, List, Optional, Tuple, Any
+from tqdm import tqdm
 
 # ============================================================
 # 日志配置
@@ -824,12 +825,14 @@ def generate_batch(prompts_file: str):
 
     print(f"开始批量生成...\n")
 
-    for i, text in enumerate(prompts, 1):
-        print(f"[{i}/{len(prompts)}] {text}")
+    # 使用 tqdm 显示进度
+    progress_bar = tqdm(prompts, desc="生成进度", unit="张")
+
+    for i, text in enumerate(progress_bar, 1):
+        progress_bar.set_postfix({"当前": text[:20] + "..." if len(text) > 20 else text})
 
         parsed = parse_input(text, ask_clarification=False)
         prompt = build_prompt(parsed)
-        print(f"  Prompt: {prompt}")
 
         try:
             t0 = time.time()
@@ -847,15 +850,15 @@ def generate_batch(prompts_file: str):
             timestamp = time.strftime("%Y%m%d_%H%M%S")
             output_path = os.path.join(output_dir, f"batch{i:02d}_{timestamp}.png")
             image.save(output_path)
-            print(f"  耗时 {elapsed:.1f}s → {output_path}\n")
 
             log_generation(text, prompt, output_path, elapsed)
 
         except Exception as e:
             logger.error(f"生成失败: {text} - {e}")
-            print(f"  错误：生成失败 - {e}\n")
             failed_count += 1
             continue
+
+    progress_bar.close()
 
     print(f"=" * 50)
     print(f"  批量生成完成！")
