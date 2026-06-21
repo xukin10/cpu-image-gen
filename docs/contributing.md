@@ -113,7 +113,7 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/cpu-image-gen.git
+git clone https://github.com/xukin10/cpu-image-gen.git
 cd cpu-image-gen
 
 # 创建虚拟环境
@@ -155,7 +155,7 @@ docs: 更新安装指南
 如有问题，请通过以下方式反馈：
 
 1. GitHub Issues
-2. 邮件：your.email@example.com
+2. 邮件：xukin10@users.noreply.github.com
 3. 微信群：（添加群主微信）
 
 ## 许可证

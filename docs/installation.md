@@ -12,7 +12,7 @@
 ### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/yourusername/cpu-image-gen.git
+git clone https://github.com/xukin10/cpu-image-gen.git
 cd cpu-image-gen
 ```
 

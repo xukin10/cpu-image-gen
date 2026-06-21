@@ -23,7 +23,7 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/cpu-image-gen.git
+git clone https://github.com/xukin10/cpu-image-gen.git
 cd cpu-image-gen
 
 # 创建虚拟环境

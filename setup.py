@@ -7,7 +7,7 @@ setup(
     description="A powerful prompt builder for AI image generation, supporting Chinese input and cultural entities",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/cpu-image-gen",
+    url="https://github.com/xukin10/cpu-image-gen",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
