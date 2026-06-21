@@ -155,7 +155,7 @@ docs: 更新安装指南
 如有问题，请通过以下方式反馈：
 
 1. GitHub Issues
-2. 邮件：xukin10@users.noreply.github.com
+2. 邮件：telephonbox@outlook.com
 3. 微信群：（添加群主微信）
 
 ## 许可证
