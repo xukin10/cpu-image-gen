@@ -31,6 +31,7 @@ setup(
         "accelerate>=0.25.0",
         "safetensors>=0.4.0",
         "huggingface_hub>=0.20.0",
+        "requests>=2.31.0",
     ],
     entry_points={
         "console_scripts": [
