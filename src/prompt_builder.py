@@ -874,6 +874,7 @@ def main():
     parser.add_argument("--size", type=str, choices=["512", "768", "1024"], help="分辨率")
     parser.add_argument("--model", type=str, help="模型名称（覆盖 config.json）")
     parser.add_argument("--mode", type=str, choices=["image", "video", "3d"], default="image", help="生成模式")
+    parser.add_argument("--deepseek", action="store_true", help="使用 DeepSeek 增强语义理解")
     parser.add_argument("--open", action="store_true", help="生成后自动打开图片")
     args = parser.parse_args()
 
@@ -883,6 +884,18 @@ def main():
 
     if args.prompt:
         raw_input = args.prompt
+        
+        # 使用 DeepSeek 增强
+        if args.deepseek:
+            from .adapters.deepseek import deepseek_adapter
+            if deepseek_adapter.is_configured():
+                print("\n[DeepSeek] 正在分析语义...")
+                enhanced = deepseek_adapter.parse_complex_prompt(raw_input)
+                raw_input = enhanced.get("prompt_en", raw_input)
+                print(f"[DeepSeek] 增强后的 prompt: {raw_input}")
+            else:
+                print("\n[DeepSeek] API Key 未配置，使用基础解析")
+        
         parsed = parse_input(raw_input, ask_clarification=False)
         
         if args.mode == "video":
@@ -922,6 +935,7 @@ def main():
     print("  [b] 批量模式 - 从文件读取多个 prompt")
     print("  [v] 视频模式 - 生成视频 prompt")
     print("  [3d] 3D模式 - 生成 3D prompt")
+    print("  [d] DeepSeek模式 - 增强语义理解")
     print()
     print("可用模型：")
     model_list = list(MODEL_CONFIGS.keys())
@@ -930,7 +944,7 @@ def main():
         print(f"  [m{i}] {model_name}")
     print()
 
-    choice = input(">> 请选择 (1/2/3/t/b/v/3d/m1-m5): ").strip()
+    choice = input(">> 请选择 (1/2/3/t/b/v/3d/d/m1-m5): ").strip()
 
     selected_model = None
     if choice.startswith("m") and choice[1:].isdigit():
@@ -996,6 +1010,31 @@ def main():
             render_style=spatial_kw.get("渲染风格", {}).get(render, render) if render else None
         )
         print(f"\n[3D Prompt] {prompt}")
+    elif choice == "d":
+        # DeepSeek 模式
+        from .adapters.deepseek import deepseek_adapter
+        
+        if not deepseek_adapter.is_configured():
+            print("\n[DeepSeek] API Key 未配置")
+            print("请设置环境变量 DEEPSEEK_API_KEY")
+            print("或在代码中初始化: deepseek_adapter.api_key = 'your-key'")
+            return
+        
+        print("\n" + "=" * 50)
+        print("  DeepSeek 增强模式")
+        print("  使用 AI 理解复杂中文描述")
+        print("=" * 50)
+        
+        raw_input = input("\n>> 用中文描述你想要的图片：\n   ").strip()
+        if not raw_input: raw_input = "a beautiful scene"
+        
+        print("\n[DeepSeek] 正在分析语义...")
+        enhanced = deepseek_adapter.parse_complex_prompt(raw_input)
+        raw_input = enhanced.get("prompt_en", raw_input)
+        print(f"[DeepSeek] 增强后的 prompt: {raw_input}")
+        
+        parsed = parse_input(raw_input, ask_clarification=False)
+        prompt = build_prompt(parsed)
     elif choice == "2":
         prompt = interactive_mode()
         raw_input = prompt
