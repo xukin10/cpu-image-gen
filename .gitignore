@@ -39,3 +39,6 @@ checkpoints/
 .env
 *.key
 credentials.json
+
+# Design files (local only)
+docs/design-brief.md
