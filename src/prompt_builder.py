@@ -888,10 +888,14 @@ def main():
         if args.mode == "video":
             video_kw = get_video_keywords()
             prompt = build_video_prompt(raw_input)
-            print(f"[Video Prompt] {prompt}")
+            print(f"\n[Video Prompt] {prompt}")
+            print("注意：视频生成需要专用模型（如 AnimateDiff），当前仅生成 prompt")
+            return
         elif args.mode == "3d":
             prompt = build_3d_prompt(raw_input)
-            print(f"[3D Prompt] {prompt}")
+            print(f"\n[3D Prompt] {prompt}")
+            print("注意：3D 生成需要专用模型，当前仅生成 prompt")
+            return
         else:
             prompt = build_prompt(parsed)
             print(f"Prompt: {prompt}")
@@ -948,6 +952,11 @@ def main():
         prompt = build_prompt(parsed)
     elif choice == "v":
         generation_mode = "video"
+        print("\n" + "=" * 50)
+        print("  视频 Prompt 生成模式")
+        print("  注意：此模式仅生成视频描述 prompt，")
+        print("  实际视频生成需要专用模型（如 AnimateDiff）")
+        print("=" * 50)
         video_kw = get_video_keywords()
         print("\n可用动作关键词：")
         motions = list(video_kw.get("动作", {}).keys())
@@ -966,6 +975,11 @@ def main():
         print(f"\n[Video Prompt] {prompt}")
     elif choice == "3d":
         generation_mode = "3d"
+        print("\n" + "=" * 50)
+        print("  3D Prompt 生成模式")
+        print("  注意：此模式仅生成 3D 模型描述 prompt，")
+        print("  实际 3D 生成需要专用软件（如 Blender + AI 插件）")
+        print("=" * 50)
         spatial_kw = get_3d_keywords()
         print("\n可用材质关键词：")
         materials = list(spatial_kw.get("材质", {}).keys())
