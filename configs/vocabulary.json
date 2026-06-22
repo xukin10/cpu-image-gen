@@ -31,7 +31,9 @@
         "正在飞": "flying", "正在游泳": "swimming", "正在跳舞": "dancing",
         "手中拿着": "holding", "坐在": "sitting on", "站在": "standing on",
         "躺在": "lying on", "靠在": "leaning on", "看着": "looking at",
-        "战斗": "fighting", "施法": "casting spell", "演奏": "playing music"
+        "战斗": "fighting", "施法": "casting spell", "演奏": "playing music",
+        "吃拉面": "eating ramen", "喝咖啡": "drinking coffee",
+        "游泳": "swimming", "奔跑": "running", "飞翔": "flying"
       }
     },
     "physics": {
@@ -109,7 +111,9 @@
       "description": "镜头焦距",
       "words": {
         "广角": "wide angle", "长焦": "telephoto", "微距": "macro",
-        "鱼眼": "fisheye", "标准镜头": "standard lens", "超广角": "ultra wide angle"
+        "鱼眼": "fisheye", "标准镜头": "standard lens", "超广角": "ultra wide angle",
+        "广角镜头": "wide angle lens", "长焦镜头": "telephoto lens",
+        "微距镜头": "macro lens", "鱼眼镜头": "fisheye lens"
       }
     },
     "depth_of_field": {
@@ -117,7 +121,8 @@
       "words": {
         "浅景深": "shallow depth of field", "全景深": "deep depth of field",
         "背景模糊": "bokeh background", "前景虚化": "foreground blur",
-        "主体清晰": "sharp subject", "背景虚化": "blurred background"
+        "主体清晰": "sharp subject", "背景虚化": "blurred background",
+        "大光圈": "wide aperture", "小光圈": "narrow aperture"
       }
     },
     "angle": {
@@ -125,7 +130,8 @@
       "words": {
         "俯视": "overhead view", "仰视": "low angle", "特写": "close-up",
         "半身像": "half body", "全身像": "full body", "正面": "front view",
-        "侧面": "side view", "背面": "back view", "斜角": "diagonal angle"
+        "侧面": "side view", "背面": "back view", "斜角": "diagonal angle",
+        "鸟瞰": "bird's eye view", "虫视角": "worm's eye view"
       }
     },
     "aspect_ratio": {
@@ -133,7 +139,8 @@
       "words": {
         "方形": "1:1 aspect ratio", "宽屏": "16:9 aspect ratio",
         "竖屏": "9:16 aspect ratio", "超宽": "21:9 aspect ratio",
-        "电影感": "cinematic aspect ratio"
+        "电影感": "cinematic aspect ratio", "方形构图": "square composition",
+        "横向": "landscape orientation", "纵向": "portrait orientation"
       }
     },
     "color_mood": {

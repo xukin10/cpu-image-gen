@@ -721,6 +721,17 @@ def build_prompt(parsed: Dict) -> str:
         for word in exclude_words:
             prompt = prompt.replace(word, "")
 
+    # 去重逻辑：移除重复的词汇
+    words = [w.strip() for w in prompt.split(",")]
+    seen = set()
+    unique_words = []
+    for word in words:
+        word_lower = word.lower()
+        if word_lower not in seen and word:
+            seen.add(word_lower)
+            unique_words.append(word)
+    prompt = ", ".join(unique_words)
+
     prompt = re.sub(r',\s*,', ',', prompt)
     prompt = re.sub(r'^\s*,\s*', '', prompt)
     prompt = re.sub(r'\s*,\s*$', '', prompt)
