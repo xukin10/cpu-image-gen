@@ -581,6 +581,21 @@ def build_prompt(parsed: Dict) -> str:
     # 限制特效数量
     parsed = limit_effects(parsed)
     
+    # 使用关系系统检查冲突
+    from src.utils.relationship import relationship_manager
+    all_words = []
+    if parsed.get("style"): all_words.extend(parsed["style"])
+    if parsed.get("subject"): all_words.append(parsed["subject"])
+    if parsed.get("mood"): all_words.extend(parsed["mood"])
+    
+    conflicts = relationship_manager.check_conflicts(all_words)
+    if conflicts:
+        for w1, w2, rel in conflicts:
+            logger.warning(f"词汇冲突: {w1} <-> {w2}")
+    
+    # 获取协同词汇
+    synergies = relationship_manager.find_synergies(all_words)
+    
     parts = []
     exclude_words = []
 

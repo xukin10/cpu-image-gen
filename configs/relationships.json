@@ -1,0 +1,102 @@
+{
+  "version": "1.0",
+  "description": "词汇关系库 - 建立词汇之间的关系，支持复杂组合",
+  "relationship_types": {
+    "contains": "包含关系：A 包含 B",
+    "synergy": "协同关系：A 和 B 搭配好",
+    "conflict": "冲突关系：A 和 B 不兼容",
+    "contrast": "对比关系：A 和 B 形成对比",
+    "causal": "因果关系：A 导致 B"
+  },
+  "relationships": {
+    "warrior": {
+      "contains": ["armor", "sword", "shield", "knight"],
+      "synergy": ["battle", "epic", "castle", "medieval"],
+      "conflict": ["peaceful", "gentle", "soft"],
+      "contrast": ["dragon"],
+      "scene_hints": ["battlefield", "arena", "fortress"]
+    },
+    "dragon": {
+      "contains": ["scales", "wings", "fire", "claws"],
+      "synergy": ["sky", "mountain", "treasure", "cave"],
+      "conflict": ["water", "peaceful", "gentle"],
+      "contrast": ["warrior", "knight"],
+      "scene_hints": ["sky", "mountain peak", "cave"]
+    },
+    "cyberpunk": {
+      "synergy": ["neon", "rain", "night", "city", "technology"],
+      "contrast": ["traditional", "ancient", "pastoral"],
+      "conflict": ["rural", "natural", "daytime"],
+      "scene_hints": ["city street", "alley", "rooftop"]
+    },
+    "ink_wash": {
+      "synergy": ["mountain", "river", "mist", "nature", "traditional"],
+      "contrast": ["cyberpunk", "technology", "modern"],
+      "conflict": ["neon", "bright colors"],
+      "scene_hints": ["landscape", "mountain", "river"]
+    },
+    "battle": {
+      "synergy": ["warrior", "weapon", "action", "dynamic"],
+      "conflict": ["peaceful", "calm", "static"],
+      "scene_hints": ["battlefield", "arena", "fortress"]
+    },
+    "epic": {
+      "synergy": ["grand", "majestic", "dramatic", "golden light"],
+      "conflict": ["minimalist", "simple", "small scale"],
+      "scene_hints": ["landscape", "battle", "cityscape"]
+    },
+    "neon": {
+      "synergy": ["cyberpunk", "night", "city", "rain", "reflection"],
+      "conflict": ["daytime", "natural", "pastoral"],
+      "scene_hints": ["city street", "alley", "night market"]
+    },
+    "rain": {
+      "synergy": ["neon", "city", "night", "reflection", "wet surface"],
+      "conflict": ["desert", "dry", "sunny"],
+      "scene_hints": ["city street", "window", "umbrella"]
+    },
+    "night": {
+      "synergy": ["neon", "moon", "stars", "dark", "mysterious"],
+      "conflict": ["bright", "sunny", "daytime"],
+      "scene_hints": ["city", "forest", "space"]
+    },
+    "traditional": {
+      "synergy": ["ink wash", "mountain", "river", "nature", "ancient"],
+      "contrast": ["cyberpunk", "technology", "modern"],
+      "conflict": ["neon", "bright colors", "futuristic"],
+      "scene_hints": ["landscape", "temple", "garden"]
+    },
+    "modern": {
+      "synergy": ["city", "technology", "glass", "steel", "light"],
+      "contrast": ["traditional", "ancient", "nature"],
+      "scene_hints": ["cityscape", "architecture", "interior"]
+    },
+    "nature": {
+      "synergy": ["tree", "flower", "mountain", "river", "sky"],
+      "contrast": ["urban", "technology", "indoor"],
+      "scene_hints": ["forest", "garden", "meadow", "mountain"]
+    },
+    "urban": {
+      "synergy": ["city", "building", "street", "neon", "night"],
+      "contrast": ["nature", "rural", "pastoral"],
+      "scene_hints": ["street", "skyline", "alley", "rooftop"]
+    }
+  },
+  "composition_rules": {
+    "dynamic_action": {
+      "needs": ["action", "movement", "energy"],
+      "recommended": ["diagonal", "leading_lines", "dynamic_angle"],
+      "avoid": ["static", "symmetrical"]
+    },
+    "calm_scene": {
+      "needs": ["peaceful", "serene", "quiet"],
+      "recommended": ["symmetrical", "negative_space", "soft_light"],
+      "avoid": ["dynamic", "chaotic"]
+    },
+    "dramatic_moment": {
+      "needs": ["dramatic", "intense", "powerful"],
+      "recommended": ["low_angle", "backlight", "high_contrast"],
+      "avoid": ["flat", "even"]
+    }
+  }
+}

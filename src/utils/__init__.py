@@ -13,3 +13,4 @@ from .lighting import lighting_manager, LightingManager
 from .color import color_manager, ColorManager
 from .optimization import optimization_manager, OptimizationManager
 from .suggestion import suggestion_system, SuggestionSystem
+from .relationship import relationship_manager, RelationshipManager
