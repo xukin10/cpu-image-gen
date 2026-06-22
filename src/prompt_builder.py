@@ -205,8 +205,32 @@ ENTITY_KEYWORDS = {
 }
 
 # ============================================================
-# 加载模型配置
+# 加载五维词汇库
 # ============================================================
+
+VOCABULARY_PATH = os.path.join(CONFIGS_DIR, "vocabulary.json")
+
+def load_vocabulary() -> Dict:
+    return safe_load_json(VOCABULARY_PATH)
+
+VOCABULARY = load_vocabulary()
+
+# 五维关键词映射
+NARRATIVE_MAP = VOCABULARY.get("categories", {}).get("narrative", {}).get("words", {})
+APPEARANCE_MAP = VOCABULARY.get("categories", {}).get("appearance", {}).get("words", {})
+ACTION_MAP = VOCABULARY.get("categories", {}).get("action", {}).get("words", {})
+PHYSICS_MAP = VOCABULARY.get("categories", {}).get("physics", {}).get("words", {})
+ENVIRONMENT_MAP = VOCABULARY.get("categories", {}).get("environment", {}).get("words", {})
+LENS_MAP = VOCABULARY.get("categories", {}).get("lens", {}).get("words", {})
+DOF_MAP = VOCABULARY.get("categories", {}).get("depth_of_field", {}).get("words", {})
+ANGLE_MAP = VOCABULARY.get("categories", {}).get("angle", {}).get("words", {})
+ASPECT_MAP = VOCABULARY.get("categories", {}).get("aspect_ratio", {}).get("words", {})
+COLOR_MOOD_MAP = VOCABULARY.get("categories", {}).get("color_mood", {}).get("words", {})
+ATMOSPHERE_MAP = VOCABULARY.get("categories", {}).get("atmosphere_effect", {}).get("words", {})
+
+ALL_FIVE_DIM_MAPS = [NARRATIVE_MAP, APPEARANCE_MAP, ACTION_MAP, PHYSICS_MAP, 
+                     ENVIRONMENT_MAP, LENS_MAP, DOF_MAP, ANGLE_MAP, ASPECT_MAP,
+                     COLOR_MOOD_MAP, ATMOSPHERE_MAP]
 
 MODEL_CONFIGS_PATH = os.path.join(CONFIGS_DIR, "model_configs.json")
 
@@ -329,6 +353,7 @@ def log_generation(raw_input: str, prompt: str, output_path: str, elapsed: float
 # ============================================================
 
 def parse_input(text: str, ask_clarification: bool = True) -> Dict:
+    """解析用户输入，提取各层关键词"""
     result = {
         "subject": "",
         "style": [],
@@ -344,6 +369,18 @@ def parse_input(text: str, ask_clarification: bool = True) -> Dict:
         "raw": text,
         "cultural_context": None,
         "resolved_entities": [],
+        # 五维关键词
+        "narrative": [],
+        "appearance": [],
+        "action": [],
+        "physics": [],
+        "environment": [],
+        "lens": [],
+        "dof": [],
+        "angle": [],
+        "aspect": [],
+        "color_mood": [],
+        "atmosphere": [],
     }
 
     result["cultural_context"] = detect_cultural_context(text)
@@ -386,6 +423,30 @@ def parse_input(text: str, ask_clarification: bool = True) -> Dict:
         if key in text: result["material"].append(value)
     for key, value in MOOD_MAP.items():
         if key in text: result["mood"].append(value)
+    
+    # 五维关键词解析
+    for key, value in NARRATIVE_MAP.items():
+        if key in text: result["narrative"].append(value)
+    for key, value in APPEARANCE_MAP.items():
+        if key in text: result["appearance"].append(value)
+    for key, value in ACTION_MAP.items():
+        if key in text: result["action"].append(value)
+    for key, value in PHYSICS_MAP.items():
+        if key in text: result["physics"].append(value)
+    for key, value in ENVIRONMENT_MAP.items():
+        if key in text: result["environment"].append(value)
+    for key, value in LENS_MAP.items():
+        if key in text: result["lens"].append(value)
+    for key, value in DOF_MAP.items():
+        if key in text: result["dof"].append(value)
+    for key, value in ANGLE_MAP.items():
+        if key in text: result["angle"].append(value)
+    for key, value in ASPECT_MAP.items():
+        if key in text: result["aspect"].append(value)
+    for key, value in COLOR_MOOD_MAP.items():
+        if key in text: result["color_mood"].append(value)
+    for key, value in ATMOSPHERE_MAP.items():
+        if key in text: result["atmosphere"].append(value)
 
     if not result.get("resolved_entities"):
         subject = text
@@ -409,6 +470,44 @@ def parse_input(text: str, ask_clarification: bool = True) -> Dict:
         result["subject"] = ""
 
     return result
+
+# ============================================================
+# 物理逻辑验证与效果限制
+# ============================================================
+
+# 物理冲突规则
+PHYSICS_CONFLICTS = {
+    "游泳": ["干燥", "干的"],
+    "水中": ["干燥", "干的"],
+    "雨中": ["干燥", "阳光明媚"],
+    "火中": ["湿润", "水"],
+    "太空": ["重力", "站立"],
+}
+
+# 特效最大数量
+MAX_EFFECTS = 3
+
+def validate_physics(parsed: Dict) -> List[str]:
+    """验证物理逻辑，返回警告列表"""
+    warnings = []
+    
+    action = " ".join(parsed.get("action", []))
+    physics = " ".join(parsed.get("physics", []))
+    
+    for action_key, conflicts in PHYSICS_CONFLICTS.items():
+        if action_key in action:
+            for conflict in conflicts:
+                if conflict in physics:
+                    warnings.append(f"物理冲突: {action_key} 与 {conflict} 不兼容")
+    
+    return warnings
+
+def limit_effects(parsed: Dict) -> Dict:
+    """限制特效数量，避免过度叠加"""
+    if len(parsed.get("atmosphere", [])) > MAX_EFFECTS:
+        parsed["atmosphere"] = parsed["atmosphere"][:MAX_EFFECTS]
+        logger.info(f"特效数量限制为 {MAX_EFFECTS} 个")
+    return parsed
 
 # ============================================================
 # 模板选择与生成
@@ -473,6 +572,15 @@ def generate_prompt_from_template(template: Dict, user_input: str) -> str:
 # ============================================================
 
 def build_prompt(parsed: Dict) -> str:
+    # 验证物理逻辑
+    physics_warnings = validate_physics(parsed)
+    if physics_warnings:
+        for warning in physics_warnings:
+            logger.warning(warning)
+    
+    # 限制特效数量
+    parsed = limit_effects(parsed)
+    
     parts = []
     exclude_words = []
 
@@ -488,6 +596,19 @@ def build_prompt(parsed: Dict) -> str:
             if "exclude" in entity: exclude_words.extend(entity["exclude"])
     else:
         parts.append(parsed["subject"])
+
+    # 五维关键词添加
+    if parsed.get("narrative"): parts.extend(parsed["narrative"][:2])
+    if parsed.get("appearance"): parts.extend(parsed["appearance"][:2])
+    if parsed.get("action"): parts.extend(parsed["action"][:2])
+    if parsed.get("physics"): parts.extend(parsed["physics"][:2])
+    if parsed.get("environment"): parts.extend(parsed["environment"][:2])
+    if parsed.get("lens"): parts.extend(parsed["lens"][:1])
+    if parsed.get("dof"): parts.extend(parsed["dof"][:1])
+    if parsed.get("angle"): parts.extend(parsed["angle"][:1])
+    if parsed.get("aspect"): parts.extend(parsed["aspect"][:1])
+    if parsed.get("color_mood"): parts.extend(parsed["color_mood"][:1])
+    if parsed.get("atmosphere"): parts.extend(parsed["atmosphere"][:2])
 
     if parsed["time"]:
         parts.append(parsed["time"][0])
