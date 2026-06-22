@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "description": "词汇关系库 - 建立词汇之间的关系，支持复杂组合",
+  "version": "2.0",
+  "description": "词汇关系库 v2.0 - 扩展协同、冲突、对比、组合规则",
   "relationship_types": {
     "contains": "包含关系：A 包含 B",
     "synergy": "协同关系：A 和 B 搭配好",
@@ -10,93 +10,204 @@
   },
   "relationships": {
     "warrior": {
-      "contains": ["armor", "sword", "shield", "knight"],
-      "synergy": ["battle", "epic", "castle", "medieval"],
-      "conflict": ["peaceful", "gentle", "soft"],
-      "contrast": ["dragon"],
-      "scene_hints": ["battlefield", "arena", "fortress"]
+      "contains": ["armor", "sword", "shield", "knight", "helmet"],
+      "synergy": ["battle", "epic", "castle", "medieval", "dynamic"],
+      "conflict": ["peaceful", "gentle", "soft", "serene"],
+      "contrast": ["dragon", "mage"],
+      "scene_hints": ["battlefield", "arena", "fortress", "training ground"]
     },
     "dragon": {
-      "contains": ["scales", "wings", "fire", "claws"],
-      "synergy": ["sky", "mountain", "treasure", "cave"],
-      "conflict": ["water", "peaceful", "gentle"],
+      "contains": ["scales", "wings", "fire", "claws", "horns"],
+      "synergy": ["sky", "mountain", "treasure", "cave", "clouds"],
+      "conflict": ["water", "peaceful", "gentle", "modern"],
+      "contrast": ["warrior", "knight", "mage"],
+      "scene_hints": ["sky", "mountain peak", "cave", "clouds"]
+    },
+    "mage": {
+      "contains": ["staff", "robe", "spell", "magic"],
+      "synergy": ["mystical", "ethereal", "glow", "arcane"],
+      "conflict": ["physical", "brutal", "modern"],
       "contrast": ["warrior", "knight"],
-      "scene_hints": ["sky", "mountain peak", "cave"]
+      "scene_hints": ["tower", "library", "ritual", "forest"]
+    },
+    "knight": {
+      "contains": ["armor", "sword", "shield", "horse"],
+      "synergy": ["castle", "medieval", "chivalry", "honor"],
+      "conflict": ["modern", "technology", "casual"],
+      "contrast": ["mage", "dragon"],
+      "scene_hints": ["castle", "tournament", "quest"]
     },
     "cyberpunk": {
-      "synergy": ["neon", "rain", "night", "city", "technology"],
-      "contrast": ["traditional", "ancient", "pastoral"],
-      "conflict": ["rural", "natural", "daytime"],
-      "scene_hints": ["city street", "alley", "rooftop"]
+      "synergy": ["neon", "rain", "night", "city", "technology", "glitch"],
+      "contrast": ["traditional", "ancient", "pastoral", "nature"],
+      "conflict": ["rural", "natural", "daytime", "organic"],
+      "scene_hints": ["city street", "alley", "rooftop", "night market"]
     },
     "ink_wash": {
-      "synergy": ["mountain", "river", "mist", "nature", "traditional"],
-      "contrast": ["cyberpunk", "technology", "modern"],
-      "conflict": ["neon", "bright colors"],
-      "scene_hints": ["landscape", "mountain", "river"]
+      "synergy": ["mountain", "river", "mist", "nature", "traditional", "elegant"],
+      "contrast": ["cyberpunk", "technology", "modern", "urban"],
+      "conflict": ["neon", "bright colors", "saturated"],
+      "scene_hints": ["landscape", "mountain", "river", "garden"]
     },
     "battle": {
-      "synergy": ["warrior", "weapon", "action", "dynamic"],
-      "conflict": ["peaceful", "calm", "static"],
-      "scene_hints": ["battlefield", "arena", "fortress"]
+      "synergy": ["warrior", "weapon", "action", "dynamic", "intense"],
+      "conflict": ["peaceful", "calm", "static", "serene"],
+      "scene_hints": ["battlefield", "arena", "fortress", "war"]
     },
     "epic": {
-      "synergy": ["grand", "majestic", "dramatic", "golden light"],
-      "conflict": ["minimalist", "simple", "small scale"],
-      "scene_hints": ["landscape", "battle", "cityscape"]
+      "synergy": ["grand", "majestic", "dramatic", "golden light", "scale"],
+      "conflict": ["minimalist", "simple", "small scale", "intimate"],
+      "scene_hints": ["landscape", "battle", "cityscape", "mountain"]
     },
     "neon": {
-      "synergy": ["cyberpunk", "night", "city", "rain", "reflection"],
-      "conflict": ["daytime", "natural", "pastoral"],
-      "scene_hints": ["city street", "alley", "night market"]
+      "synergy": ["cyberpunk", "night", "city", "rain", "reflection", "glow"],
+      "conflict": ["daytime", "natural", "pastoral", "rural"],
+      "scene_hints": ["city street", "alley", "night market", "chinatown"]
     },
     "rain": {
-      "synergy": ["neon", "city", "night", "reflection", "wet surface"],
-      "conflict": ["desert", "dry", "sunny"],
-      "scene_hints": ["city street", "window", "umbrella"]
+      "synergy": ["neon", "city", "night", "reflection", "wet surface", "moody"],
+      "conflict": ["desert", "dry", "sunny", "arid"],
+      "scene_hints": ["city street", "window", "umbrella", "puddle"]
     },
     "night": {
-      "synergy": ["neon", "moon", "stars", "dark", "mysterious"],
-      "conflict": ["bright", "sunny", "daytime"],
-      "scene_hints": ["city", "forest", "space"]
+      "synergy": ["neon", "moon", "stars", "dark", "mysterious", "shadows"],
+      "conflict": ["bright", "sunny", "daytime", "cheerful"],
+      "scene_hints": ["city", "forest", "space", "moonlit"]
     },
     "traditional": {
-      "synergy": ["ink wash", "mountain", "river", "nature", "ancient"],
-      "contrast": ["cyberpunk", "technology", "modern"],
+      "synergy": ["ink wash", "mountain", "river", "nature", "ancient", "elegant"],
+      "contrast": ["cyberpunk", "technology", "modern", "urban"],
       "conflict": ["neon", "bright colors", "futuristic"],
-      "scene_hints": ["landscape", "temple", "garden"]
+      "scene_hints": ["landscape", "temple", "garden", "village"]
     },
     "modern": {
-      "synergy": ["city", "technology", "glass", "steel", "light"],
-      "contrast": ["traditional", "ancient", "nature"],
-      "scene_hints": ["cityscape", "architecture", "interior"]
+      "synergy": ["city", "technology", "glass", "steel", "light", "clean"],
+      "contrast": ["traditional", "ancient", "nature", "rustic"],
+      "scene_hints": ["cityscape", "architecture", "interior", "office"]
     },
     "nature": {
-      "synergy": ["tree", "flower", "mountain", "river", "sky"],
-      "contrast": ["urban", "technology", "indoor"],
-      "scene_hints": ["forest", "garden", "meadow", "mountain"]
+      "synergy": ["tree", "flower", "mountain", "river", "sky", "wildlife"],
+      "contrast": ["urban", "technology", "indoor", "artificial"],
+      "scene_hints": ["forest", "garden", "meadow", "mountain", "beach"]
     },
     "urban": {
-      "synergy": ["city", "building", "street", "neon", "night"],
-      "contrast": ["nature", "rural", "pastoral"],
-      "scene_hints": ["street", "skyline", "alley", "rooftop"]
+      "synergy": ["city", "building", "street", "neon", "night", "crowd"],
+      "contrast": ["nature", "rural", "pastoral", "quiet"],
+      "scene_hints": ["street", "skyline", "alley", "rooftop", "downtown"]
+    },
+    "fantasy": {
+      "synergy": ["magic", "mystical", "ethereal", "glow", "spell"],
+      "conflict": ["realistic", "modern", "mundane"],
+      "scene_hints": ["forest", "castle", "tower", "realm"]
+    },
+    "horror": {
+      "synergy": ["dark", "shadow", "eerie", "abandoned", "fog"],
+      "conflict": ["bright", "cheerful", "cute", "peaceful"],
+      "scene_hints": ["abandoned", "dark", "foggy", "night"]
+    },
+    "romance": {
+      "synergy": ["soft", "warm", "intimate", "gentle", "sunset"],
+      "conflict": ["harsh", "cold", "aggressive", "dark"],
+      "scene_hints": ["sunset", "garden", "cafe", "beach"]
+    },
+    "adventure": {
+      "synergy": ["exploration", "discovery", "danger", "excitement"],
+      "conflict": ["boring", "static", "safe"],
+      "scene_hints": ["jungle", "ruins", "mountain", "cave"]
+    },
+    "mystery": {
+      "synergy": ["enigmatic", "hidden", "secret", "puzzle", "shadows"],
+      "conflict": ["obvious", "clear", "bright"],
+      "scene_hints": ["fog", "night", "abandoned", "ancient"]
+    },
+    "sci_fi": {
+      "synergy": ["space", "technology", "alien", "futuristic", "spaceship"],
+      "contrast": ["traditional", "ancient", "natural"],
+      "scene_hints": ["space", "spaceship", "planet", "lab"]
+    },
+    "steampunk": {
+      "synergy": ["gears", "brass", "Victorian", "mechanical", "steam"],
+      "contrast": ["modern", "digital", "clean"],
+      "scene_hints": ["workshop", "airship", "factory", "Victorian city"]
+    },
+    "portrait": {
+      "synergy": ["face", "expression", "emotion", "detail", "lighting"],
+      "conflict": ["landscape", "wide", "distant"],
+      "scene_hints": ["studio", "natural light", "bokeh"]
+    },
+    "landscape": {
+      "synergy": ["mountain", "sky", "horizon", "depth", "atmosphere"],
+      "conflict": ["close-up", "portrait", "detail"],
+      "scene_hints": ["mountain", "valley", "coast", "forest"]
+    },
+    "product": {
+      "synergy": ["clean", "minimal", "highlight", "reflection"],
+      "conflict": ["busy", "cluttered", "dark"],
+      "scene_hints": ["studio", "white background", "lifestyle"]
     }
   },
   "composition_rules": {
     "dynamic_action": {
-      "needs": ["action", "movement", "energy"],
-      "recommended": ["diagonal", "leading_lines", "dynamic_angle"],
-      "avoid": ["static", "symmetrical"]
+      "needs": ["action", "movement", "energy", "battle", "fighting"],
+      "recommended": ["diagonal", "leading_lines", "dynamic_angle", "low_angle"],
+      "avoid": ["static", "symmetrical", "centered"]
     },
     "calm_scene": {
-      "needs": ["peaceful", "serene", "quiet"],
-      "recommended": ["symmetrical", "negative_space", "soft_light"],
-      "avoid": ["dynamic", "chaotic"]
+      "needs": ["peaceful", "serene", "quiet", "calm", "gentle"],
+      "recommended": ["symmetrical", "negative_space", "soft_light", "wide_shot"],
+      "avoid": ["dynamic", "chaotic", "dramatic"]
     },
     "dramatic_moment": {
-      "needs": ["dramatic", "intense", "powerful"],
-      "recommended": ["low_angle", "backlight", "high_contrast"],
-      "avoid": ["flat", "even"]
+      "needs": ["dramatic", "intense", "powerful", "epic", "heroic"],
+      "recommended": ["low_angle", "backlight", "high_contrast", "fill_frame"],
+      "avoid": ["flat", "even", "bright"]
+    },
+    "intimate_scene": {
+      "needs": ["romantic", "intimate", "close", "personal"],
+      "recommended": ["close_up", "shallow_dof", "warm_light", "soft_focus"],
+      "avoid": ["wide", "distant", "cold"]
+    },
+    "grand_scale": {
+      "needs": ["epic", "majestic", "vast", "monumental"],
+      "recommended": ["wide_angle", "low_angle", "deep_dof", "leading_lines"],
+      "avoid": ["close_up", "intimate", "shallow"]
+    },
+    "mysterious_atmosphere": {
+      "needs": ["mysterious", "enigmatic", "hidden", "secret"],
+      "recommended": ["fog", "shadows", "dim_light", "partial_visibility"],
+      "avoid": ["bright", "clear", "obvious"]
+    },
+    "energy_movement": {
+      "needs": ["energy", "movement", "flow", "dynamic"],
+      "recommended": ["diagonal", "motion_blur", "dynamic_angle", "leading_lines"],
+      "avoid": ["static", "centered", "flat"]
+    }
+  },
+  "style_combinations": {
+    "cyberpunk_japanese": {
+      "description": "赛博朋克 + 日式风格",
+      "synergy": ["neon", "traditional", "contrast", "fusion"],
+      "keywords": ["cyberpunk", "Japanese", "neon", "traditional architecture", "contrast"]
+    },
+    "fantasy_steampunk": {
+      "description": "奇幻 + 蒸汽朋克",
+      "synergy": ["magic", "mechanical", "Victorian", "invention"],
+      "keywords": ["fantasy", "steampunk", "magic", "gears", "Victorian"]
+    },
+    "horror_mystery": {
+      "description": "恐怖 + 悬疑",
+      "synergy": ["dark", "enigmatic", "shadows", "tension"],
+      "keywords": ["horror", "mystery", "dark", "shadows", "suspense"]
+    },
+    "nature_fantasy": {
+      "description": "自然 + 奇幻",
+      "synergy": ["magical", "ethereal", "glow", "enchanted"],
+      "keywords": ["nature", "fantasy", "magical", "glow", "enchanted"]
+    },
+    "sci_fi_steampunk": {
+      "description": "科幻 + 蒸汽朋克",
+      "synergy": ["technology", "mechanical", "future", "invention"],
+      "keywords": ["sci-fi", "steampunk", "technology", "gears", "future"]
     }
   }
 }
