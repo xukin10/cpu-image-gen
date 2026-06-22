@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "description": "光影知识库 - 帮助用户理解什么是好光影",
+  "version": "2.0",
+  "description": "五维光影知识库 - 光影与氛围维度",
   "lighting_rules": {
     "natural_light": {
       "name": "自然光",
@@ -43,6 +43,28 @@
         "rim_light": {"name": "轮廓光", "keywords": ["rim light", "edge light"], "effect": "主体与背景分离"},
         "neon": {"name": "霓虹", "keywords": ["neon", "neon lights"], "effect": "现代、科技、夜生活"},
         "bioluminescence": {"name": "生物荧光", "keywords": ["bioluminescence", "glow in dark"], "effect": "梦幻、神秘"}
+      }
+    },
+    "color_mood": {
+      "name": "色彩情绪",
+      "moods": {
+        "low_saturation": {"name": "低饱和度", "keywords": ["low saturation", "desaturated"], "effect": "清冷、忧郁、复古"},
+        "high_brightness": {"name": "高明度", "keywords": ["high brightness", "bright"], "effect": "明亮、活泼、清新"},
+        "contrasting": {"name": "对比色调", "keywords": ["contrasting colors", "color contrast"], "effect": "视觉冲击、戏剧性"},
+        "warm_tones": {"name": "暖色调", "keywords": ["warm tones", "warm palette"], "effect": "温暖、舒适、怀旧"},
+        "cool_tones": {"name": "冷色调", "keywords": ["cool tones", "cool palette"], "effect": "冷静、科技、神秘"},
+        "monochrome": {"name": "单色调", "keywords": ["monochrome", "single color"], "effect": "统一、优雅、简洁"}
+      }
+    },
+    "atmosphere_effect": {
+      "name": "氛围效果",
+      "effects": {
+        "tyndall": {"name": "丁达尔效应", "keywords": ["Tyndall effect", "god rays", "light shafts"], "effect": "光线可见、神圣感"},
+        "smoke": {"name": "烟雾", "keywords": ["smoke", "mist", "fog"], "effect": "神秘、朦胧、氛围感"},
+        "particles": {"name": "粒子效果", "keywords": ["particle effects", "dust particles", "floating particles"], "effect": "梦幻、动态、层次感"},
+        "lens_flare": {"name": "镜头光晕", "keywords": ["lens flare", "light leak"], "effect": "电影感、梦幻、温暖"},
+        "volumetric_light": {"name": "体积光", "keywords": ["volumetric light", "light rays"], "effect": "光线可见、空间感"},
+        "rim_light": {"name": "轮廓光", "keywords": ["rim light", "edge light", "backlight"], "effect": "主体分离、光晕效果"}
       }
     }
   },

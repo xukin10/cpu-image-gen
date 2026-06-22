@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "description": "中英文词汇映射库",
+  "version": "2.0",
+  "description": "五维元素框架词汇库 - 支持从起源到生成的完整描述",
   "categories": {
     "subject": {
       "description": "主体对象",
@@ -8,7 +8,40 @@
         "龙": "dragon", "凤凰": "phoenix", "独角兽": "unicorn", "精灵": "elf",
         "恶魔": "demon", "天使": "angel", "机器人": "robot", "战士": "warrior",
         "骑士": "knight", "法师": "mage", "国王": "king", "公主": "princess",
-        "剑": "sword", "盾": "shield", "城堡": "castle", "宫殿": "palace"
+        "剑": "sword", "盾": "shield", "城堡": "castle", "宫殿": "palace",
+        "猫": "cat", "狗": "dog", "鸟": "bird", "鱼": "fish",
+        "人": "person", "女人": "woman", "男人": "man", "孩子": "child"
+      }
+    },
+    "appearance": {
+      "description": "外观细节",
+      "words": {
+        "银色": "silver", "金色": "golden", "红色": "red", "蓝色": "blue",
+        "黑色": "black", "白色": "white", "绿色": "green", "紫色": "purple",
+        "长发": "long hair", "短发": "short hair", "卷发": "curly hair",
+        "戴帽子": "wearing hat", "穿盔甲": "wearing armor", "穿长袍": "wearing robe",
+        "微笑": "smiling", "严肃": "serious", "愤怒": "angry", "悲伤": "sad",
+        "大眼睛": "big eyes", "小眼睛": "small eyes", "圆脸": "round face"
+      }
+    },
+    "action": {
+      "description": "动作交互",
+      "words": {
+        "正在吃": "eating", "正在喝": "drinking", "正在跑": "running",
+        "正在飞": "flying", "正在游泳": "swimming", "正在跳舞": "dancing",
+        "手中拿着": "holding", "坐在": "sitting on", "站在": "standing on",
+        "躺在": "lying on", "靠在": "leaning on", "看着": "looking at",
+        "战斗": "fighting", "施法": "casting spell", "演奏": "playing music"
+      }
+    },
+    "physics": {
+      "description": "物理逻辑",
+      "words": {
+        "热气飘出": "steam rising", "筷子上有面": "noodles on chopsticks",
+        "水面倒影": "reflection in water", "阳光照射": "sunlight shining",
+        "雨滴落下": "raindrops falling", "雪花飘落": "snowflakes falling",
+        "树叶飘动": "leaves blowing", "旗帜飘扬": "flags waving",
+        "烟雾缭绕": "smoke swirling", "火焰燃烧": "fire burning"
       }
     },
     "time": {
@@ -17,7 +50,7 @@
         "黎明": "at dawn", "清晨": "early morning", "日出": "sunrise",
         "黄昏": "dusk", "日落": "sunset", "夜晚": "at night",
         "午夜": "at midnight", "春天": "spring", "夏天": "summer",
-        "秋天": "autumn", "冬天": "winter"
+        "秋天": "autumn", "冬天": "winter", "黄昏时分": "at dusk"
       }
     },
     "place": {
@@ -25,28 +58,42 @@
       "words": {
         "森林": "forest", "城市": "city", "海底": "underwater",
         "太空": "space", "洞穴": "cave", "沙漠": "desert",
-        "雪地": "snowy landscape", "海边": "seaside", "山顶": "mountain peak"
+        "雪地": "snowy landscape", "海边": "seaside", "山顶": "mountain peak",
+        "月球表面": "lunar surface", "荒凉的陨石坑": "desolate crater"
+      }
+    },
+    "environment": {
+      "description": "环境细节",
+      "words": {
+        "远处有山": "mountains in the distance", "背景有树": "trees in background",
+        "前景有花": "flowers in foreground", "水面有船": "boat on water",
+        "天空有云": "clouds in sky", "地面有草": "grass on ground",
+        "左侧有建筑": "building on left side", "右侧有树": "tree on right side"
       }
     },
     "weather": {
       "description": "天气",
       "words": {
         "雨天": "rainy", "雪天": "snowy", "雾": "foggy",
-        "晴天": "sunny", "阴天": "overcast", "暴风雨": "stormy"
+        "晴天": "sunny", "阴天": "overcast", "暴风雨": "stormy",
+        "微风": "breezy", "大风": "windy", "多云": "cloudy"
       }
     },
     "light": {
       "description": "光影",
       "words": {
         "逆光": "backlight", "侧光": "side light", "柔光": "soft light",
-        "硬光": "hard light", "霓虹": "neon", "月光": "moonlight"
+        "硬光": "hard light", "霓虹": "neon", "月光": "moonlight",
+        "自然光": "natural light", "暖黄光": "warm yellow light",
+        "冷蓝光": "cool blue light", "顶光": "top light"
       }
     },
     "mood": {
       "description": "氛围",
       "words": {
         "宁静": "serene", "神秘": "mysterious", "恐怖": "terrifying",
-        "史诗": "epic", "浪漫": "romantic", "梦幻": "dreamy"
+        "史诗": "epic", "浪漫": "romantic", "梦幻": "dreamy",
+        "紧张": "tense", "温馨": "cozy", "孤寂": "lonely"
       }
     },
     "style": {
@@ -54,7 +101,57 @@
       "words": {
         "油画": "oil painting", "水彩": "watercolor", "素描": "sketch",
         "动漫": "anime", "赛博朋克": "cyberpunk", "蒸汽朋克": "steampunk",
-        "水墨": "ink wash", "极简": "minimalist"
+        "水墨": "ink wash", "极简": "minimalist", "写实": "realistic",
+        "二次元": "2D anime", "3D渲染": "3D render", "胶片感": "film grain"
+      }
+    },
+    "lens": {
+      "description": "镜头焦距",
+      "words": {
+        "广角": "wide angle", "长焦": "telephoto", "微距": "macro",
+        "鱼眼": "fisheye", "标准镜头": "standard lens", "超广角": "ultra wide angle"
+      }
+    },
+    "depth_of_field": {
+      "description": "景深",
+      "words": {
+        "浅景深": "shallow depth of field", "全景深": "deep depth of field",
+        "背景模糊": "bokeh background", "前景虚化": "foreground blur",
+        "主体清晰": "sharp subject", "背景虚化": "blurred background"
+      }
+    },
+    "angle": {
+      "description": "视角与机位",
+      "words": {
+        "俯视": "overhead view", "仰视": "low angle", "特写": "close-up",
+        "半身像": "half body", "全身像": "full body", "正面": "front view",
+        "侧面": "side view", "背面": "back view", "斜角": "diagonal angle"
+      }
+    },
+    "aspect_ratio": {
+      "description": "画面比例",
+      "words": {
+        "方形": "1:1 aspect ratio", "宽屏": "16:9 aspect ratio",
+        "竖屏": "9:16 aspect ratio", "超宽": "21:9 aspect ratio",
+        "电影感": "cinematic aspect ratio"
+      }
+    },
+    "color_mood": {
+      "description": "色彩情绪",
+      "words": {
+        "低饱和度": "low saturation", "高明度": "high brightness",
+        "对比色调": "contrasting colors", "冷色调": "cool tones",
+        "暖色调": "warm tones", "单色调": "monochrome",
+        "高对比": "high contrast", "柔和": "muted colors"
+      }
+    },
+    "atmosphere_effect": {
+      "description": "氛围效果",
+      "words": {
+        "丁达尔效应": "Tyndall effect", "烟雾": "smoke",
+        "粒子效果": "particle effects", "镜头光晕": "lens flare",
+        "体积光": "volumetric light", "光束": "light rays",
+        "尘埃": "dust particles", "薄雾": "mist", "彩虹": "rainbow"
       }
     }
   }

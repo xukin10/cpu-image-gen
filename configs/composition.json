@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "description": "构图知识库 - 帮助用户理解什么是好构图",
+  "version": "2.0",
+  "description": "五维构图知识库 - 摄影与构图维度",
   "composition_rules": {
     "rule_of_thirds": {
       "name": "三分法",
@@ -81,6 +81,87 @@
       "keywords": ["depth layers", "foreground", "background"],
       "best_for": ["landscapes", "complex scenes"],
       "tips": ["前景要有细节", "中景是主体", "背景要虚化或简化"]
+    }
+  },
+  "camera_settings": {
+    "lens": {
+      "wide_angle": {
+        "name": "广角",
+        "name_en": "Wide Angle",
+        "keywords": ["wide angle", "ultra wide"],
+        "effect": "空间感强，适合风景、建筑",
+        "best_for": ["landscape", "architecture", "interior"]
+      },
+      "telephoto": {
+        "name": "长焦",
+        "name_en": "Telephoto",
+        "keywords": ["telephoto", "zoom lens"],
+        "effect": "压缩空间，突出主体",
+        "best_for": ["portrait", "wildlife", "sports"]
+      },
+      "macro": {
+        "name": "微距",
+        "name_en": "Macro",
+        "keywords": ["macro", "close-up"],
+        "effect": "细节放大，纹理清晰",
+        "best_for": ["details", "textures", "nature"]
+      },
+      "fisheye": {
+        "name": "鱼眼",
+        "name_en": "Fisheye",
+        "keywords": ["fisheye", "ultra wide distortion"],
+        "effect": "夸张变形，视觉冲击",
+        "best_for": ["creative", "abstract", "action"]
+      },
+      "standard": {
+        "name": "标准镜头",
+        "name_en": "Standard Lens",
+        "keywords": ["standard lens", "50mm"],
+        "effect": "自然视角，接近人眼",
+        "best_for": ["general", "street", "documentary"]
+      }
+    },
+    "depth_of_field": {
+      "shallow": {
+        "name": "浅景深",
+        "name_en": "Shallow Depth of Field",
+        "keywords": ["shallow depth of field", "bokeh", "blurred background"],
+        "effect": "背景模糊，突出主体",
+        "best_for": ["portrait", "product", "details"]
+      },
+      "deep": {
+        "name": "全景深",
+        "name_en": "Deep Depth of Field",
+        "keywords": ["deep depth of field", "everything in focus"],
+        "effect": "前后清晰，层次分明",
+        "best_for": ["landscape", "architecture", "street"]
+      }
+    },
+    "aspect_ratio": {
+      "square": {
+        "name": "方形",
+        "ratio": "1:1",
+        "keywords": ["1:1 aspect ratio", "square"],
+        "use": "社交媒体、头像、产品"
+      },
+      "widescreen": {
+        "name": "宽屏",
+        "ratio": "16:9",
+        "keywords": ["16:9 aspect ratio", "widescreen"],
+        "use": "电影、视频封面、横版海报"
+      },
+      "vertical": {
+        "name": "竖屏",
+        "ratio": "9:16",
+        "keywords": ["9:16 aspect ratio", "vertical", "portrait orientation"],
+        "use": "手机壁纸、故事、竖版海报"
+      },
+      "ultrawide": {
+        "name": "超宽屏",
+        "ratio": "21:9",
+        "keywords": ["21:9 aspect ratio", "ultrawide", "cinematic"],
+        "use": "电影、全景、超宽海报"
+      }
     }
   },
   "composition_by_subject": {
