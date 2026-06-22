@@ -46,7 +46,6 @@
     "古典": "classical",
     "现代": "modern",
     "当代": "contemporary",
-    "巴洛克": "baroque",
     "洛可可": "rococo",
     "文艺复兴": "Renaissance"
   },
@@ -110,7 +109,11 @@
     "天堂": "in heaven",
     "古战场": "on an ancient battlefield",
     "未来都市": "in a futuristic metropolis",
-    "赛博都市": "in a cyberpunk city"
+    "赛博都市": "in a cyberpunk city",
+    "广场": "in a plaza",
+    "山谷": "in a valley",
+    "海滩": "on a beach",
+    "雪山": "on a snowy mountain"
   },
   "weather": {
     "雨天": "rainy",
@@ -136,7 +139,8 @@
     "风平浪静": "calm weather",
     "台风": "typhoon",
     "冰雹": "hail",
-    "霜冻": "frosty"
+    "霜冻": "frosty",
+    "雪": "snowy"
   },
   "light": {
     "逆光": "backlit, rim lighting",
@@ -258,10 +262,10 @@
     "细田": "by Hosoda Mamoru",
     "押井守": "by Oshii Mamoru",
     "G": "by Greg Rutkowski",
-    "R": "by Artgerm",
+    "R": "by Roger Dean",
     "K": "by Ross Tran",
     "J": "by James Jean",
-    "S": "by Sam Spratt",
+    "S": "by Syd Mead",
     "W": "by WLOP",
     "A": "by Alphonse Mucha",
     "B": "by Beksinski",
@@ -269,8 +273,6 @@
     "F": "by Frank Frazetta",
     "H": "by HR Giger",
     "M": "by Moebius",
-    "R": "by Roger Dean",
-    "S": "by Syd Mead",
     "Z": "by Zdzislaw Beksinski"
   },
   "material": {
@@ -298,7 +300,6 @@
     "冰": "icy",
     "火焰": "flaming",
     "烟雾": "smoky",
-    "水": "watery",
     "沙": "sandy",
     "泥土": "earthy",
     "苔藓": "mossy",
@@ -348,7 +349,11 @@
     "潮湿": "damp, humid",
     "干燥": "dry, arid",
     "嘈杂": "noisy, chaotic",
-    "寂静": "silent, still"
+    "寂静": "silent, still",
+    "孤独": "lonely, solitary",
+    "悲伤": "sad, sorrowful",
+    "喜悦": "joyful, delighted",
+    "空灵": "ethereal, airy"
   },
   "subject_cn_to_en": {
     "龙": "dragon",
@@ -359,7 +364,7 @@
     "恶魔": "demon",
     "天使": "angel",
     "女巫": "witch",
-    "法师": "wizard",
+    "法师": "mage",
     "骑士": "knight",
     "武士": "samurai",
     "忍者": "ninja",
@@ -459,7 +464,6 @@
     "老人": "elderly person",
     "小孩": "child",
     "战士": "warrior",
-    "法师": "mage",
     "刺客": "assassin",
     "弓箭手": "archer",
     "医生": "doctor",
@@ -470,7 +474,7 @@
     "公主": "princess",
     "王子": "prince",
     "机械": "mechanical",
-    "山水": "landscape",
+    "山水": "landscape, mountains and water",
     "风景": "scenery",
     "夜景": "night cityscape",
     "废墟": "ruins",
@@ -539,9 +543,6 @@
     "水母": "jellyfish",
     "昆虫": "insect",
     "蚂蚁": "ant",
-    "蜜蜂": "bee",
-    "蝴蝶": "butterfly",
-    "蜻蜓": "dragonfly",
     "萤火虫": "firefly",
     "蜗牛": "snail",
     "毛毛虫": "caterpillar",
@@ -550,12 +551,9 @@
     "蚊子": "mosquito",
     "苍蝇": "fly",
     "蟑螂": "cockroach",
-    "蚂蚁": "ant",
     "白蚁": "termite",
     "蚯蚓": "earthworm",
-    "蛇": "snake",
     "蜥蜴": "lizard",
-    "乌龟": "turtle",
     "青蛙": "frog",
     "蟾蜍": "toad",
     "蝾螈": "newt",
@@ -605,6 +603,16 @@
     "孔雀": "peacock",
     "火鸡": "turkey",
     "鸵鸟": "ostrich",
-    "企鹅": "penguin"
+    "肖像": "portrait",
+    "香水": "perfume bottle",
+    "山谷": "valley",
+    "海浪": "ocean waves",
+    "产品展示": "product",
+    "一瓶香水": "perfume bottle",
+    "山水画": "traditional Chinese landscape painting, mountains and water",
+    "水墨山水画": "ink wash Chinese landscape painting, mountains and water",
+    "孤独的狼": "lone wolf",
+    "海边": "seaside",
+    "落日": "sunset"
   }
 }

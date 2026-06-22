@@ -144,9 +144,43 @@ def test_multimodal():
     return True
 
 
+def test_prompt_length_control():
+    """测试 prompt 长度控制"""
+    from src.prompt_builder import CONFIG, _count_words, _trim_prompt
+    from src import parse_input, build_prompt
+
+    max_words = CONFIG.get("max_prompt_words", 45)
+
+    # 测试 _count_words
+    assert _count_words("a, b, c") == 3, "计数应正确"
+    assert _count_words("") == 0, "空字符串返回 0"
+
+    # 测试 _trim_prompt
+    long_prompt = ", ".join([f"word{i}" for i in range(60)])
+    trimmed = _trim_prompt(long_prompt, max_words)
+    assert _count_words(trimmed) <= max_words, f"截断后应不超过 {max_words} 段"
+
+    # 测试典型场景：复杂输入不应超过限制
+    test_cases = [
+        "赛博朋克城市夜景 霓虹灯 雨天 俯视 电影感 史诗 神秘",
+        "中国龙 在云端 水墨 清晨 雾 逆光 精细 壮观",
+        "战士 恶龙 战斗 中世纪城堡 史诗氛围 广角 逆光 高清",
+    ]
+    for text in test_cases:
+        parsed = parse_input(text, ask_clarification=False)
+        prompt = build_prompt(parsed)
+        word_count = _count_words(prompt)
+        assert word_count <= max_words, \
+            f"Prompt ({word_count}段) 超过限制 ({max_words}段): {text}"
+        assert prompt, "Prompt 不应为空"
+
+    print(f"✓ Prompt 长度控制测试通过 (限制 {max_words} 段)")
+    return True
+
+
 def test_error_handling():
     """测试错误处理"""
-    from src.prompt_builder import safe_load_json
+    from src.prompt_builder import safe_load_json, _count_words
     
     # 测试文件不存在
     try:
@@ -189,6 +223,7 @@ if __name__ == "__main__":
         test_cultural_entities,
         test_model_configs,
         test_multimodal,
+        test_prompt_length_control,
         test_error_handling,
     ]
     

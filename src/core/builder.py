@@ -1,5 +1,5 @@
 """
-Prompt 构建模块
+Prompt 构建模块 — 同 prompt_builder.build_prompt 保持一致的长度控制策略
 """
 
 from typing import Dict, List
@@ -9,16 +9,25 @@ from ..utils.config import config_manager
 
 class PromptBuilder:
     """Prompt 构建器"""
-    
+
+    def _count_words(self, prompt: str) -> int:
+        return len([w.strip() for w in prompt.split(",") if w.strip()])
+
+    def _trim_prompt(self, prompt: str, max_words: int) -> str:
+        parts = [w.strip() for w in prompt.split(",") if w.strip()]
+        if len(parts) <= max_words:
+            return prompt
+        return ", ".join(parts[:max_words])
+
     def build(self, parsed: Dict) -> str:
-        """根据解析结果构建 prompt"""
+        """根据解析结果构建 prompt（与 prompt_builder.build_prompt 保持一致）"""
         parts = []
         exclude_words = []
-        
+
         # 风格
         if parsed["style"]:
             parts.append(parsed["style"][0])
-        
+
         # 主体
         if parsed.get("resolved_entities"):
             for entity in parsed["resolved_entities"]:
@@ -29,7 +38,7 @@ class PromptBuilder:
                 if "exclude" in entity: exclude_words.extend(entity["exclude"])
         else:
             parts.append(parsed["subject"])
-        
+
         # 场景
         if parsed["time"]:
             parts.append(parsed["time"][0])
@@ -38,7 +47,7 @@ class PromptBuilder:
                 if "scenes" in entity:
                     parts.append(entity["scenes"][0])
                     break
-        
+
         if parsed["place"]:
             parts.append(parsed["place"][0])
         elif parsed["subject"]:
@@ -49,56 +58,87 @@ class PromptBuilder:
                 parts.append("underwater")
             elif any(k in subject_lower for k in ["tree", "forest", "wolf"]):
                 parts.append("in a forest")
-        
+
         if parsed["weather"]:
             parts.append(parsed["weather"][0])
-        
+
         # 光影
         if parsed["light"]:
             parts.append(", ".join(parsed["light"]))
         elif parsed["subject"]:
             parts.append(self._get_default_lighting(parsed["subject"]))
-        
+
         # 视角
         if parsed["view"]:
             parts.append(parsed["view"][0])
         else:
             parts.append(self._get_default_view(parsed.get("subject", "")))
-        
+
         # 风格补充
         for s in parsed["style"][1:]:
             parts.append(s)
-        
+
         # 艺术家、材质、氛围
         if parsed["artist"]: parts.append(", ".join(parsed["artist"][:2]))
         if parsed["material"]: parts.append(", ".join(parsed["material"][:2]))
         if parsed["mood"]: parts.append(", ".join(parsed["mood"][:2]))
-        
+
         # 质量
         quality = self._get_quality(parsed, exclude_words)
         parts.extend(quality[:6])
-        
+
+        # 关系系统协同词
+        all_words = []
+        if parsed.get("style"): all_words.extend(parsed["style"])
+        if parsed.get("subject"): all_words.append(parsed["subject"])
+        if parsed.get("mood"): all_words.extend(parsed["mood"])
+        try:
+            from ..utils.relationship import relationship_manager
+            synergies = relationship_manager.find_synergies(all_words)
+            synergy_words = []
+            for s in synergies:
+                if isinstance(s, list): synergy_words.extend(s)
+                elif isinstance(s, str): synergy_words.append(s)
+            if synergy_words: parts.extend(synergy_words[:3])
+        except Exception:
+            pass
+
         # 场景丰富度
         scene_richness = self._get_scene_richness(parsed.get("subject", ""))
         if scene_richness: parts.extend(scene_richness[:2])
-        
+
         # 色彩控制
         color_palette = self._get_color_palette(parsed.get("cultural_context"))
         if color_palette: parts.extend(color_palette[:2])
-        
+
         # 清理并拼接
         prompt = ", ".join([p for p in parts if p and p.strip()])
-        
+
         # 排除词过滤
         if exclude_words:
             for word in exclude_words:
                 prompt = prompt.replace(word, "")
-        
+
+        # 去重
+        words = [w.strip() for w in prompt.split(",")]
+        seen = set()
+        unique_words = []
+        for word in words:
+            word_lower = word.lower()
+            if word_lower not in seen and word:
+                seen.add(word_lower)
+                unique_words.append(word)
+        prompt = ", ".join(unique_words)
+
         # 清理多余逗号和空格
         prompt = re.sub(r',\s*,', ',', prompt)
         prompt = re.sub(r'^\s*,\s*', '', prompt)
         prompt = re.sub(r'\s*,\s*$', '', prompt)
-        
+
+        # 长度截断
+        max_words = config_manager.get("config.json", "max_prompt_words", 45)
+        prompt = self._trim_prompt(prompt, max_words)
+
         return prompt
     
     def _get_default_lighting(self, subject: str) -> str:

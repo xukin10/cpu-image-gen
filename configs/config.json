@@ -9,6 +9,7 @@
   "auto_open": false,
   "quality_keywords": ["highly detailed", "sharp focus", "8k"],
   "negative_prompt": "low quality, blurry, deformed, watermark, text, signature, bad anatomy, extra fingers, mutated hands, poorly drawn face, mutation, bad proportions",
+  "max_prompt_words": 45,
   "presets": {
     "512": {"width": 512, "height": 512, "desc": "标准 (512x512)"},
     "768": {"width": 768, "height": 768, "desc": "高清 (768x768)"}

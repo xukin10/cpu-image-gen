@@ -449,26 +449,66 @@ def parse_input(text: str, ask_clarification: bool = True) -> Dict:
         if key in text: result["atmosphere"].append(value)
 
     if not result.get("resolved_entities"):
-        subject = text
-        all_keys = []
-        for m in ALL_MAPS:
-            all_keys.extend(m.keys())
-        for key in all_keys:
-            subject = subject.replace(key, " ")
-        subject = re.sub(r'[,，、。!！?？\s]+', ' ', subject).strip()
-        subject = re.sub(r'[的了在是和与有]', ' ', subject)
-        subject = re.sub(r'\s+', ' ', subject).strip()
-        if subject and re.match(r'^[\u4e00-\u9fff\s]+$', subject):
-            en_parts = []
-            for cn, en in CN_TO_EN.items():
-                if cn in subject:
-                    en_parts.append(en)
-                    subject = subject.replace(cn, "")
-            subject = " ".join(en_parts) if en_parts else subject
-        result["subject"] = subject if subject.strip() else "a scene"
+        subject_raw = text
+        # 第1步：先从原文中做 CN_TO_EN + PLACE 最长匹配（作为主体）
+        en_parts = []
+        # CN_TO_EN 多字词
+        cn_keys = sorted(
+            [k for k in CN_TO_EN.keys() if len(k) > 1 and k in subject_raw],
+            key=len, reverse=True
+        )
+        remaining = subject_raw
+        for cn in cn_keys:
+            if cn in remaining:
+                val = CN_TO_EN[cn]
+                if val:
+                    en_parts.append(val)
+                remaining = remaining.replace(cn, " ", 1)
+        # PLACE 多字词（补充地点信息）
+        place_keys = sorted(
+            [k for k in PLACE_MAP.keys() if len(k) > 1 and k in remaining],
+            key=len, reverse=True
+        )
+        for pk in place_keys:
+            if pk in remaining:
+                remaining = remaining.replace(pk, " ", 1)
+        # 单字 CN_TO_EN
+        for part in remaining.split():
+            if len(part) == 1 and part in CN_TO_EN:
+                en_parts.append(CN_TO_EN[part])
+
+        if en_parts:
+            # 有主体词：用 CN_TO_EN 结果
+            subject = " ".join(en_parts)
+            # 剩下的部分再去匹配修饰词（以 remaining 而非 text 为准）
+            mod_text = remaining
+        else:
+            # 无主体词：从剩余原文匹配修饰词再回退
+            subject = ""
+            mod_text = subject_raw
+            # 清理标点虚词
+            subject = re.sub(r'[,，、。!！?？\s]+', ' ', subject_raw).strip()
+            subject = re.sub(r'[的了在是和与有下上中里外一个两只三匹些种张台件面条颗瓶杯碗盘把]', ' ', subject)
+            subject = re.sub(r'\s+', ' ', subject).strip()
+            if not subject.strip():
+                subject = "a scene"
+
+        # 第2步：用剩余文字匹配修饰词（时间/天气/光影/质量等）
+        if en_parts:  # 一次匹配过的修饰词不再从原文重复提取
+            for key, val in TIME_MAP.items():
+                if key in mod_text and val not in result["time"]:
+                    result["time"].append(val)
+            for key, val in PLACE_MAP.items():
+                if key in mod_text and val not in result["place"]:
+                    result["place"].append(val)
+            for key, val in WEATHER_MAP.items():
+                if key in mod_text and val not in result["weather"]:
+                    result["weather"].append(val)
+            # 保留原有的全量匹配结果（已在上面提取过）
+
+        result["subject"] = subject
     else:
         result["subject"] = ""
-
     return result
 
 # ============================================================
@@ -571,120 +611,137 @@ def generate_prompt_from_template(template: Dict, user_input: str) -> str:
 # Prompt 构建（高级品质优化）
 # ============================================================
 
+def _count_words(prompt: str) -> int:
+    """计算 prompt 中的单词数（按逗号分隔的段数估算 tokens）"""
+    return len([w.strip() for w in prompt.split(",") if w.strip()])
+
+
+def _trim_prompt(prompt: str, max_words: int) -> str:
+    """
+    按优先级截断 prompt → 保证不超过 max_words 段。
+
+    SDXL 注意力窗口 ≈ 75 tokens，每段平均 1.5 tokens，
+    45 段 ≈ 67 tokens，留 10% 余量。
+
+    截断策略：从后往前丢弃（后面的通常是 P4/P3 低优先级补充词），
+    保持前面的 P1/P2 核心词完整。
+    """
+    parts = [w.strip() for w in prompt.split(",") if w.strip()]
+    if len(parts) <= max_words:
+        return prompt
+
+    original_count = len(parts)
+    trimmed = parts[:max_words]
+    # 确保以完整逗号段结尾（不截断词组中间）
+    result = ", ".join(trimmed)
+    logger.info(f"Prompt 截断: {original_count} → {max_words} 段 "
+                f"({original_count - max_words} 段低优先级词被丢弃)")
+    return result
+
+
 def build_prompt(parsed: Dict) -> str:
     # 验证物理逻辑
     physics_warnings = validate_physics(parsed)
     if physics_warnings:
         for warning in physics_warnings:
             logger.warning(warning)
-    
+
     # 限制特效数量
     parsed = limit_effects(parsed)
-    
+
     # 使用关系系统检查冲突
     from src.utils.relationship import relationship_manager
     all_words = []
     if parsed.get("style"): all_words.extend(parsed["style"])
     if parsed.get("subject"): all_words.append(parsed["subject"])
     if parsed.get("mood"): all_words.extend(parsed["mood"])
-    
+
     conflicts = relationship_manager.check_conflicts(all_words)
     if conflicts:
         for w1, w2, rel in conflicts:
             logger.warning(f"词汇冲突: {w1} <-> {w2}")
-    
+
     # 获取协同词汇
     synergies = relationship_manager.find_synergies(all_words)
-    
-    parts = []
+    synergy_words = []
+    for s in synergies:
+        if isinstance(s, list):
+            synergy_words.extend(s)
+        elif isinstance(s, str):
+            synergy_words.append(s)
+
+    # 检查风格组合是否匹配预定义组合
+    style_combos = relationship_manager.config.get("style_combinations", {})
+    matched_combo = None
+    combined_style_keywords = []
+    for combo_name, combo_data in style_combos.items():
+        combo_kw = set(combo_data.get("keywords", []))
+        matches = combo_kw & set(all_words)
+        if len(matches) >= 2:
+            matched_combo = combo_data
+            combined_style_keywords = combo_data.get("keywords", [])
+            break
+
+    # ============================================================
+    # 分层构建：P1(不可丢) → P2(尽量保留) → P3(可压缩) → P4(先丢弃)
+    # ============================================================
+    p1_parts = []  # 风格首词、主体、光影、视角
+    p2_parts = []  # 时间、地点、天气、质量
+    p3_parts = []  # 五维扩展、额外风格、艺术家、材质、情绪
+    p4_parts = []  # 关系协同、场景丰富度、色彩调色板、构图建议
+
     exclude_words = []
 
+    # ---- P1: 风格首词 ----
     if parsed["style"]:
-        parts.append(parsed["style"][0])
+        p1_parts.append(parsed["style"][0])
 
+    # ---- P1: 主体 ----
     if parsed.get("resolved_entities"):
         for entity in parsed["resolved_entities"]:
-            if "name_en" in entity: parts.append(entity["name_en"])
-            if "morphology" in entity: parts.extend(entity["morphology"][:2])
-            if "elements" in entity: parts.extend(entity["elements"][:2])
-            if "atmosphere" in entity: parts.append(entity["atmosphere"][0])
+            if "name_en" in entity: p1_parts.append(entity["name_en"])
+            if "morphology" in entity: p3_parts.extend(entity["morphology"][:2])
+            if "elements" in entity: p3_parts.extend(entity["elements"][:2])
+            if "atmosphere" in entity: p3_parts.append(entity["atmosphere"][0])
             if "exclude" in entity: exclude_words.extend(entity["exclude"])
     else:
-        parts.append(parsed["subject"])
+        p1_parts.append(parsed["subject"])
 
-    # 五维关键词添加
-    if parsed.get("narrative"): parts.extend(parsed["narrative"][:2])
-    if parsed.get("appearance"): parts.extend(parsed["appearance"][:2])
-    if parsed.get("action"): parts.extend(parsed["action"][:2])
-    if parsed.get("physics"): parts.extend(parsed["physics"][:2])
-    if parsed.get("environment"): parts.extend(parsed["environment"][:2])
-    if parsed.get("lens"): parts.extend(parsed["lens"][:1])
-    if parsed.get("dof"): parts.extend(parsed["dof"][:1])
-    if parsed.get("angle"): parts.extend(parsed["angle"][:1])
-    if parsed.get("aspect"): parts.extend(parsed["aspect"][:1])
-    if parsed.get("color_mood"): parts.extend(parsed["color_mood"][:1])
-    if parsed.get("atmosphere"): parts.extend(parsed["atmosphere"][:2])
-
-    if parsed["time"]:
-        parts.append(parsed["time"][0])
-    elif parsed.get("resolved_entities"):
-        for entity in parsed["resolved_entities"]:
-            if "scenes" in entity:
-                parts.append(entity["scenes"][0])
-                break
-
-    if parsed["place"]:
-        parts.append(parsed["place"][0])
-    elif parsed["subject"]:
-        subject_lower = parsed["subject"].lower()
-        if any(k in subject_lower for k in ["dragon", "phoenix", "bird"]):
-            parts.append("in the sky")
-        elif any(k in subject_lower for k in ["fish", "whale", "coral"]):
-            parts.append("underwater")
-        elif any(k in subject_lower for k in ["tree", "forest", "wolf"]):
-            parts.append("in a forest")
-
-    if parsed["weather"]:
-        parts.append(parsed["weather"][0])
-
+    # ---- P1: 光影（默认或指定） ----
     if parsed["light"]:
-        parts.append(", ".join(parsed["light"]))
+        p1_parts.append(", ".join(parsed["light"]))
     elif parsed["subject"]:
         subject_lower = parsed["subject"].lower()
         if any(k in subject_lower for k in ["horror", "abandoned", "dark"]):
-            parts.append("dim light, deep shadows, atmospheric fog")
+            p1_parts.append("dim light, deep shadows, atmospheric fog")
         elif any(k in subject_lower for k in ["water", "ocean", "lake"]):
-            parts.append("sunlight reflections, caustics, shimmering light")
+            p1_parts.append("sunlight reflections, caustics, shimmering light")
         elif any(k in subject_lower for k in ["flower", "garden", "spring"]):
-            parts.append("soft diffused light, gentle shadows")
+            p1_parts.append("soft diffused light, gentle shadows")
         elif any(k in subject_lower for k in ["city", "cyber", "neon"]):
-            parts.append("neon glow, colorful reflections, urban lighting")
+            p1_parts.append("neon glow, colorful reflections, urban lighting")
         elif any(k in subject_lower for k in ["mountain", "landscape", "valley"]):
-            parts.append("natural lighting, golden hour, atmospheric perspective")
+            p1_parts.append("natural lighting, golden hour, atmospheric perspective")
         else:
-            parts.append("dramatic lighting, volumetric light")
+            p1_parts.append("dramatic lighting, volumetric light")
 
+    # ---- P1: 视角（默认或指定） ----
     if parsed["view"]:
-        parts.append(parsed["view"][0])
+        p1_parts.append(parsed["view"][0])
     else:
         subject_lower = parsed["subject"].lower() if parsed["subject"] else ""
         if any(k in subject_lower for k in ["portrait", "face", "girl", "boy", "person"]):
-            parts.append("portrait composition, shallow depth of field")
+            p1_parts.append("portrait composition, shallow depth of field")
         elif any(k in subject_lower for k in ["city", "building", "architecture", "skyline"]):
-            parts.append("wide angle, deep depth of field, architectural composition")
+            p1_parts.append("wide angle, deep depth of field, architectural composition")
         elif any(k in subject_lower for k in ["dragon", "creature", "monster", "beast"]):
-            parts.append("dynamic angle, dramatic composition")
+            p1_parts.append("dynamic angle, dramatic composition")
         elif any(k in subject_lower for k in ["flower", "plant", "nature", "macro"]):
-            parts.append("close-up, macro photography, bokeh background")
+            p1_parts.append("close-up, macro photography, bokeh background")
         elif any(k in subject_lower for k in ["landscape", "mountain", "valley", "forest"]):
-            parts.append("panoramic view, rule of thirds, atmospheric perspective")
+            p1_parts.append("panoramic view, rule of thirds, atmospheric perspective")
 
-    for s in parsed["style"][1:]:
-        parts.append(s)
-    if parsed["artist"]: parts.append(", ".join(parsed["artist"][:2]))
-    if parsed["material"]: parts.append(", ".join(parsed["material"][:2]))
-    if parsed["mood"]: parts.append(", ".join(parsed["mood"][:2]))
-
+    # ---- P2: 质量（紧接主体，确保不被截断） ----
     quality = list(parsed["quality"])
     subject_lower = parsed["subject"].lower() if parsed["subject"] else ""
 
@@ -705,38 +762,99 @@ def build_prompt(parsed: Dict) -> str:
     if len(quality) < 4: quality.append("sharp focus")
     if len(quality) < 5: quality.append("8k resolution")
     if len(quality) < 6: quality.append("highly detailed")
+    p2_parts.extend(quality[:5])  # 上限 5 个质量词
 
-    scene_richness = []
+    # ---- P2: 时间 ----
+    if parsed["time"]:
+        p2_parts.append(parsed["time"][0])
+    elif parsed.get("resolved_entities"):
+        for entity in parsed["resolved_entities"]:
+            if "scenes" in entity:
+                p2_parts.append(entity["scenes"][0])
+                break
+
+    # ---- P2: 地点 ----
+    if parsed["place"]:
+        p2_parts.append(parsed["place"][0])
+    elif parsed["subject"]:
+        subject_lower = parsed["subject"].lower()
+        if any(k in subject_lower for k in ["dragon", "phoenix", "bird"]):
+            p2_parts.append("in the sky")
+        elif any(k in subject_lower for k in ["fish", "whale", "coral"]):
+            p2_parts.append("underwater")
+        elif any(k in subject_lower for k in ["tree", "forest", "wolf"]):
+            p2_parts.append("in a forest")
+
+    # ---- P2: 天气 ----
+    if parsed["weather"]:
+        p2_parts.append(parsed["weather"][0])
+
+    # ---- P3: 五维扩展 ----
+    if parsed.get("narrative"): p3_parts.extend(parsed["narrative"][:2])
+    if parsed.get("appearance"): p3_parts.extend(parsed["appearance"][:2])
+    if parsed.get("action"): p3_parts.extend(parsed["action"][:2])
+    if parsed.get("physics"): p3_parts.extend(parsed["physics"][:2])
+    if parsed.get("environment"): p3_parts.extend(parsed["environment"][:2])
+    if parsed.get("lens"): p3_parts.extend(parsed["lens"][:1])
+    if parsed.get("dof"): p3_parts.extend(parsed["dof"][:1])
+    if parsed.get("angle"): p3_parts.extend(parsed["angle"][:1])
+    if parsed.get("aspect"): p3_parts.extend(parsed["aspect"][:1])
+    if parsed.get("color_mood"): p3_parts.extend(parsed["color_mood"][:1])
+    if parsed.get("atmosphere"): p3_parts.extend(parsed["atmosphere"][:1])
+
+    # ---- P3: 额外风格、艺术家、材质、情绪 ----
+    for s in parsed["style"][1:]:
+        p3_parts.append(s)
+    if parsed["artist"]: p3_parts.append(", ".join(parsed["artist"][:2]))
+    if parsed["material"]: p3_parts.append(", ".join(parsed["material"][:2]))
+    if parsed["mood"]: p3_parts.append(", ".join(parsed["mood"][:2]))
+
+    # ---- P4: 关系协同词 ----
+    if synergy_words: p4_parts.extend(synergy_words[:2])
+    if combined_style_keywords: p4_parts.extend(combined_style_keywords[:2])
+
+    # ---- P4: 构图建议 ----
+    composition_suggestion = relationship_manager.suggest_composition(all_words)
+    if composition_suggestion and composition_suggestion != ["rule_of_thirds"]:
+        existing_comp = set(parsed.get("view", []))
+        for comp in composition_suggestion[:1]:
+            if comp not in existing_comp:
+                p4_parts.append(comp)
+
+    # ---- P4: 场景丰富度 ----
     if any(k in subject_lower for k in ["city", "urban", "street"]):
-        scene_richness.extend(["busy streets", "atmospheric haze", "layered buildings"])
+        p4_parts.extend(["busy streets", "atmospheric haze"])
     elif any(k in subject_lower for k in ["forest", "jungle", "woodland"]):
-        scene_richness.extend(["dense foliage", "dappled light", "moss-covered ground"])
+        p4_parts.extend(["dense foliage", "dappled light"])
     elif any(k in subject_lower for k in ["ocean", "sea", "underwater"]):
-        scene_richness.extend(["light rays", "floating particles", "depth layers"])
+        p4_parts.extend(["light rays", "floating particles"])
     elif any(k in subject_lower for k in ["mountain", "peak", "cliff"]):
-        scene_richness.extend(["misty valleys", "distant peaks", "rocky terrain"])
+        p4_parts.extend(["misty valleys", "distant peaks"])
     elif any(k in subject_lower for k in ["castle", "palace", "fortress"]):
-        scene_richness.extend(["stone textures", "dramatic architecture", "ancient details"])
+        p4_parts.extend(["stone textures", "ancient details"])
 
-    color_palette = []
+    # ---- P4: 色彩调色板 ----
     if parsed.get("cultural_context") == "chinese":
-        color_palette.extend(["rich reds", "golden accents", "jade greens"])
+        p4_parts.extend(["rich reds", "golden accents"])
     elif parsed.get("cultural_context") == "japanese":
-        color_palette.extend(["subtle pastels", "natural tones", "harmonious colors"])
+        p4_parts.extend(["subtle pastels", "natural tones"])
     elif parsed.get("cultural_context") == "western":
-        color_palette.extend(["vibrant colors", "dramatic contrasts", "bold tones"])
+        p4_parts.extend(["vibrant colors", "dramatic contrasts"])
 
-    parts.extend(quality[:6])
-    if scene_richness: parts.extend(scene_richness[:2])
-    if color_palette: parts.extend(color_palette[:2])
+    # ============================================================
+    # 按优先级拼接 + 长度控制
+    # ============================================================
+    max_words = CONFIG.get("max_prompt_words", 45)
 
-    prompt = ", ".join([p for p in parts if p and p.strip()])
+    # P1→P2→P3→P4 顺序拼接，末尾自然先被丢弃
+    all_parts = p1_parts + p2_parts + p3_parts + p4_parts
+    prompt = ", ".join([p for p in all_parts if p and p.strip()])
 
     if exclude_words:
         for word in exclude_words:
             prompt = prompt.replace(word, "")
 
-    # 去重逻辑：移除重复的词汇
+    # 去重
     words = [w.strip() for w in prompt.split(",")]
     seen = set()
     unique_words = []
@@ -750,6 +868,9 @@ def build_prompt(parsed: Dict) -> str:
     prompt = re.sub(r',\s*,', ',', prompt)
     prompt = re.sub(r'^\s*,\s*', '', prompt)
     prompt = re.sub(r'\s*,\s*$', '', prompt)
+
+    # 长度截断：末尾丢弃 P4→P3→P2（逐层）
+    prompt = _trim_prompt(prompt, max_words)
 
     return prompt
 

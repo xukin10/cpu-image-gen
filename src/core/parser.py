@@ -141,27 +141,36 @@ class InputParser:
         for key, value in self.mood_map.items():
             if key in text: result["mood"].append(value)
         
-        # 提取主体
+        # 提取主体（CN_TO_EN 最长匹配优先）
         if not result.get("resolved_entities"):
-            subject = text
-            all_keys = []
-            for m in self.all_maps:
-                all_keys.extend(m.keys())
-            for key in all_keys:
-                subject = subject.replace(key, " ")
-            subject = re.sub(r'[,，、。!！?？\s]+', ' ', subject).strip()
-            subject = re.sub(r'[的了在是和与有]', ' ', subject)
-            subject = re.sub(r'\s+', ' ', subject).strip()
-            
-            if subject and re.match(r'^[\u4e00-\u9fff\s]+$', subject):
-                en_parts = []
-                for cn, en in self.cn_to_en.items():
-                    if cn in subject:
-                        en_parts.append(en)
-                        subject = subject.replace(cn, "")
-                subject = " ".join(en_parts) if en_parts else subject
-            
-            result["subject"] = subject if subject.strip() else "a scene"
+            cn_keys = sorted([k for k in self.cn_to_en.keys() if len(k) > 1 and k in text], key=len, reverse=True)
+            remaining = text
+            en_parts = []
+            for cn in cn_keys:
+                if cn in remaining:
+                    val = self.cn_to_en[cn]
+                    if val:
+                        en_parts.append(val)
+                    remaining = remaining.replace(cn, " ", 1)
+            # PLACE 多字词
+            place_keys = sorted([k for k in self.place_map.keys() if len(k) > 1 and k in remaining], key=len, reverse=True)
+            for pk in place_keys:
+                if pk in remaining:
+                    remaining = remaining.replace(pk, " ", 1)
+            # 单字 CN_TO_EN
+            for part in remaining.split():
+                if len(part) == 1 and part in self.cn_to_en:
+                    en_parts.append(self.cn_to_en[part])
+            if en_parts:
+                subject = " ".join(en_parts)
+            else:
+                # 回退：清理后剩余文字
+                subject = re.sub(r'[,，、。!！?？\s]+', ' ', text).strip()
+                subject = re.sub(r'[的了在是和与有下上中里外一个两只三匹些种张台件面条颗瓶杯碗盘把]', ' ', subject)
+                subject = re.sub(r'\s+', ' ', subject).strip()
+                if not subject.strip():
+                    subject = "a scene"
+            result["subject"] = subject
         else:
             result["subject"] = ""
         
