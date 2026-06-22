@@ -7,3 +7,9 @@ from .logger import setup_logger, logger
 from .model_cache import model_cache, ModelCache
 from .batch import batch_processor, BatchProcessor
 from .layers import layer_manager, LayerManager
+from .vocabulary import vocab_manager, VocabularyManager
+from .composition import composition_manager, CompositionManager
+from .lighting import lighting_manager, LightingManager
+from .color import color_manager, ColorManager
+from .optimization import optimization_manager, OptimizationManager
+from .suggestion import suggestion_system, SuggestionSystem

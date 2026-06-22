@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "description": "色彩知识库 - 帮助用户理解什么是好色彩",
+  "color_theory": {
+    "color_harmony": {
+      "name": "色彩和谐",
+      "rules": {
+        "complementary": {"name": "互补色", "examples": ["蓝-橙", "红-绿"], "effect": "强烈对比"},
+        "analogous": {"name": "类似色", "examples": ["蓝-蓝绿-绿"], "effect": "和谐、统一"},
+        "triadic": {"name": "三色组", "examples": ["红-黄-蓝"], "effect": "平衡、丰富"},
+        "monochromatic": {"name": "单色", "examples": ["深蓝-中蓝-浅蓝"], "effect": "统一、优雅"}
+      }
+    },
+    "color_temperature": {
+      "name": "色温",
+      "temperatures": {
+        "warm": {"name": "暖色", "colors": ["红", "橙", "黄"], "effect": "温暖、舒适"},
+        "cool": {"name": "冷色", "colors": ["蓝", "绿", "紫"], "effect": "冷静、科技"},
+        "neutral": {"name": "中性色", "colors": ["灰", "棕", "米"], "effect": "自然、平衡"}
+      }
+    },
+    "color_psychology": {
+      "name": "色彩心理",
+      "meanings": {
+        "red": {"meanings": ["激情", "力量", "危险"], "effects": ["attention-grabbing", "energetic"]},
+        "blue": {"meanings": ["冷静", "信任", "科技"], "effects": ["calming", "professional"]},
+        "green": {"meanings": ["自然", "生命", "希望"], "effects": ["natural", "fresh"]},
+        "yellow": {"meanings": ["快乐", "阳光", "温暖"], "effects": ["cheerful", "energetic"]},
+        "purple": {"meanings": ["神秘", "高贵", "奢华"], "effects": ["mysterious", "luxurious"]}
+      }
+    }
+  },
+  "color_by_scene": {
+    "portrait": {"best": ["warm tones", "soft colors"], "tips": "肤色要自然"},
+    "cyberpunk": {"best": ["neon", "cyan", "magenta"], "tips": "霓虹色是关键"},
+    "horror": {"best": ["dark", "muted"], "tips": "色彩要压抑、阴暗"},
+    "romantic": {"best": ["warm", "soft", "pastel"], "tips": "色彩要柔和、温暖"}
+  }
+}

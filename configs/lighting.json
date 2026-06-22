@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "description": "光影知识库 - 帮助用户理解什么是好光影",
+  "lighting_rules": {
+    "natural_light": {
+      "name": "自然光",
+      "subcategories": {
+        "golden_hour": {"name": "黄金时刻", "keywords": ["golden hour", "warm light"], "effect": "温暖、柔和、浪漫"},
+        "blue_hour": {"name": "蓝色时刻", "keywords": ["blue hour", "twilight"], "effect": "冷静、神秘、梦幻"},
+        "midday": {"name": "正午光", "keywords": ["midday", "harsh light"], "effect": "强烈对比、硬阴影"},
+        "overcast": {"name": "阴天光", "keywords": ["overcast", "soft light"], "effect": "柔和、均匀、无阴影"}
+      }
+    },
+    "directional_light": {
+      "name": "方向光",
+      "subcategories": {
+        "backlight": {"name": "逆光", "keywords": ["backlight", "silhouette"], "effect": "轮廓光、剪影、神秘感"},
+        "sidelight": {"name": "侧光", "keywords": ["side light", "chiaroscuro"], "effect": "立体感、质感突出"},
+        "frontlight": {"name": "顺光", "keywords": ["front light", "even lighting"], "effect": "均匀、细节清晰"},
+        "toplight": {"name": "顶光", "keywords": ["top light", "overhead light"], "effect": "眼窝阴影、戏剧性"},
+        "underlight": {"name": "底光", "keywords": ["under light", "uplighting"], "effect": "诡异、恐怖"}
+      }
+    },
+    "quality_light": {
+      "name": "光质",
+      "subcategories": {
+        "soft_light": {"name": "柔光", "keywords": ["soft light", "diffused"], "effect": "柔和过渡、无硬阴影"},
+        "hard_light": {"name": "硬光", "keywords": ["hard light", "sharp shadows"], "effect": "强烈对比、硬阴影"}
+      }
+    },
+    "color_light": {
+      "name": "光色",
+      "subcategories": {
+        "warm_light": {"name": "暖光", "keywords": ["warm light", "golden"], "effect": "温暖、舒适、怀旧"},
+        "cool_light": {"name": "冷光", "keywords": ["cool light", "blue tones"], "effect": "冷静、科技、神秘"},
+        "colored_light": {"name": "彩色光", "keywords": ["colored light", "neon"], "effect": "现代、科技、夜生活"}
+      }
+    },
+    "special_lighting": {
+      "name": "特殊光影",
+      "effects": {
+        "volumetric": {"name": "体积光", "keywords": ["volumetric light", "god rays"], "effect": "光线可见、空气感"},
+        "rim_light": {"name": "轮廓光", "keywords": ["rim light", "edge light"], "effect": "主体与背景分离"},
+        "neon": {"name": "霓虹", "keywords": ["neon", "neon lights"], "effect": "现代、科技、夜生活"},
+        "bioluminescence": {"name": "生物荧光", "keywords": ["bioluminescence", "glow in dark"], "effect": "梦幻、神秘"}
+      }
+    }
+  },
+  "lighting_by_scene": {
+    "portrait": {"best": ["soft_light", "sidelight", "rim_light"], "tips": "柔光或侧光最适合人像"},
+    "landscape": {"best": ["golden_hour", "blue_hour", "volumetric"], "tips": "黄金时刻或蓝色时刻最佳"},
+    "horror": {"best": ["underlight", "hard_light"], "tips": "底光或硬光营造恐怖氛围"},
+    "fantasy": {"best": ["volumetric", "bioluminescence"], "tips": "体积光和生物荧光增加奇幻感"},
+    "cyberpunk": {"best": ["neon", "colored_light"], "tips": "霓虹灯和反射是关键"}
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "description": "构图知识库 - 帮助用户理解什么是好构图",
+  "composition_rules": {
+    "rule_of_thirds": {
+      "name": "三分法",
+      "name_en": "Rule of Thirds",
+      "description": "将画面分成9等份，主体放在四个交叉点之一",
+      "keywords": ["rule of thirds", "off-center subject"],
+      "best_for": ["portrait", "landscape", "still life"],
+      "tips": ["主体不要放在正中间", "地平线放在上1/3或下1/3"]
+    },
+    "symmetry": {
+      "name": "对称构图",
+      "name_en": "Symmetrical Composition",
+      "description": "左右或上下对称，营造平衡感",
+      "keywords": ["symmetrical", "balanced composition"],
+      "best_for": ["architecture", "reflections"],
+      "tips": ["确保左右或上下完全对称", "适合建筑、倒影场景"]
+    },
+    "leading_lines": {
+      "name": "引导线",
+      "name_en": "Leading Lines",
+      "description": "用线条引导观众视线到主体",
+      "keywords": ["leading lines", "vanishing point"],
+      "best_for": ["roads", "rivers", "corridors"],
+      "tips": ["线条要指向主体", "线条要有纵深感"]
+    },
+    "frame_within_frame": {
+      "name": "框架构图",
+      "name_en": "Frame within Frame",
+      "description": "用前景元素框住主体",
+      "keywords": ["frame within frame", "natural framing"],
+      "best_for": ["landscapes", "portraits"],
+      "tips": ["框架要自然", "门窗、拱门、树枝都是好框架"]
+    },
+    "golden_spiral": {
+      "name": "黄金螺旋",
+      "name_en": "Golden Spiral",
+      "description": "基于斐波那契数列的螺旋构图",
+      "keywords": ["golden spiral", "fibonacci"],
+      "best_for": ["nature", "dynamic scenes"],
+      "tips": ["主体放在螺旋焦点", "适合自然曲线场景"]
+    },
+    "centered": {
+      "name": "中心构图",
+      "name_en": "Centered Composition",
+      "description": "主体放在画面正中央",
+      "keywords": ["centered", "center frame"],
+      "best_for": ["products", "portraits", "icons"],
+      "tips": ["主体要足够有吸引力", "背景要简洁"]
+    },
+    "diagonal": {
+      "name": "对角线构图",
+      "name_en": "Diagonal Composition",
+      "description": "元素沿对角线排列，增加动感",
+      "keywords": ["diagonal", "dynamic angle"],
+      "best_for": ["action", "movement", "tension"],
+      "tips": ["对角线增加动感和张力", "适合战斗、奔跑等动态场景"]
+    },
+    "fill_frame": {
+      "name": "填满画面",
+      "name_en": "Fill the Frame",
+      "description": "主体占据大部分画面，产生冲击力",
+      "keywords": ["fill the frame", "close-up"],
+      "best_for": ["details", "textures", "emotions"],
+      "tips": ["主体要足够有趣", "细节要丰富"]
+    },
+    "negative_space": {
+      "name": "留白",
+      "name_en": "Negative Space",
+      "description": "大量空白区域，突出主体",
+      "keywords": ["negative space", "minimalist"],
+      "best_for": ["minimalist", "solitude"],
+      "tips": ["留白要有意义", "主体要足够突出"]
+    },
+    "depth_layers": {
+      "name": "层次构图",
+      "name_en": "Depth Layers",
+      "description": "前景、中景、背景分明，增加纵深感",
+      "keywords": ["depth layers", "foreground", "background"],
+      "best_for": ["landscapes", "complex scenes"],
+      "tips": ["前景要有细节", "中景是主体", "背景要虚化或简化"]
+    }
+  },
+  "composition_by_subject": {
+    "portrait": {"recommended": ["rule_of_thirds", "centered", "fill_frame"]},
+    "landscape": {"recommended": ["rule_of_thirds", "depth_layers", "leading_lines"]},
+    "architecture": {"recommended": ["symmetry", "leading_lines", "frame_within_frame"]},
+    "product": {"recommended": ["centered", "fill_frame", "negative_space"]},
+    "action": {"recommended": ["diagonal", "leading_lines", "rule_of_thirds"]},
+    "nature": {"recommended": ["rule_of_thirds", "depth_layers", "golden_spiral"]}
+  }
+}

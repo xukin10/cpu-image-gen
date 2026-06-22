@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "description": "中英文词汇映射库",
+  "categories": {
+    "subject": {
+      "description": "主体对象",
+      "words": {
+        "龙": "dragon", "凤凰": "phoenix", "独角兽": "unicorn", "精灵": "elf",
+        "恶魔": "demon", "天使": "angel", "机器人": "robot", "战士": "warrior",
+        "骑士": "knight", "法师": "mage", "国王": "king", "公主": "princess",
+        "剑": "sword", "盾": "shield", "城堡": "castle", "宫殿": "palace"
+      }
+    },
+    "time": {
+      "description": "时间",
+      "words": {
+        "黎明": "at dawn", "清晨": "early morning", "日出": "sunrise",
+        "黄昏": "dusk", "日落": "sunset", "夜晚": "at night",
+        "午夜": "at midnight", "春天": "spring", "夏天": "summer",
+        "秋天": "autumn", "冬天": "winter"
+      }
+    },
+    "place": {
+      "description": "地点",
+      "words": {
+        "森林": "forest", "城市": "city", "海底": "underwater",
+        "太空": "space", "洞穴": "cave", "沙漠": "desert",
+        "雪地": "snowy landscape", "海边": "seaside", "山顶": "mountain peak"
+      }
+    },
+    "weather": {
+      "description": "天气",
+      "words": {
+        "雨天": "rainy", "雪天": "snowy", "雾": "foggy",
+        "晴天": "sunny", "阴天": "overcast", "暴风雨": "stormy"
+      }
+    },
+    "light": {
+      "description": "光影",
+      "words": {
+        "逆光": "backlight", "侧光": "side light", "柔光": "soft light",
+        "硬光": "hard light", "霓虹": "neon", "月光": "moonlight"
+      }
+    },
+    "mood": {
+      "description": "氛围",
+      "words": {
+        "宁静": "serene", "神秘": "mysterious", "恐怖": "terrifying",
+        "史诗": "epic", "浪漫": "romantic", "梦幻": "dreamy"
+      }
+    },
+    "style": {
+      "description": "风格",
+      "words": {
+        "油画": "oil painting", "水彩": "watercolor", "素描": "sketch",
+        "动漫": "anime", "赛博朋克": "cyberpunk", "蒸汽朋克": "steampunk",
+        "水墨": "ink wash", "极简": "minimalist"
+      }
+    }
+  }
+}
